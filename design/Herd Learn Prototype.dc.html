@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  ::selection{background:#F6CE4C;color:#36384B;}
+  @media print{ .pt-chrome{display:none !important;} .pt-screen{min-height:auto !important;} }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
+</style>
+</helmet>
+
+<div style="--navy:#36384B; --navy-deep:#2B2D3D; --navy-soft:#4C4F66; --ink:#2C2E3A; --ink-2:#585B6C; --ink-3:#83869A; --yellow:#F6CE4C; --yellow-deep:#9A7212; --grey:#E9EAE4; --paper:#F6F6F2; --surface:#FFFFFF; --line:#E3E3DC; --line-2:#CFCFC7; --ready:#2F7A52; --ready-bg:#E8F1EB; --develop:#9A6B12; --develop-bg:#F6EEDB; --attention:#B0322F; --attention-bg:#F6E6E4; font-family:'Public Sans',-apple-system,sans-serif; color:var(--ink); background:var(--paper); min-height:100vh; -webkit-font-smoothing:antialiased;">
+
+  <!-- ===================== PATHWAY SELECTION ===================== -->
+  <sc-if value="{{ isPathways }}" hint-placeholder-val="{{ true }}">
+  <div class="pt-screen" style="min-height:100vh; background:var(--paper); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:64px 24px;">
+    <div style="width:100%; max-width:1000px;">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:44px;">
+        <img src="assets/elephant-navy.png" alt="Herd" style="width:42px; height:42px; object-fit:contain;">
+        <span style="font-size:20px; font-weight:800; color:var(--navy); letter-spacing:-.01em;">Herd&nbsp;Learn</span>
+        <span style="width:1px; height:20px; background:var(--line-2);"></span>
+        <span style="font-size:14px; color:var(--ink-2);">UK Government Service Standard</span>
+        <select onChange="{{ onJump }}" value="" style="margin-left:auto; font-family:inherit; font-size:13px; color:var(--ink-2); background:#fff; border:1px solid var(--line-2); border-radius:6px; padding:7px 10px; cursor:pointer;" aria-label="Jump to screen">
+          <option value="">Prototype map…</option>
+          <option value="pathways">Pathway selection</option>
+          <option value="overview">Module overview</option>
+          <option value="diagnostic">Tier diagnostic</option>
+          <option value="scenario">Anchor scenario</option>
+          <option value="guided">Guided content</option>
+          <option value="check">Understanding check</option>
+          <option value="takeaway">Takeaway</option>
+          <option value="reference">Reference card</option>
+          <option value="sme">SME exercise</option>
+        </select>
+      </div>
+
+      <div style="font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--yellow-deep); margin-bottom:12px;">Welcome</div>
+      <h1 style="margin:0 0 12px; font-size:38px; font-weight:800; letter-spacing:-.02em; color:var(--navy);">Choose your pathway</h1>
+      <p style="margin:0 0 36px; font-size:18px; line-height:1.6; color:var(--ink-2); max-width:64ch;">Each role takes a tailored route through the eight core modules and four depth tiers. Pick the one that matches how you’ll be working — you can change it whenever you like.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <button onClick="{{ pickBA }}" style="text-align:left; font-family:inherit; background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:24px; cursor:pointer; display:flex; flex-direction:column; gap:6px;" style-hover="border-color:var(--navy); box-shadow:0 6px 20px rgba(54,56,75,.08);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">
+          <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);">Pathway</div>
+          <div style="font-size:21px; font-weight:700; color:var(--navy);">Business Analyst</div>
+          <div style="font-size:15px; line-height:1.55; color:var(--ink-2); flex:1;">Defines the problem and shapes requirements around real, evidenced user needs.</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px;"><span style="font-size:13px; color:var(--ink-3);">8 modules · 4 tiers</span><span style="font-size:14px; font-weight:600; color:var(--navy);">Choose →</span></div>
+        </button>
+        <button onClick="{{ pickDM }}" style="text-align:left; font-family:inherit; background:#fff; border:1.5px solid var(--navy); border-radius:12px; padding:24px; cursor:pointer; display:flex; flex-direction:column; gap:6px; box-shadow:0 4px 16px rgba(54,56,75,.08);" style-hover="box-shadow:0 8px 24px rgba(54,56,75,.14);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">
+          <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow-deep);">Pathway · example</div>
+          <div style="font-size:21px; font-weight:700; color:var(--navy);">Delivery Manager</div>
+          <div style="font-size:15px; line-height:1.55; color:var(--ink-2); flex:1;">Keeps a multidisciplinary team delivering against the Standard, sprint after sprint.</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px;"><span style="font-size:13px; color:var(--ink-3);">8 modules · 4 tiers</span><span style="font-size:14px; font-weight:600; color:var(--navy);">Choose →</span></div>
+        </button>
+        <button onClick="{{ pickPM }}" style="text-align:left; font-family:inherit; background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:24px; cursor:pointer; display:flex; flex-direction:column; gap:6px;" style-hover="border-color:var(--navy); box-shadow:0 6px 20px rgba(54,56,75,.08);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">
+          <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);">Pathway</div>
+          <div style="font-size:21px; font-weight:700; color:var(--navy);">Product Manager</div>
+          <div style="font-size:15px; line-height:1.55; color:var(--ink-2); flex:1;">Owns the service’s direction, priorities and the value it delivers over time.</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px;"><span style="font-size:13px; color:var(--ink-3);">8 modules · 4 tiers</span><span style="font-size:14px; font-weight:600; color:var(--navy);">Choose →</span></div>
+        </button>
+        <button onClick="{{ pickSME }}" style="text-align:left; font-family:inherit; background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:24px; cursor:pointer; display:flex; flex-direction:column; gap:6px;" style-hover="border-color:var(--navy); box-shadow:0 6px 20px rgba(54,56,75,.08);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">
+          <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);">Pathway</div>
+          <div style="font-size:21px; font-weight:700; color:var(--navy);">Subject Matter Expert</div>
+          <div style="font-size:15px; line-height:1.55; color:var(--ink-2); flex:1;">Brings deep domain knowledge into a digital team — three focused meta-modules, not the full pathway.</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px;"><span style="font-size:13px; color:var(--ink-3);">3 meta-modules</span><span style="font-size:14px; font-weight:600; color:var(--navy);">Choose →</span></div>
+        </button>
+      </div>
+
+      <div style="margin-top:20px; display:flex; align-items:center; gap:16px; background:#fff; border:1px solid var(--line); border-left:4px solid var(--yellow); border-radius:0 10px 10px 0; padding:18px 22px;">
+        <div style="flex:1;">
+          <div style="font-size:15px; font-weight:700; color:var(--navy);">New to government digital?</div>
+          <div style="font-size:14px; color:var(--ink-2); margin-top:2px;">Layer 0 is a short, narrative orientation primer — your first week, told as a story. Optional, about 15 minutes.</div>
+        </div>
+        <button onClick="{{ goOverview }}" style="font-family:inherit; font-size:14px; font-weight:600; color:var(--navy); background:#fff; border:1.5px solid var(--navy); border-radius:6px; padding:9px 16px; cursor:pointer; white-space:nowrap;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Start primer</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== MODULE OVERVIEW ===================== -->
+  <sc-if value="{{ isOverview }}">
+  <div class="pt-screen" style="min-height:100vh; background:var(--paper); display:flex; flex-direction:column;">
+    <div class="pt-chrome" style="height:56px; flex:none; background:var(--navy); display:flex; align-items:center; justify-content:space-between; padding:0 24px; position:sticky; top:0; z-index:10;">
+      <div style="display:flex; align-items:center; gap:12px; cursor:pointer;" onClick="{{ goPathways }}">
+        <img src="assets/elephant-white.png" alt="Herd Learn — home" style="width:28px; height:28px; object-fit:contain;">
+        <span style="font-size:16px; font-weight:800; color:#fff;">Herd&nbsp;Learn</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <span style="font-size:13px; color:#C6C8D4;">{{ pathwayName }} pathway</span>
+        <select onChange="{{ onJump }}" value="" style="font-family:inherit; font-size:13px; color:#fff; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:6px; padding:6px 9px; cursor:pointer;" aria-label="Jump to screen">
+          <option value="" style="color:#000;">Prototype map…</option>
+          <option value="pathways" style="color:#000;">Pathway selection</option>
+          <option value="overview" style="color:#000;">Module overview</option>
+          <option value="diagnostic" style="color:#000;">Tier diagnostic</option>
+          <option value="scenario" style="color:#000;">Anchor scenario</option>
+          <option value="guided" style="color:#000;">Guided content</option>
+          <option value="check" style="color:#000;">Understanding check</option>
+          <option value="takeaway" style="color:#000;">Takeaway</option>
+          <option value="reference" style="color:#000;">Reference card</option>
+          <option value="sme" style="color:#000;">SME exercise</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="flex:1; display:flex; min-height:0;">
+      <!-- sidebar -->
+      <div style="width:312px; flex:none; background:#fff; border-right:1px solid var(--line); padding:24px 20px; overflow-y:auto;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:6px;">Your pathway</div>
+        <div style="font-size:17px; font-weight:700; color:var(--navy); margin-bottom:6px;">{{ pathwayName }}</div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+          <div style="flex:1; height:6px; border-radius:3px; background:var(--grey); overflow:hidden;"><div style="width:34%; height:100%; background:var(--navy);"></div></div>
+          <span style="font-size:12px; font-weight:600; color:var(--ink-2);">34%</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <div style="display:flex; align-items:center; gap:12px; padding:10px;"><span style="width:24px; height:24px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">✓</span><span style="flex:1; font-size:14px; color:var(--ink-2);">Understanding the Standard</span></div>
+          <div style="display:flex; align-items:center; gap:12px; padding:10px;"><span style="width:24px; height:24px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">✓</span><span style="flex:1; font-size:14px; color:var(--ink-2);">Understanding user needs</span></div>
+          <div style="display:flex; align-items:center; gap:12px; padding:11px 10px; border-radius:6px; background:var(--paper); border:1px solid var(--line); box-shadow:inset 3px 0 0 var(--yellow);"><span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--navy); background:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--navy);">03</span><span style="flex:1; font-size:14px; font-weight:700; color:var(--navy);">Agile delivery in government</span><span style="font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--yellow-deep);">Now</span></div>
+          <div style="display:flex; align-items:center; gap:12px; padding:10px;"><span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">04</span><span style="flex:1; font-size:14px; color:var(--ink);">Multidisciplinary teams</span></div>
+          <div style="display:flex; align-items:center; gap:12px; padding:10px;"><span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">05</span><span style="flex:1; font-size:14px; color:var(--ink);">Accessibility &amp; inclusion</span></div>
+          <div style="display:flex; align-items:center; gap:12px; padding:10px;"><span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">06</span><span style="flex:1; font-size:14px; color:var(--ink);">Technology &amp; security choices</span></div>
+          <div style="display:flex; align-items:center; gap:12px; padding:10px;"><span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">07</span><span style="flex:1; font-size:14px; color:var(--ink);">Iterating &amp; improving</span></div>
+          <div style="display:flex; align-items:center; gap:12px; padding:10px;"><span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">08</span><span style="flex:1; font-size:14px; color:var(--ink);">Service assessments</span></div>
+        </div>
+      </div>
+
+      <!-- main -->
+      <div style="flex:1; overflow-y:auto; padding:36px 44px;">
+        <div style="font-size:12px; font-weight:600; color:var(--ink-2); margin-bottom:6px;">Module 03 · {{ pathwayName }} pathway</div>
+        <h1 style="margin:0 0 10px; font-size:30px; font-weight:800; letter-spacing:-.02em; color:var(--navy);">Agile delivery in government</h1>
+        <p style="margin:0 0 22px; font-size:16px; line-height:1.6; color:var(--ink-2); max-width:62ch;">How agile principles hold up inside spending controls, assurance gates and accountability to ministers — and what a delivery manager actually does to keep a team shipping.</p>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:28px;">
+          <div style="flex:1; max-width:340px; height:6px; border-radius:3px; background:var(--grey); overflow:hidden;"><div style="width:40%; height:100%; background:var(--navy);"></div></div>
+          <span style="font-size:13px; font-weight:600; color:var(--ink-2);">Foundations tier · 2 of 5 components</span>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <!-- Intro complete -->
+          <div style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:18px 22px; display:flex; align-items:center; gap:18px;">
+            <div style="display:flex; align-items:center; gap:10px; width:172px; flex:none;"><span style="width:26px; height:26px; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">✓</span><div><div style="font-size:15px; font-weight:700; color:var(--navy);">Intro</div><div style="font-size:12px; color:var(--ready);">Complete</div></div></div>
+            <div style="flex:1; display:flex; gap:6px;"><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span></div>
+            <button style="font-family:inherit; font-size:14px; font-weight:600; color:var(--navy); background:#fff; border:1.5px solid var(--line-2); border-radius:6px; padding:8px 16px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Review</button>
+          </div>
+
+          <!-- Foundations current expanded -->
+          <div style="border:1.5px solid var(--navy); border-radius:10px; background:#fff; box-shadow:0 4px 16px rgba(54,56,75,.08); overflow:hidden;">
+            <div style="padding:20px 22px; display:flex; align-items:center; gap:18px; background:linear-gradient(180deg,#FBFBF8,#fff);">
+              <div style="display:flex; align-items:center; gap:10px; width:172px; flex:none;"><span style="width:26px; height:26px; border-radius:50%; border:2px solid var(--navy); background:#fff; display:flex; align-items:center; justify-content:center;"><span style="width:9px;height:9px;border-radius:50%;background:var(--yellow);"></span></span><div><div style="font-size:15px; font-weight:700; color:var(--navy);">Foundations</div><div style="font-size:12px; font-weight:600; color:var(--yellow-deep);">In progress</div></div></div>
+              <div style="flex:1; display:flex; gap:6px;"><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--yellow);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span></div>
+              <span style="font-size:13px; font-weight:600; color:var(--ink-2);">2 / 5</span>
+            </div>
+            <div style="border-top:1px solid var(--line); padding:8px 12px;">
+              <button onClick="{{ goDiagnostic }}" style="width:100%; text-align:left; font-family:inherit; background:transparent; border:none; display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:6px; cursor:pointer;" style-hover="background:var(--paper);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);"><span style="width:22px; height:22px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">✓</span><span style="width:152px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);">1 · Diagnostic</span><span style="flex:1; font-size:14px; color:var(--ink-2);">Orientation — you skipped ahead</span><span style="font-size:12px; color:var(--ink-3);">Skipped ›</span></button>
+              <button onClick="{{ goScenario }}" style="width:100%; text-align:left; font-family:inherit; background:transparent; border:none; display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:6px; cursor:pointer;" style-hover="background:var(--paper);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);"><span style="width:22px; height:22px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">✓</span><span style="width:152px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);">2 · Scenario</span><span style="flex:1; font-size:14px; color:var(--ink-2);">The standup that wasn’t working</span><span style="font-size:12px; color:var(--ready);">Done ›</span></button>
+              <button onClick="{{ goGuided }}" style="width:100%; text-align:left; font-family:inherit; display:flex; align-items:center; gap:14px; padding:13px 12px; border-radius:6px; background:var(--paper); border:1px solid var(--line); box-shadow:inset 3px 0 0 var(--yellow); cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);"><span style="width:22px; height:22px; flex:none; border-radius:50%; border:2px solid var(--navy); background:#fff; display:flex; align-items:center; justify-content:center;"><span style="width:8px;height:8px;border-radius:50%;background:var(--yellow);"></span></span><span style="width:152px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--navy);">3 · Guided content</span><span style="flex:1; font-size:14px; font-weight:600; color:var(--navy);">Agile in an assurance world</span><span style="font-size:13px; font-weight:600; color:#fff; background:var(--navy); border-radius:6px; padding:6px 14px;">Resume →</span></button>
+              <button onClick="{{ goCheck }}" style="width:100%; text-align:left; font-family:inherit; background:transparent; border:none; display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:6px; cursor:pointer;" style-hover="background:var(--paper);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);"><span style="width:22px; height:22px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff;"></span><span style="width:152px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);">4 · Check</span><span style="flex:1; font-size:14px; color:var(--ink);">Understanding check</span><span style="font-size:12px; color:var(--ink-3);">Not started ›</span></button>
+              <button onClick="{{ goTakeaway }}" style="width:100%; text-align:left; font-family:inherit; background:transparent; border:none; display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:6px; cursor:pointer;" style-hover="background:var(--paper);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);"><span style="width:22px; height:22px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff;"></span><span style="width:152px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);">5 · Takeaway</span><span style="flex:1; font-size:14px; color:var(--ink);">Take this to work</span><span style="font-size:12px; color:var(--ink-3);">Not started ›</span></button>
+            </div>
+          </div>
+
+          <!-- Advanced -->
+          <div style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:18px 22px; display:flex; align-items:center; gap:18px;">
+            <div style="display:flex; align-items:center; gap:10px; width:172px; flex:none;"><span style="width:26px; height:26px; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">3</span><div><div style="font-size:15px; font-weight:700; color:var(--ink);">Advanced</div><div style="font-size:12px; color:var(--ink-3);">Not started</div></div></div>
+            <div style="flex:1; display:flex; gap:6px;"><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span></div>
+            <button style="font-family:inherit; font-size:14px; font-weight:600; color:var(--ink-2); background:#fff; border:1.5px solid var(--line-2); border-radius:6px; padding:8px 16px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Preview</button>
+          </div>
+          <!-- Expert -->
+          <div style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:18px 22px; display:flex; align-items:center; gap:18px;">
+            <div style="display:flex; align-items:center; gap:10px; width:172px; flex:none;"><span style="width:26px; height:26px; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">4</span><div><div style="font-size:15px; font-weight:700; color:var(--ink);">Expert</div><div style="font-size:12px; color:var(--ink-3);">Not started</div></div></div>
+            <div style="flex:1; display:flex; gap:6px;"><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span></div>
+            <button style="font-family:inherit; font-size:14px; font-weight:600; color:var(--ink-2); background:#fff; border:1.5px solid var(--line-2); border-radius:6px; padding:8px 16px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Preview</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== DIAGNOSTIC ===================== -->
+  <sc-if value="{{ isDiagnostic }}">
+  <div class="pt-screen" style="min-height:100vh; background:var(--paper); display:flex; flex-direction:column;">
+    <div class="pt-chrome" style="height:56px; flex:none; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
+      <button onClick="{{ goOverview }}" style="font-family:inherit; font-size:14px; font-weight:600; color:var(--navy); background:transparent; border:none; cursor:pointer; display:flex; align-items:center; gap:8px;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">← Module overview</button>
+      <span style="font-size:13px; color:var(--ink-3);">Foundations · Component 1 of 5</span>
+    </div>
+
+    <div style="flex:1; display:flex; align-items:flex-start; justify-content:center; padding:56px 24px;">
+      <div style="width:100%; max-width:680px;">
+        <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow-deep); margin-bottom:14px;">Orientation diagnostic</div>
+        <h1 style="margin:0 0 14px; font-size:32px; font-weight:800; letter-spacing:-.02em; color:var(--navy);">Do you need this tier?</h1>
+        <p style="margin:0 0 32px; font-size:18px; line-height:1.6; color:var(--ink-2);">This is a checkpoint, not a test. If you’ve already run agile teams inside an assured government programme, skipping straight to the material is the right, confident call. If you’d like to get your bearings first, take the quick orientation.</p>
+
+        <sc-if value="{{ diagDecision }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <button onClick="{{ goScenario }}" style="text-align:left; font-family:inherit; background:var(--yellow); border:1px solid var(--yellow-deep); border-radius:12px; padding:22px 24px; cursor:pointer; display:flex; align-items:center; gap:18px;" style-hover="filter:brightness(.98);" style-focus="outline:none; box-shadow:0 0 0 3px var(--navy);">
+            <div style="flex:1;"><div style="font-size:18px; font-weight:700; color:var(--navy);">I’m confident here — skip ahead</div><div style="font-size:14px; color:#6b5a1e; margin-top:3px;">Go straight to the scenario. Recommended if this is familiar ground.</div></div>
+            <span style="font-size:22px; color:var(--navy);">→</span>
+          </button>
+          <button onClick="{{ startQuestions }}" style="text-align:left; font-family:inherit; background:#fff; border:1.5px solid var(--navy); border-radius:12px; padding:22px 24px; cursor:pointer; display:flex; align-items:center; gap:18px;" style-hover="background:var(--paper);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">
+            <div style="flex:1;"><div style="font-size:18px; font-weight:700; color:var(--navy);">I’d like a quick orientation first</div><div style="font-size:14px; color:var(--ink-2); margin-top:3px;">One scenario question to set the frame, then on to the material.</div></div>
+            <span style="font-size:22px; color:var(--navy);">→</span>
+          </button>
+          <div style="display:flex; align-items:flex-start; gap:10px; margin-top:8px; padding:14px 16px; background:#fff; border:1px solid var(--line); border-radius:8px;">
+            <span style="color:var(--ready); font-size:15px; line-height:1.5;">●</span>
+            <span style="font-size:14px; line-height:1.5; color:var(--ink-2);"><strong style="color:var(--ink);">Skipping is a normal, confident choice.</strong> Nothing is marked incomplete and you can revisit any component from the module overview at any time.</span>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ diagQuestions }}">
+        <div style="background:#fff; border:1.5px solid var(--navy); border-radius:12px; overflow:hidden;">
+          <div style="padding:10px 20px; background:var(--navy); color:#fff; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;">Quick orientation · 1 question</div>
+          <div style="padding:24px;">
+            <p style="margin:0 0 18px; font-size:17px; line-height:1.55; color:var(--ink); font-weight:600;">An assurance assessment is best understood as…</p>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <button onClick="{{ pickDiagA }}" style="text-align:left; font-family:inherit; display:flex; gap:12px; align-items:center; padding:14px 16px; border:1.5px solid var(--line-2); border-radius:8px; background:#fff; cursor:pointer;" style-hover="border-color:var(--navy);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);"><span style="font-size:15px;">A gate that pauses delivery until a pack is approved.</span></button>
+              <button onClick="{{ pickDiagB }}" style="text-align:left; font-family:inherit; display:flex; gap:12px; align-items:center; padding:14px 16px; border:1.5px solid var(--line-2); border-radius:8px; background:#fff; cursor:pointer;" style-hover="border-color:var(--navy);" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);"><span style="font-size:15px;">A checkpoint asking whether the team is learning fast enough to justify continued spend.</span></button>
+            </div>
+            <sc-if value="{{ diagAnswered }}">
+            <div style="margin-top:18px; padding:16px 18px; background:var(--paper); border:1px solid var(--line); border-radius:8px;">
+              <div style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px;">Frame set</div>
+              <div style="font-size:15px; line-height:1.55; color:var(--ink-2);">Assurance is continuous and evidence-led — the second framing. This module shows how working in the open turns everyday delivery into that evidence. Let’s see it in a real situation.</div>
+              <button onClick="{{ goScenario }}" style="margin-top:14px; font-family:inherit; font-size:15px; font-weight:600; color:#fff; background:var(--navy); border:none; border-radius:6px; padding:11px 20px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Continue to scenario →</button>
+            </div>
+            </sc-if>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== SCENARIO (immersive) ===================== -->
+  <sc-if value="{{ isScenario }}">
+  <div class="pt-screen" style="min-height:100vh; background:var(--navy-deep); display:flex; flex-direction:column;">
+    <div class="pt-chrome" style="height:56px; flex:none; display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
+      <button onClick="{{ goOverview }}" style="font-family:inherit; font-size:14px; font-weight:600; color:#C6C8D4; background:transparent; border:none; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">← Module overview</button>
+      <span style="font-size:13px; color:#8C8FA3;">Foundations · Component 2 of 5</span>
+    </div>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:48px 24px;">
+      <div style="width:100%; max-width:760px;">
+        <div style="font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--yellow); margin-bottom:18px;">Anchor scenario</div>
+        <h1 style="margin:0 0 12px; font-size:40px; line-height:1.08; font-weight:800; letter-spacing:-.02em; color:#fff;">The standup that wasn’t working</h1>
+
+        <div style="display:flex; gap:24px; flex-wrap:wrap; margin:22px 0 30px; padding:16px 20px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-radius:10px;">
+          <div><div style="font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8C8FA3;">Service</div><div style="font-size:15px; color:#EAEBF1; font-weight:600;">Apply for a felling licence</div></div>
+          <div style="width:1px; background:rgba(255,255,255,.12);"></div>
+          <div><div style="font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8C8FA3;">Phase</div><div style="font-size:15px; color:#EAEBF1; font-weight:600;">Beta</div></div>
+          <div style="width:1px; background:rgba(255,255,255,.12);"></div>
+          <div><div style="font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8C8FA3;">Assessment in</div><div style="font-size:15px; color:#EAEBF1; font-weight:600;">3 weeks</div></div>
+        </div>
+
+        <div style="font-family:'Source Serif 4',serif; font-size:21px; line-height:1.62; color:#DDDEE7;">
+          <p style="margin:0 0 22px;">You join the team on a Monday. The board looks healthy — tickets moving, burndown trending down — but the standup tells a different story. People read their Jira tickets aloud. Blockers get noted and never picked up. The hour after, you hear the real conversations happening in ones and twos at desks.</p>
+          <p style="margin:0 0 22px;">Three weeks out from a beta assessment, the product manager is anxious about “having something to show.” A developer mentions, almost in passing, that a key journey still fails for screen-reader users. Nobody seems to be holding that.</p>
+          <p style="margin:0;">You could spend the next three weeks producing an impressive assessment pack. Or you could change how this team works — and let the work speak for itself. What you do first will set the tone.</p>
+        </div>
+
+        <button onClick="{{ goGuided }}" style="margin-top:34px; font-family:inherit; font-size:16px; font-weight:600; color:var(--navy); background:var(--yellow); border:none; border-radius:8px; padding:13px 26px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px #fff;">Begin the guided content →</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== GUIDED CONTENT ===================== -->
+  <sc-if value="{{ isGuided }}">
+  <div class="pt-screen" style="min-height:100vh; background:var(--paper); display:flex; flex-direction:column;">
+    <div class="pt-chrome" style="height:56px; flex:none; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 24px; position:sticky; top:0; z-index:10;">
+      <div style="display:flex; align-items:center; gap:12px; font-size:13px; color:var(--ink-2);">
+        <button onClick="{{ goOverview }}" style="background:transparent; border:none; cursor:pointer; padding:0; display:flex; align-items:center;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);"><img src="assets/elephant-navy.png" alt="Module overview" style="width:26px; height:26px; object-fit:contain;"></button>
+        <span style="color:var(--navy); font-weight:600;">Agile delivery</span><span style="color:var(--ink-3);">›</span><span>Foundations</span><span style="color:var(--ink-3);">›</span><span style="color:var(--navy); font-weight:600;">Guided content</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span style="font-size:12px; color:var(--ink-3);">Component 3 of 5</span>
+        <div style="display:flex; gap:4px;"><span style="width:18px; height:5px; border-radius:3px; background:var(--navy);"></span><span style="width:18px; height:5px; border-radius:3px; background:var(--navy);"></span><span style="width:18px; height:5px; border-radius:3px; background:var(--yellow);"></span><span style="width:18px; height:5px; border-radius:3px; background:var(--grey);"></span><span style="width:18px; height:5px; border-radius:3px; background:var(--grey);"></span></div>
+      </div>
+    </div>
+
+    <div style="flex:1; overflow-y:auto;">
+      <div style="max-width:720px; margin:0 auto; padding:52px 32px 60px;">
+        <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow-deep); margin-bottom:14px;">Guided content · ~9 min read</div>
+        <h1 style="margin:0 0 20px; font-size:38px; line-height:1.12; font-weight:800; letter-spacing:-.02em; color:var(--navy);">Agile in an assurance world</h1>
+        <p style="margin:0 0 28px; font-family:'Source Serif 4',serif; font-size:21px; line-height:1.5; color:var(--ink-2);">Agile and government assurance are often framed as opposites. They are not — but holding both at once is the real work of a delivery manager in the public sector.</p>
+        <div style="font-family:'Source Serif 4',serif; font-size:19px; line-height:1.68; color:var(--ink);">
+          <p style="margin:0 0 22px;">When teams first move into government delivery, they tend to expect one of two things: that agile will be quietly ignored in favour of a fixed plan, or that &ldquo;being agile&rdquo; means assurance no longer applies. Both expectations cause problems within the first few sprints.</p>
+          <p style="margin:0 0 22px;">The Service Standard does not ask you to choose. It asks teams to <em>work in an agile way</em> &mdash; to start small, test with real users, and iterate &mdash; <em>while</em> remaining accountable for public money through spending controls and service assessments. The skill is not picking a side. It is making the two reinforce each other.</p>
+          <h2 style="margin:38px 0 14px; font-family:'Public Sans',sans-serif; font-size:25px; font-weight:700; letter-spacing:-.01em; color:var(--navy);">What assurance is actually asking for</h2>
+          <p style="margin:0 0 22px;">An assurance gate is not a demand for a finished product. It is a checkpoint that asks a narrower question: is this team learning the right things, fast enough, to justify continued spend? Framed that way, frequent delivery is the strongest evidence you can bring.</p>
+          <div style="margin:30px 0; background:#fff; border:1px solid var(--line); border-left:4px solid var(--yellow); border-radius:0 8px 8px 0; padding:20px 24px;">
+            <div style="font-family:'Public Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--yellow-deep); margin-bottom:8px;">Key principle</div>
+            <div style="font-family:'Public Sans',sans-serif; font-size:18px; line-height:1.5; font-weight:600; color:var(--navy);">Treat each assurance point as a user need of its own: the assessor needs evidence the service is being built well. Plan to meet it — don’t scramble for it.</div>
+          </div>
+          <p style="margin:0 0 22px;">In practice this changes how you run a team. You keep a continuous trail of what you tested, what you learned, and what you changed &mdash; not as a separate reporting burden, but as the natural output of working in the open. By the time an assessment arrives, the narrative already exists.</p>
+          <h2 style="margin:38px 0 14px; font-family:'Public Sans',sans-serif; font-size:25px; font-weight:700; letter-spacing:-.01em; color:var(--navy);">Where delivery managers add the most</h2>
+          <p style="margin:0 0 18px;">Three habits separate teams that thrive under assurance from teams that stall:</p>
+          <ul style="margin:0 0 22px; padding-left:24px;">
+            <li style="margin-bottom:12px; padding-left:6px;">They make the team&rsquo;s progress <strong>visible by default</strong>, so assurance never requires a special effort.</li>
+            <li style="margin-bottom:12px; padding-left:6px;">They translate between <strong>delivery language and governance language</strong> without distorting either.</li>
+            <li style="margin-bottom:0; padding-left:6px;">They protect the team&rsquo;s pace by handling assurance <strong>as a stream of work</strong>, not a series of fire drills.</li>
+          </ul>
+          <div style="margin:30px 0; background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:18px 22px;">
+            <div style="font-family:'Public Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2); margin-bottom:7px;">Note</div>
+            <div style="font-size:16.5px; line-height:1.6; color:var(--ink-2);">Spending controls apply above set thresholds and at specific points in a service&rsquo;s life. The exact figures change &mdash; the reference card for this module keeps the current ones to hand.</div>
+          </div>
+          <p style="margin:0;">Held together well, agile and assurance describe the same thing from two angles: a team that knows what it is building, why, and for whom &mdash; and can show it at any moment.</p>
+        </div>
+      </div>
+
+      <div class="pt-chrome" style="position:sticky; bottom:0; background:#fff; border-top:1px solid var(--line); padding:16px 32px; display:flex; align-items:center; justify-content:space-between;">
+        <button onClick="{{ goScenario }}" style="font-family:inherit; font-size:15px; font-weight:600; color:var(--navy); background:#fff; border:1.5px solid var(--line-2); border-radius:6px; padding:10px 18px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">← Scenario</button>
+        <div style="display:flex; align-items:center; gap:8px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--navy);"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--navy);"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--yellow);"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--grey);"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--grey);"></span></div>
+        <button onClick="{{ goCheck }}" style="font-family:inherit; font-size:15px; font-weight:600; color:#fff; background:var(--navy); border:none; border-radius:6px; padding:11px 22px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Next · Understanding check →</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== UNDERSTANDING CHECK ===================== -->
+  <sc-if value="{{ isCheck }}">
+  <div class="pt-screen" style="min-height:100vh; background:var(--paper); display:flex; flex-direction:column;">
+    <div class="pt-chrome" style="height:56px; flex:none; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
+      <button onClick="{{ goGuided }}" style="font-family:inherit; font-size:14px; font-weight:600; color:var(--navy); background:transparent; border:none; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">← Guided content</button>
+      <span style="font-size:13px; color:var(--ink-3);">Foundations · Component 4 of 5</span>
+    </div>
+    <div style="flex:1; overflow-y:auto; padding:52px 24px 80px;">
+      <div style="width:100%; max-width:700px; margin:0 auto;">
+        <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px; display:inline-block; background:#fff; border:1.5px solid var(--navy); border-radius:6px; padding:5px 12px;">Understanding check</div>
+        <h1 style="margin:14px 0 8px; font-size:27px; font-weight:700; letter-spacing:-.01em; color:var(--navy); line-height:1.25;">Your beta service has an assessment in three weeks.</h1>
+        <p style="margin:0 0 26px; font-size:18px; line-height:1.6; color:var(--ink);">The team is mid-sprint and a key journey still fails for screen-reader users. As delivery manager, what’s the strongest first move?</p>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <sc-for list="{{ checkOpts }}" as="opt" hint-placeholder-count="4">
+            <div style="display:flex; flex-direction:column;">
+              <button onClick="{{ opt.pick }}" style="{{ opt.boxStyle }}" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">
+                <span style="{{ opt.badgeStyle }}">{{ opt.badge }}</span>
+                <span style="flex:1;">
+                  <span style="display:block; font-size:16px; line-height:1.5; color:var(--ink); font-weight:500;">{{ opt.text }}</span>
+                  <sc-if value="{{ opt.label }}"><span style="display:block; font-size:13px; font-weight:700; margin-top:6px; color:{{ opt.labelColor }};">{{ opt.label }}</span></sc-if>
+                  <sc-if value="{{ opt.showFb }}"><span style="display:block; font-size:14.5px; line-height:1.55; margin-top:8px; color:#7a2522;">{{ opt.fb }}</span></sc-if>
+                </span>
+              </button>
+            </div>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ checkCorrect }}">
+        <div style="margin-top:22px; background:var(--ready-bg); border:1px solid #BFD8C9; border-radius:10px; padding:18px 20px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;"><span style="width:22px; height:22px; border-radius:50%; background:var(--ready); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">✓</span><span style="font-size:15px; font-weight:700; color:#1F5B3B;">Exactly right</span></div>
+          <div style="font-size:15.5px; line-height:1.6; color:#2a4d3a;">Fixing the journey now and folding what you found into the evidence trail serves users and the assessment at once. Visible, recent iteration is the strongest thing you can bring to a panel.</div>
+          <button onClick="{{ goTakeaway }}" style="margin-top:14px; font-family:inherit; font-size:15px; font-weight:600; color:#fff; background:var(--navy); border:none; border-radius:6px; padding:11px 20px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Continue to takeaway →</button>
+        </div>
+        </sc-if>
+        <sc-if value="{{ checkWrong }}">
+        <div style="margin-top:18px; font-size:14px; color:var(--ink-2); display:flex; align-items:center; gap:8px;"><span style="color:var(--attention);">▲</span> Read the redirect above, then choose the answer that best fits.</div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== TAKEAWAY ===================== -->
+  <sc-if value="{{ isTakeaway }}">
+  <div class="pt-screen" style="min-height:100vh; background:var(--paper); display:flex; flex-direction:column;">
+    <div class="pt-chrome" style="height:56px; flex:none; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
+      <button onClick="{{ goCheck }}" style="font-family:inherit; font-size:14px; font-weight:600; color:var(--navy); background:transparent; border:none; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">← Understanding check</button>
+      <span style="font-size:13px; color:var(--ink-3);">Foundations · Component 5 of 5</span>
+    </div>
+    <div style="flex:1; display:flex; align-items:flex-start; justify-content:center; padding:56px 24px;">
+      <div style="width:100%; max-width:680px;">
+        <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow-deep); margin-bottom:14px;">Take this to work</div>
+        <h1 style="margin:0 0 12px; font-size:32px; font-weight:800; letter-spacing:-.02em; color:var(--navy);">Three things to try this week</h1>
+        <p style="margin:0 0 30px; font-size:18px; line-height:1.6; color:var(--ink-2);">Small, concrete moves that turn the principle into practice on your own team.</p>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; gap:16px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:20px 22px;"><span style="width:30px; height:30px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;">1</span><div><div style="font-size:17px; font-weight:700; color:var(--navy);">Make the work visible by default</div><div style="font-size:15px; line-height:1.55; color:var(--ink-2); margin-top:3px;">Run your board and weeknotes so an assurance review never needs a special pack.</div></div></div>
+          <div style="display:flex; gap:16px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:20px 22px;"><span style="width:30px; height:30px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;">2</span><div><div style="font-size:17px; font-weight:700; color:var(--navy);">Name your next assurance point</div><div style="font-size:15px; line-height:1.55; color:var(--ink-2); margin-top:3px;">Add it to the backlog as a dated user need, with an owner — not a surprise at the end.</div></div></div>
+          <div style="display:flex; gap:16px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:20px 22px;"><span style="width:30px; height:30px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;">3</span><div><div style="font-size:17px; font-weight:700; color:var(--navy);">Keep a decisions &amp; learnings log</div><div style="font-size:15px; line-height:1.55; color:var(--ink-2); margin-top:3px;">One place capturing what you tested, what you learned, and what you changed.</div></div></div>
+        </div>
+
+        <button onClick="{{ goReference }}" style="margin-top:18px; width:100%; text-align:left; font-family:inherit; display:flex; align-items:center; gap:14px; background:#fff; border:1px solid var(--line); border-left:4px solid var(--yellow); border-radius:0 10px 10px 0; padding:18px 22px; cursor:pointer;" style-hover="background:#FBFBF8;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">
+          <span style="flex:1;"><span style="display:block; font-size:16px; font-weight:700; color:var(--navy);">Reference card · Agile under assurance</span><span style="display:block; font-size:14px; color:var(--ink-2); margin-top:2px;">One page, scannable, downloadable as PDF.</span></span>
+          <span style="font-size:14px; font-weight:600; color:var(--navy);">Open →</span>
+        </button>
+
+        <div style="display:flex; gap:12px; margin-top:26px;">
+          <button onClick="{{ goOverview }}" style="font-family:inherit; font-size:15px; font-weight:600; color:#fff; background:var(--navy); border:none; border-radius:6px; padding:12px 22px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Mark Foundations complete →</button>
+          <button onClick="{{ goOverview }}" style="font-family:inherit; font-size:15px; font-weight:600; color:var(--navy); background:#fff; border:1.5px solid var(--line-2); border-radius:6px; padding:12px 22px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Back to module</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== REFERENCE CARD ===================== -->
+  <sc-if value="{{ isReference }}">
+  <div class="pt-screen" style="min-height:100vh; background:var(--grey); display:flex; flex-direction:column;">
+    <div class="pt-chrome" style="height:56px; flex:none; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
+      <button onClick="{{ goTakeaway }}" style="font-family:inherit; font-size:14px; font-weight:600; color:var(--navy); background:transparent; border:none; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">← Back</button>
+      <button onClick="{{ printRef }}" style="font-family:inherit; font-size:14px; font-weight:600; color:#fff; background:var(--navy); border:none; border-radius:6px; padding:9px 18px; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">Download PDF ↓</button>
+    </div>
+    <div style="flex:1; overflow-y:auto; padding:40px 24px;">
+      <div style="width:100%; max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--line-2); border-radius:8px; overflow:hidden;">
+        <div style="padding:24px 32px 26px; border-bottom:2px solid var(--navy); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
+          <div><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; color:var(--ink-3); margin-bottom:4px;">REFERENCE · MODULE 03</div><div style="font-size:24px; font-weight:800; color:var(--navy); letter-spacing:-.01em; line-height:1.12;">Agile under assurance</div></div>
+          <img src="assets/elephant-navy.png" alt="Herd Learn" style="width:38px; height:38px; object-fit:contain;">
+        </div>
+        <div style="padding:28px 32px; display:grid; grid-template-columns:1fr 1fr; gap:28px;">
+          <div style="grid-column:1 / -1; background:var(--paper); border-left:4px solid var(--yellow); padding:16px 20px; border-radius:0 6px 6px 0;">
+            <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--yellow-deep); margin-bottom:6px;">The principle</div>
+            <div style="font-size:17px; font-weight:600; line-height:1.45; color:var(--navy);">Treat each assurance point as a user need: plan to meet it through visible, continuous delivery — don’t scramble for it.</div>
+          </div>
+
+          <div>
+            <div style="font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); margin-bottom:12px; border-bottom:1px solid var(--line); padding-bottom:6px;">When controls apply</div>
+            <table style="width:100%; border-collapse:collapse; font-size:14px;">
+              <tr style="border-bottom:1px solid var(--line);"><td style="padding:7px 0; color:var(--ink);">Discovery</td><td style="padding:7px 0; text-align:right; color:var(--ink-2); font-family:'IBM Plex Mono',monospace; font-size:13px;">Plan / spend</td></tr>
+              <tr style="border-bottom:1px solid var(--line);"><td style="padding:7px 0; color:var(--ink);">Alpha</td><td style="padding:7px 0; text-align:right; color:var(--ink-2); font-family:'IBM Plex Mono',monospace; font-size:13px;">Assessment</td></tr>
+              <tr style="border-bottom:1px solid var(--line);"><td style="padding:7px 0; color:var(--ink);">Beta</td><td style="padding:7px 0; text-align:right; color:var(--ink-2); font-family:'IBM Plex Mono',monospace; font-size:13px;">Assessment</td></tr>
+              <tr><td style="padding:7px 0; color:var(--ink);">Live</td><td style="padding:7px 0; text-align:right; color:var(--ink-2); font-family:'IBM Plex Mono',monospace; font-size:13px;">Ongoing</td></tr>
+            </table>
+            <div style="font-size:12px; color:var(--ink-3); margin-top:8px; line-height:1.4;">Thresholds change — confirm current figures before a submission.</div>
+          </div>
+
+          <div>
+            <div style="font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); margin-bottom:12px; border-bottom:1px solid var(--line); padding-bottom:6px;">Assessment-ready checklist</div>
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; line-height:1.4; color:var(--ink);"><span style="width:16px;height:16px;flex:none;border:1.5px solid var(--navy);border-radius:3px;margin-top:1px;"></span>User needs evidenced &amp; current</div>
+              <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; line-height:1.4; color:var(--ink);"><span style="width:16px;height:16px;flex:none;border:1.5px solid var(--navy);border-radius:3px;margin-top:1px;"></span>Accessibility tested, issues logged</div>
+              <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; line-height:1.4; color:var(--ink);"><span style="width:16px;height:16px;flex:none;border:1.5px solid var(--navy);border-radius:3px;margin-top:1px;"></span>Decisions &amp; learnings log up to date</div>
+              <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; line-height:1.4; color:var(--ink);"><span style="width:16px;height:16px;flex:none;border:1.5px solid var(--navy);border-radius:3px;margin-top:1px;"></span>Team can demo the live service</div>
+              <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; line-height:1.4; color:var(--ink);"><span style="width:16px;height:16px;flex:none;border:1.5px solid var(--navy);border-radius:3px;margin-top:1px;"></span>Roadmap &amp; next iterations clear</div>
+            </div>
+          </div>
+
+          <div style="grid-column:1 / -1; border-top:1px solid var(--line); padding-top:18px;">
+            <div style="font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); margin-bottom:12px;">Definitions</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+              <div><div style="font-size:14px; font-weight:700; color:var(--navy);">Spending control</div><div style="font-size:13.5px; line-height:1.5; color:var(--ink-2);">Approval needed to spend above set thresholds on digital work.</div></div>
+              <div><div style="font-size:14px; font-weight:700; color:var(--navy);">Service assessment</div><div style="font-size:13.5px; line-height:1.5; color:var(--ink-2);">A panel review against the Service Standard at phase ends.</div></div>
+              <div><div style="font-size:14px; font-weight:700; color:var(--navy);">Assurance</div><div style="font-size:13.5px; line-height:1.5; color:var(--ink-2);">The continuous confidence that public money is well spent.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== SME EXERCISE ===================== -->
+  <sc-if value="{{ isSme }}">
+  <div class="pt-screen" style="min-height:100vh; background:var(--paper); display:flex; flex-direction:column;">
+    <div class="pt-chrome" style="height:56px; flex:none; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
+      <button onClick="{{ goPathways }}" style="font-family:inherit; font-size:14px; font-weight:600; color:var(--navy); background:transparent; border:none; cursor:pointer;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">← Pathways</button>
+      <span style="font-size:13px; color:var(--ink-3);">SME meta-module · 2 of 3</span>
+    </div>
+    <div style="flex:1; overflow-y:auto; padding:52px 24px 80px;">
+      <div style="width:100%; max-width:720px; margin:0 auto;">
+        <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow-deep); margin-bottom:14px;">SME meta-module · Bringing evidence to assurance</div>
+        <h1 style="margin:0 0 22px; font-size:32px; font-weight:800; letter-spacing:-.02em; color:var(--navy);">Applied exercise</h1>
+
+        <div style="margin-bottom:24px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:22px 26px;">
+          <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2); margin-bottom:10px;">Conceptual framing</div>
+          <p style="margin:0; font-family:'Source Serif 4',serif; font-size:18px; line-height:1.6; color:var(--ink);">As a subject matter expert, your domain knowledge is only useful to an assessment if the team can <em>show</em> how it shaped the service. The gap is rarely the knowledge itself — it’s the trail connecting it to a decision.</p>
+        </div>
+
+        <div style="background:var(--navy); border-radius:10px; padding:22px 26px; color:#fff; margin-bottom:18px;">
+          <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--yellow); margin-bottom:10px;">The exercise</div>
+          <p style="margin:0 0 16px; font-size:17px; line-height:1.55; color:#EAEBF1;">An assessor asks: &ldquo;How did domain expertise change what this team built?&rdquo; In a few sentences, describe how you would make that influence <strong style="color:#fff;">visible and evidenced</strong> — not just assert that it happened.</p>
+          <textarea placeholder="Draft your answer here…" style="width:100%; min-height:120px; resize:vertical; font-family:'Source Serif 4',serif; font-size:16px; line-height:1.6; color:var(--ink); background:#fff; border:1px solid var(--line-2); border-radius:8px; padding:14px 16px;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);"></textarea>
+        </div>
+
+        <sc-if value="{{ smeRevealed }}" hint-placeholder-val="{{ false }}">
+        <div style="background:var(--ready-bg); border:1px solid #BFD8C9; border-radius:10px; padding:22px 26px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;"><span style="width:22px; height:22px; border-radius:50%; background:var(--ready); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">✓</span><span style="font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#1F5B3B;">Model answer</span></div>
+          <p style="margin:0 0 12px; font-size:16.5px; line-height:1.65; color:#2a4d3a;">A strong answer doesn’t claim influence — it traces it. For example: &ldquo;Our SME flagged that licence applicants often act on behalf of a landowner, not as the owner. We tested that in research, it held, and it changed the identity step in sprint 6 — recorded in our decision log with a link to the user need and the design change.&rdquo;</p>
+          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a5a48;">The pattern: <strong>expertise → research/validation → a specific change → a recorded link</strong>. That chain is what an assessor can follow.</p>
+        </div>
+        </sc-if>
+        <sc-if value="{{ smeHidden }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ revealSme }}" style="font-family:inherit; font-size:15px; font-weight:600; color:var(--navy); background:#fff; border:1.5px solid var(--navy); border-radius:6px; padding:12px 22px; cursor:pointer; display:flex; align-items:center; gap:10px;" style-focus="outline:none; box-shadow:0 0 0 3px var(--yellow);">
+          <span style="font-size:16px;">◑</span> Reveal model answer
+        </button>
+        <div style="font-size:13px; color:var(--ink-3); margin-top:10px;">Try your own answer first — the model stays hidden until you’re ready.</div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { screen:'pathways', pathway:'DM', diagMode:'decision', diagPicked:null, checkChoice:null, checkResolved:false, smeRevealed:false };
+
+  nav(screen, extra){
+    this.setState(Object.assign({ screen }, extra||{}));
+    try { window.scrollTo(0,0); } catch(e){}
+  }
+
+  renderVals(){
+    const s = this.state;
+    const roleNames = { BA:'Business Analyst', DM:'Delivery Manager', PM:'Product Manager', SME:'Subject Matter Expert' };
+    const correct = 2;
+    const raw = [
+      { t:'Pause feature work, prepare an assessment pack, and resume after the panel.',
+        fb:'Pausing delivery removes the very thing assessors want to see — recent, real iteration. Assurance is continuous, not a separate phase you stop for.' },
+      { t:'Keep the accessibility fix out of scope until after the assessment so the demo looks clean.',
+        fb:'Hiding a known accessibility failure is both an assessment risk and a breach of the Standard. The fix is the work — not a distraction from it.' },
+      { t:'Fix the screen-reader journey now, and capture what you found and changed as evidence.',
+        fb:'' },
+      { t:'Reduce the sprint scope so nothing new can break before the assessment.',
+        fb:'Slowing down to avoid visible failures is the opposite of what assurance rewards. Demonstrated learning — including fixes — is the strongest signal you can give.' }
+    ];
+    const checkOpts = raw.map((o,i) => {
+      const chosen = s.checkChoice === i, resolved = s.checkResolved, isC = i === correct;
+      let border='var(--line-2)', bg='#fff', badge=String.fromCharCode(65+i), badgeBg='#fff', badgeColor='var(--ink-2)', badgeBorder='var(--line-2)', label='';
+      if (resolved && chosen && isC){ border='var(--ready)'; bg='var(--ready-bg)'; badge='✓'; badgeBg='var(--ready)'; badgeColor='#fff'; badgeBorder='var(--ready)'; label='Correct'; }
+      else if (resolved && chosen && !isC){ border='var(--attention)'; bg='var(--attention-bg)'; badge='✕'; badgeBg='var(--attention)'; badgeColor='#fff'; badgeBorder='var(--attention)'; label='Not the strongest choice'; }
+      else if (resolved && isC){ border='var(--ready)'; bg='var(--ready-bg)'; badge='✓'; badgeBg='var(--ready)'; badgeColor='#fff'; badgeBorder='var(--ready)'; label='The stronger answer'; }
+      return {
+        text:o.t,
+        boxStyle:'width:100%;text-align:left;font-family:inherit;display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1.5px solid '+border+';border-radius:10px;background:'+bg+';cursor:pointer;',
+        badge:badge,
+        badgeStyle:'width:26px;height:26px;flex:none;border-radius:50%;border:2px solid '+badgeBorder+';background:'+badgeBg+';color:'+badgeColor+';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin-top:1px;',
+        label:label, labelColor: isC ? 'var(--ready)' : 'var(--attention)',
+        showFb: resolved && chosen && !isC, fb:o.fb,
+        pick: () => { this.setState({ checkChoice:i, checkResolved:true }); }
+      };
+    });
+
+    return {
+      isPathways:s.screen==='pathways', isOverview:s.screen==='overview', isDiagnostic:s.screen==='diagnostic',
+      isScenario:s.screen==='scenario', isGuided:s.screen==='guided', isCheck:s.screen==='check',
+      isTakeaway:s.screen==='takeaway', isReference:s.screen==='reference', isSme:s.screen==='sme',
+      pathwayName: roleNames[s.pathway] || 'Delivery Manager',
+
+      goPathways:()=>this.nav('pathways'),
+      goOverview:()=>this.nav('overview'),
+      goDiagnostic:()=>this.nav('diagnostic',{ diagMode:'decision', diagPicked:null }),
+      goScenario:()=>this.nav('scenario'),
+      goGuided:()=>this.nav('guided'),
+      goCheck:()=>this.nav('check'),
+      goTakeaway:()=>this.nav('takeaway'),
+      goReference:()=>this.nav('reference'),
+
+      pickBA:()=>this.nav('overview',{ pathway:'BA' }),
+      pickDM:()=>this.nav('overview',{ pathway:'DM' }),
+      pickPM:()=>this.nav('overview',{ pathway:'PM' }),
+      pickSME:()=>this.nav('sme',{ pathway:'SME' }),
+
+      onJump:(e)=>{ const v = e.target.value; if(v){ this.nav(v); } },
+
+      diagDecision: s.diagMode==='decision', diagQuestions: s.diagMode==='questions',
+      startQuestions:()=>this.setState({ diagMode:'questions' }),
+      diagAnswered: s.diagPicked != null,
+      pickDiagA:()=>this.setState({ diagPicked:0 }),
+      pickDiagB:()=>this.setState({ diagPicked:1 }),
+
+      checkOpts, checkCorrect: s.checkResolved && s.checkChoice===correct,
+      checkWrong: s.checkResolved && s.checkChoice!==correct,
+
+      smeRevealed: s.smeRevealed, smeHidden: !s.smeRevealed,
+      revealSme:()=>this.setState({ smeRevealed:true }),
+      printRef:()=>{ try { window.print(); } catch(e){} }
+    };
+  }
+}
+</script>
+</body>
+</html>

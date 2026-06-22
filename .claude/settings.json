@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "deny": [
+      "Write(./content/output/**)",
+      "Edit(./content/output/**)",
+      "Write(./design/**)",
+      "Edit(./design/**)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "curl -s -H 'Title: GSS platform' -d 'A build, QA, or deploy step finished — check the chat.' ntfy.sh/hmkel-claude-notifications >/dev/null 2>&1"
+          }
+        ]
+      }
+    ]
+  }
+}

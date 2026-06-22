@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  ::selection{background:#F6CE4C;color:#36384B;}
+</style>
+</helmet>
+
+<div style="--navy:#36384B; --navy-deep:#2B2D3D; --navy-soft:#4C4F66; --ink:#2C2E3A; --ink-2:#585B6C; --ink-3:#83869A; --yellow:#F6CE4C; --yellow-deep:#B98A12; --grey:#E9EAE4; --paper:#F6F6F2; --surface:#FFFFFF; --line:#E3E3DC; --line-2:#CFCFC7; --ready:#2F7A52; --ready-bg:#E8F1EB; --develop:#9A6B12; --develop-bg:#F6EEDB; --attention:#B0322F; --attention-bg:#F6E6E4; font-family:'Public Sans',-apple-system,sans-serif; color:var(--ink); background:#E0E1DA; min-width:100%; width:max-content; min-height:100vh; box-sizing:border-box; padding:56px; display:flex; flex-direction:column; gap:60px; -webkit-font-smoothing:antialiased;">
+
+  <!-- ============ TITLE ============ -->
+  <div style="display:flex; align-items:flex-end; gap:20px; max-width:1180px;">
+    <img src="assets/elephant-navy.png" alt="Herd" style="width:58px; height:58px; object-fit:contain;">
+    <div>
+      <div style="font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3);">Herd Consulting</div>
+      <div style="font-size:30px; font-weight:800; letter-spacing:-.02em; color:var(--navy); line-height:1.05; margin-top:2px;">Herd Learn — Design language &amp; first screens</div>
+    </div>
+  </div>
+
+  <!-- ============ FRAME 1 · DESIGN LANGUAGE ============ -->
+  <div style="display:flex; flex-direction:column; gap:14px;">
+    <div style="font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#7C7E72;">01 · Design language</div>
+    <div style="width:1180px; background:var(--surface); border-radius:6px; box-shadow:0 1px 3px rgba(40,40,30,.09); overflow:hidden;">
+
+      <!-- brand lockup -->
+      <div style="padding:40px 48px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); background:linear-gradient(180deg,#FBFBF8,#FFFFFF);">
+        <div style="display:flex; align-items:center; gap:18px;">
+          <img src="assets/elephant-navy.png" alt="" style="width:46px; height:46px; object-fit:contain;">
+          <div>
+            <div style="font-size:22px; font-weight:800; color:var(--navy); letter-spacing:-.01em;">Herd&nbsp;Learn</div>
+            <div style="font-size:14px; color:var(--ink-2); margin-top:1px;">A calm, content-forward path through the UK Government Service Standard</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; padding:7px 14px; background:var(--navy); border-radius:999px;">
+          <span style="width:7px; height:7px; border-radius:50%; background:var(--yellow);"></span>
+          <span style="font-size:12px; font-weight:600; letter-spacing:.04em; color:#fff;">Internal · senior practitioners</span>
+        </div>
+      </div>
+
+      <div style="padding:40px 48px; display:flex; flex-direction:column; gap:44px;">
+
+        <!-- COLOUR -->
+        <section>
+          <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:18px;">Colour</div>
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px;">
+            <div style="border:1px solid var(--line); border-radius:6px; overflow:hidden;">
+              <div style="height:78px; background:var(--navy);"></div>
+              <div style="padding:10px 12px;"><div style="font-weight:700; font-size:14px;">Herd Navy</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-2);">#36384B</div><div style="font-size:12px; color:var(--ink-3); margin-top:3px;">Ink, primary action</div></div>
+            </div>
+            <div style="border:1px solid var(--line); border-radius:6px; overflow:hidden;">
+              <div style="height:78px; background:var(--yellow);"></div>
+              <div style="padding:10px 12px;"><div style="font-weight:700; font-size:14px;">Herd Yellow</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-2);">#F6CE4C</div><div style="font-size:12px; color:var(--ink-3); margin-top:3px;">The one accent · current &amp; focus</div></div>
+            </div>
+            <div style="border:1px solid var(--line); border-radius:6px; overflow:hidden;">
+              <div style="height:78px; background:var(--grey);"></div>
+              <div style="padding:10px 12px;"><div style="font-weight:700; font-size:14px;">Herd Grey</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-2);">#E9EAE4</div><div style="font-size:12px; color:var(--ink-3); margin-top:3px;">Quiet fills, rails</div></div>
+            </div>
+            <div style="border:1px solid var(--line); border-radius:6px; overflow:hidden;">
+              <div style="height:78px; background:var(--paper); border-bottom:1px solid var(--line);"></div>
+              <div style="padding:10px 12px;"><div style="font-weight:700; font-size:14px;">Paper</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-2);">#F6F6F2</div><div style="font-size:12px; color:var(--ink-3); margin-top:3px;">App background</div></div>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:9px; padding:8px 14px; background:var(--ready-bg); border:1px solid #BFD8C9; border-radius:6px;"><span style="font-size:13px;">●</span><span style="font-size:13px; font-weight:600; color:var(--ready);">Ready</span></div>
+            <div style="display:flex; align-items:center; gap:9px; padding:8px 14px; background:var(--develop-bg); border:1px solid #E0CB94; border-radius:6px;"><span style="font-size:13px;">◐</span><span style="font-size:13px; font-weight:600; color:var(--develop);">Developing</span></div>
+            <div style="display:flex; align-items:center; gap:9px; padding:8px 14px; background:var(--attention-bg); border:1px solid #E0B2B0; border-radius:6px;"><span style="font-size:13px;">▲</span><span style="font-size:13px; font-weight:600; color:var(--attention);">Needs attention</span></div>
+            <div style="display:flex; align-items:center; gap:8px; padding:8px 14px; color:var(--ink-2); font-size:12.5px;">Status always carries a <strong style="color:var(--ink);">shape&nbsp;+&nbsp;word</strong>, never colour alone.</div>
+          </div>
+        </section>
+
+        <!-- TYPE -->
+        <section style="display:grid; grid-template-columns:1fr 1fr; gap:40px; border-top:1px solid var(--line); padding-top:36px;">
+          <div>
+            <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:18px;">Interface type · Public Sans</div>
+            <div style="display:flex; flex-direction:column; gap:14px;">
+              <div style="display:flex; align-items:baseline; gap:16px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-3); width:62px;">H1·32</span><span style="font-size:32px; font-weight:800; letter-spacing:-.02em; color:var(--navy);">Service Standard</span></div>
+              <div style="display:flex; align-items:baseline; gap:16px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-3); width:62px;">H2·24</span><span style="font-size:24px; font-weight:700; color:var(--navy);">Module overview</span></div>
+              <div style="display:flex; align-items:baseline; gap:16px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-3); width:62px;">H3·19</span><span style="font-size:19px; font-weight:600; color:var(--navy);">Foundations tier</span></div>
+              <div style="display:flex; align-items:baseline; gap:16px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-3); width:62px;">Body·16</span><span style="font-size:16px; color:var(--ink);">UI copy, controls and labels.</span></div>
+              <div style="display:flex; align-items:baseline; gap:16px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-3); width:62px;">Label·13</span><span style="font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2);">Eyebrow / meta</span></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:18px;">Reading type · Source Serif 4</div>
+            <div style="font-family:'Source Serif 4',serif; font-size:19px; line-height:1.65; color:var(--ink); max-width:46ch;">The guided content register reads like a calm briefing paper. A serif at a generous measure signals “this is for sustained reading”, set apart from the surrounding interface.</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-3); margin-top:12px;">Reading body · 19/32 · measure 62–68ch</div>
+          </div>
+        </section>
+
+        <!-- SPACING + BUTTONS -->
+        <section style="display:grid; grid-template-columns:1fr 1.4fr; gap:40px; border-top:1px solid var(--line); padding-top:36px;">
+          <div>
+            <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:18px;">Spacing · 4px base &nbsp;·&nbsp; Radius</div>
+            <div style="display:flex; align-items:flex-end; gap:8px; margin-bottom:20px;">
+              <div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><div style="width:4px; height:4px; background:var(--navy);"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">4</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><div style="width:8px; height:8px; background:var(--navy);"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">8</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><div style="width:12px; height:12px; background:var(--navy);"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">12</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><div style="width:16px; height:16px; background:var(--navy);"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">16</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><div style="width:24px; height:24px; background:var(--navy);"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">24</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><div style="width:32px; height:32px; background:var(--navy);"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">32</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><div style="width:48px; height:48px; background:var(--navy);"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">48</span></div>
+            </div>
+            <div style="display:flex; gap:12px;">
+              <div style="text-align:center;"><div style="width:56px; height:40px; background:var(--grey); border:1px solid var(--line-2); border-radius:4px;"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">4 · controls</span></div>
+              <div style="text-align:center;"><div style="width:56px; height:40px; background:var(--grey); border:1px solid var(--line-2); border-radius:8px;"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">8 · cards</span></div>
+              <div style="text-align:center;"><div style="width:56px; height:40px; background:var(--grey); border:1px solid var(--line-2); border-radius:999px;"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-3);">pill · status</span></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:18px;">Buttons</div>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
+              <button style="font-family:inherit; font-size:15px; font-weight:600; color:#fff; background:var(--navy); border:1px solid var(--navy); border-radius:6px; padding:11px 20px; cursor:pointer;" style-hover="background:var(--navy-deep);">Continue</button>
+              <button style="font-family:inherit; font-size:15px; font-weight:600; color:var(--navy); background:#fff; border:1.5px solid var(--navy); border-radius:6px; padding:10px 20px; cursor:pointer;" style-hover="background:var(--paper);">Secondary</button>
+              <button style="font-family:inherit; font-size:15px; font-weight:600; color:var(--navy); background:transparent; border:1.5px solid transparent; border-radius:6px; padding:10px 14px; cursor:pointer; text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:2px; text-decoration-color:var(--yellow);" style-hover="background:var(--paper);">Tertiary link</button>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:14px;">
+              <button style="font-family:inherit; font-size:15px; font-weight:600; color:var(--navy); background:var(--yellow); border:1px solid var(--yellow-deep); border-radius:6px; padding:11px 20px; cursor:pointer;">Confident skip ahead →</button>
+              <button style="font-family:inherit; font-size:15px; font-weight:600; color:var(--navy); background:#fff; border:1.5px solid var(--navy); border-radius:6px; padding:10px 20px; box-shadow:0 0 0 3px var(--yellow); cursor:pointer;">Focus state</button>
+            </div>
+            <div style="font-size:12.5px; color:var(--ink-2); margin-top:14px; line-height:1.5;">Navy carries primary action. Yellow is reserved — it marks the <strong style="color:var(--ink);">current</strong> place, the <strong style="color:var(--ink);">focus ring</strong>, and the one moment we actively encourage a confident skip. It never competes for attention everywhere at once.</div>
+          </div>
+        </section>
+
+        <!-- ANSWER OPTIONS + PROGRESS -->
+        <section style="display:grid; grid-template-columns:1.2fr 1fr; gap:40px; border-top:1px solid var(--line); padding-top:36px;">
+          <div>
+            <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:18px;">Answer-option states</div>
+            <div style="display:flex; flex-direction:column; gap:10px; max-width:430px;">
+              <div style="display:flex; align-items:center; gap:14px; padding:13px 16px; border:1.5px solid var(--line-2); border-radius:8px; background:#fff;"><span style="width:22px; height:22px; border-radius:50%; border:2px solid var(--line-2); flex:none;"></span><span style="font-size:15px;">Default · resting</span></div>
+              <div style="display:flex; align-items:center; gap:14px; padding:13px 16px; border:1.5px solid var(--navy); border-radius:8px; background:var(--paper); box-shadow:0 0 0 3px rgba(54,56,75,.08);"><span style="width:22px; height:22px; border-radius:50%; border:7px solid var(--navy); flex:none;"></span><span style="font-size:15px; font-weight:600;">Selected</span></div>
+              <div style="display:flex; align-items:center; gap:14px; padding:13px 16px; border:1.5px solid var(--ready); border-radius:8px; background:var(--ready-bg);"><span style="width:22px; height:22px; border-radius:50%; background:var(--ready); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex:none;">✓</span><span style="font-size:15px; font-weight:600; color:#1F5B3B;">Correct</span></div>
+              <div style="display:flex; align-items:center; gap:14px; padding:13px 16px; border:1.5px solid var(--attention); border-radius:8px; background:var(--attention-bg);"><span style="width:22px; height:22px; border-radius:50%; background:var(--attention); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; flex:none;">✕</span><span style="font-size:15px; font-weight:600; color:#8A2522;">Incorrect — see why</span></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:18px;">Progress · quiet &amp; informative</div>
+            <div style="font-size:12px; font-weight:600; letter-spacing:.05em; color:var(--ink-2); margin-bottom:7px;">Tier progress · 3 of 5 components</div>
+            <div style="display:flex; gap:5px; margin-bottom:22px;">
+              <div style="flex:1; height:6px; border-radius:3px; background:var(--navy);"></div>
+              <div style="flex:1; height:6px; border-radius:3px; background:var(--navy);"></div>
+              <div style="flex:1; height:6px; border-radius:3px; background:var(--navy);"></div>
+              <div style="flex:1; height:6px; border-radius:3px; background:var(--yellow);"></div>
+              <div style="flex:1; height:6px; border-radius:3px; background:var(--grey);"></div>
+            </div>
+            <div style="font-size:12px; font-weight:600; letter-spacing:.05em; color:var(--ink-2); margin-bottom:10px;">Depth tiers · the signal stays subtle</div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="display:flex; align-items:center; gap:7px; padding:5px 11px; border-radius:999px; background:var(--navy); color:#fff; font-size:12px; font-weight:600;"><span style="width:6px;height:6px;border-radius:50%;background:var(--yellow);"></span>Foundations</span>
+              <span style="font-size:11px; color:var(--ink-3);">Intro ·</span>
+              <span style="font-size:11px; color:var(--navy); font-weight:600;">Foundations</span>
+              <span style="font-size:11px; color:var(--ink-3);">· Advanced · Expert</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTENT BLOCKS -->
+        <section style="border-top:1px solid var(--line); padding-top:36px;">
+          <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:18px;">Content-mode containers</div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+            <div style="border:1px solid var(--line); border-radius:8px; overflow:hidden;">
+              <div style="padding:8px 14px; background:var(--paper); border-bottom:1px solid var(--line); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2);">Guided · reading</div>
+              <div style="padding:14px; font-family:'Source Serif 4',serif; font-size:15px; line-height:1.6; color:var(--ink);">Calm prose surface, white, wide margins.</div>
+            </div>
+            <div style="border-radius:8px; overflow:hidden; background:var(--navy);">
+              <div style="padding:8px 14px; border-bottom:1px solid rgba(255,255,255,.12); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--yellow);">Scenario · immersive</div>
+              <div style="padding:14px; font-size:15px; line-height:1.55; color:#EAEBF1;">Dark, set-apart. The learner is dropped into a situation.</div>
+            </div>
+            <div style="border:1.5px solid var(--navy); border-radius:8px; overflow:hidden;">
+              <div style="padding:8px 14px; background:var(--navy); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#fff;">Check · actionable</div>
+              <div style="padding:14px; font-size:15px; line-height:1.55; color:var(--ink);">Bordered, clearly interactive. Demands a choice.</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FRAME 2 · MODULE OVERVIEW ============ -->
+  <div style="display:flex; flex-direction:column; gap:14px;">
+    <div style="font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#7C7E72;">02 · Pathway / module overview</div>
+    <div style="width:1280px; height:880px; background:var(--paper); border-radius:6px; box-shadow:0 1px 3px rgba(40,40,30,.09); overflow:hidden; display:flex; flex-direction:column;">
+
+      <!-- app bar -->
+      <div style="height:60px; flex:none; background:var(--navy); display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img src="assets/elephant-white.png" alt="" style="width:30px; height:30px; object-fit:contain;">
+          <span style="font-size:17px; font-weight:800; color:#fff; letter-spacing:-.01em;">Herd&nbsp;Learn</span>
+          <span style="width:1px; height:22px; background:rgba(255,255,255,.2); margin:0 6px;"></span>
+          <span style="font-size:14px; color:#C6C8D4;">UK Government Service Standard</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px;">
+          <span style="font-size:13px; color:#C6C8D4;">Delivery Manager pathway</span>
+          <div style="display:flex; align-items:center; gap:9px; padding:6px 12px 6px 6px; background:rgba(255,255,255,.08); border-radius:999px;"><span style="width:28px; height:28px; border-radius:50%; background:var(--yellow); color:var(--navy); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">RM</span><span style="font-size:13px; color:#fff; font-weight:600;">Rosa M.</span></div>
+        </div>
+      </div>
+
+      <div style="flex:1; display:flex; min-height:0;">
+        <!-- sidebar -->
+        <div style="width:312px; flex:none; background:#fff; border-right:1px solid var(--line); padding:24px 20px; overflow-y:auto;">
+          <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:6px;">Your pathway</div>
+          <div style="font-size:17px; font-weight:700; color:var(--navy); margin-bottom:4px;">Delivery Manager</div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+            <div style="flex:1; height:6px; border-radius:3px; background:var(--grey); overflow:hidden;"><div style="width:34%; height:100%; background:var(--navy);"></div></div>
+            <span style="font-size:12px; font-weight:600; color:var(--ink-2);">34%</span>
+          </div>
+
+          <!-- module list -->
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <!-- done -->
+            <div style="display:flex; align-items:center; gap:12px; padding:10px 10px; border-radius:6px;">
+              <span style="width:24px; height:24px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">✓</span>
+              <span style="flex:1; font-size:14px; color:var(--ink-2);">Understanding the Standard</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:10px 10px; border-radius:6px;">
+              <span style="width:24px; height:24px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">✓</span>
+              <span style="flex:1; font-size:14px; color:var(--ink-2);">Understanding user needs</span>
+            </div>
+            <!-- current -->
+            <div style="display:flex; align-items:center; gap:12px; padding:11px 10px; border-radius:6px; background:var(--paper); border:1px solid var(--line); box-shadow:inset 3px 0 0 var(--yellow);">
+              <span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--navy); background:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--navy);">03</span>
+              <span style="flex:1; font-size:14px; font-weight:700; color:var(--navy);">Agile delivery in government</span>
+              <span style="font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--yellow-deep);">Now</span>
+            </div>
+            <!-- upcoming -->
+            <div style="display:flex; align-items:center; gap:12px; padding:10px 10px; border-radius:6px;">
+              <span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">04</span>
+              <span style="flex:1; font-size:14px; color:var(--ink);">Multidisciplinary teams</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:10px 10px; border-radius:6px;">
+              <span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">05</span>
+              <span style="flex:1; font-size:14px; color:var(--ink);">Accessibility &amp; inclusion</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:10px 10px; border-radius:6px;">
+              <span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">06</span>
+              <span style="flex:1; font-size:14px; color:var(--ink);">Technology &amp; security choices</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:10px 10px; border-radius:6px;">
+              <span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">07</span>
+              <span style="flex:1; font-size:14px; color:var(--ink);">Iterating &amp; improving</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:10px 10px; border-radius:6px;">
+              <span style="width:24px; height:24px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">08</span>
+              <span style="flex:1; font-size:14px; color:var(--ink);">Service assessments</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- main -->
+        <div style="flex:1; overflow-y:auto; padding:36px 44px;">
+          <div style="font-size:12px; font-weight:600; color:var(--ink-2); margin-bottom:6px;">Module 03 · Delivery Manager pathway</div>
+          <h1 style="margin:0 0 10px; font-size:30px; font-weight:800; letter-spacing:-.02em; color:var(--navy);">Agile delivery in government</h1>
+          <p style="margin:0 0 22px; font-size:16px; line-height:1.6; color:var(--ink-2); max-width:62ch;">How agile principles hold up inside spending controls, assurance gates and accountability to ministers — and what a delivery manager actually does to keep a team shipping.</p>
+
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:28px;">
+            <div style="flex:1; max-width:340px; height:6px; border-radius:3px; background:var(--grey); overflow:hidden;"><div style="width:45%; height:100%; background:var(--navy);"></div></div>
+            <span style="font-size:13px; font-weight:600; color:var(--ink-2);">Foundations tier · 2 of 5 components</span>
+          </div>
+
+          <!-- tiers -->
+          <div style="display:flex; flex-direction:column; gap:14px;">
+
+            <!-- Intro: complete -->
+            <div style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:18px 22px; display:flex; align-items:center; gap:18px;">
+              <div style="display:flex; align-items:center; gap:10px; width:170px; flex:none;">
+                <span style="width:26px; height:26px; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">✓</span>
+                <div><div style="font-size:15px; font-weight:700; color:var(--navy);">Intro</div><div style="font-size:12px; color:var(--ready);">Complete</div></div>
+              </div>
+              <div style="flex:1; display:flex; gap:6px;">
+                <span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span>
+              </div>
+              <button style="font-family:inherit; font-size:14px; font-weight:600; color:var(--navy); background:#fff; border:1.5px solid var(--line-2); border-radius:6px; padding:8px 16px; cursor:pointer;">Review</button>
+            </div>
+
+            <!-- Foundations: current, expanded -->
+            <div style="border:1.5px solid var(--navy); border-radius:10px; background:#fff; box-shadow:0 4px 16px rgba(54,56,75,.08); overflow:hidden;">
+              <div style="padding:20px 22px; display:flex; align-items:center; gap:18px; background:linear-gradient(180deg,#FBFBF8,#fff);">
+                <div style="display:flex; align-items:center; gap:10px; width:170px; flex:none;">
+                  <span style="width:26px; height:26px; border-radius:50%; border:2px solid var(--navy); background:#fff; position:relative; display:flex; align-items:center; justify-content:center;"><span style="width:9px;height:9px;border-radius:50%;background:var(--yellow);"></span></span>
+                  <div><div style="font-size:15px; font-weight:700; color:var(--navy);">Foundations</div><div style="font-size:12px; font-weight:600; color:var(--yellow-deep);">In progress</div></div>
+                </div>
+                <div style="flex:1; display:flex; gap:6px;">
+                  <span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--navy);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--yellow);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span>
+                </div>
+                <span style="font-size:13px; font-weight:600; color:var(--ink-2);">2 / 5</span>
+              </div>
+              <!-- the 5 components -->
+              <div style="border-top:1px solid var(--line); padding:8px 12px;">
+                <div style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:6px;">
+                  <span style="width:22px; height:22px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">✓</span>
+                  <span style="width:150px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);">1 · Diagnostic</span>
+                  <span style="flex:1; font-size:14px; color:var(--ink-2);">Orientation — you skipped ahead</span>
+                  <span style="font-size:12px; color:var(--ink-3);">Skipped</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:6px;">
+                  <span style="width:22px; height:22px; flex:none; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">✓</span>
+                  <span style="width:150px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);">2 · Scenario</span>
+                  <span style="flex:1; font-size:14px; color:var(--ink-2);">The standup that wasn’t working</span>
+                  <span style="font-size:12px; color:var(--ready);">Done</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; padding:13px 12px; border-radius:6px; background:var(--paper); border:1px solid var(--line); box-shadow:inset 3px 0 0 var(--yellow);">
+                  <span style="width:22px; height:22px; flex:none; border-radius:50%; border:2px solid var(--navy); background:#fff; display:flex; align-items:center; justify-content:center;"><span style="width:8px;height:8px;border-radius:50%;background:var(--yellow);"></span></span>
+                  <span style="width:150px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--navy);">3 · Guided content</span>
+                  <span style="flex:1; font-size:14px; font-weight:600; color:var(--navy);">Agile in an assurance world</span>
+                  <button style="font-family:inherit; font-size:13px; font-weight:600; color:#fff; background:var(--navy); border:none; border-radius:6px; padding:7px 16px; cursor:pointer;">Resume →</button>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:6px;">
+                  <span style="width:22px; height:22px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff;"></span>
+                  <span style="width:150px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);">4 · Check</span>
+                  <span style="flex:1; font-size:14px; color:var(--ink);">Understanding check</span>
+                  <span style="font-size:12px; color:var(--ink-3);">Not started</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:6px;">
+                  <span style="width:22px; height:22px; flex:none; border-radius:50%; border:2px solid var(--line-2); background:#fff;"></span>
+                  <span style="width:150px; flex:none; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);">5 · Takeaway</span>
+                  <span style="flex:1; font-size:14px; color:var(--ink);">Take this to work</span>
+                  <span style="font-size:12px; color:var(--ink-3);">Not started</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Advanced -->
+            <div style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:18px 22px; display:flex; align-items:center; gap:18px;">
+              <div style="display:flex; align-items:center; gap:10px; width:170px; flex:none;">
+                <span style="width:26px; height:26px; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">3</span>
+                <div><div style="font-size:15px; font-weight:700; color:var(--ink);">Advanced</div><div style="font-size:12px; color:var(--ink-3);">Not started</div></div>
+              </div>
+              <div style="flex:1; display:flex; gap:6px;">
+                <span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span>
+              </div>
+              <button style="font-family:inherit; font-size:14px; font-weight:600; color:var(--ink-2); background:#fff; border:1.5px solid var(--line-2); border-radius:6px; padding:8px 16px; cursor:pointer;">Preview</button>
+            </div>
+
+            <!-- Expert -->
+            <div style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:18px 22px; display:flex; align-items:center; gap:18px;">
+              <div style="display:flex; align-items:center; gap:10px; width:170px; flex:none;">
+                <span style="width:26px; height:26px; border-radius:50%; border:2px solid var(--line-2); background:#fff; color:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">4</span>
+                <div><div style="font-size:15px; font-weight:700; color:var(--ink);">Expert</div><div style="font-size:12px; color:var(--ink-3);">Not started</div></div>
+              </div>
+              <div style="flex:1; display:flex; gap:6px;">
+                <span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span><span style="flex:1; height:5px; border-radius:3px; background:var(--grey);"></span>
+              </div>
+              <button style="font-family:inherit; font-size:14px; font-weight:600; color:var(--ink-2); background:#fff; border:1.5px solid var(--line-2); border-radius:6px; padding:8px 16px; cursor:pointer;">Preview</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FRAME 3 · GUIDED CONTENT ============ -->
+  <div style="display:flex; flex-direction:column; gap:14px;">
+    <div style="font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#7C7E72;">03 · Guided content (reading)</div>
+    <div style="width:1280px; height:920px; background:var(--paper); border-radius:6px; box-shadow:0 1px 3px rgba(40,40,30,.09); overflow:hidden; display:flex; flex-direction:column;">
+
+      <!-- app bar slim -->
+      <div style="height:56px; flex:none; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
+        <div style="display:flex; align-items:center; gap:12px; font-size:13px; color:var(--ink-2);">
+          <img src="assets/elephant-navy.png" alt="" style="width:26px; height:26px; object-fit:contain;">
+          <span style="color:var(--navy); font-weight:600;">Agile delivery in government</span>
+          <span style="color:var(--ink-3);">›</span><span>Foundations</span>
+          <span style="color:var(--ink-3);">›</span><span style="color:var(--navy); font-weight:600;">Guided content</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <span style="font-size:12px; color:var(--ink-3);">Component 3 of 5</span>
+          <div style="display:flex; gap:4px;">
+            <span style="width:18px; height:5px; border-radius:3px; background:var(--navy);"></span><span style="width:18px; height:5px; border-radius:3px; background:var(--navy);"></span><span style="width:18px; height:5px; border-radius:3px; background:var(--yellow);"></span><span style="width:18px; height:5px; border-radius:3px; background:var(--grey);"></span><span style="width:18px; height:5px; border-radius:3px; background:var(--grey);"></span>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto;">
+        <!-- reading column -->
+        <div style="max-width:720px; margin:0 auto; padding:52px 32px 80px;">
+          <div style="font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow-deep); margin-bottom:14px;">Guided content · ~9 min read</div>
+          <h1 style="margin:0 0 20px; font-size:38px; line-height:1.12; font-weight:800; letter-spacing:-.02em; color:var(--navy); font-family:'Public Sans',sans-serif;">Agile in an assurance world</h1>
+          <p style="margin:0 0 28px; font-family:'Source Serif 4',serif; font-size:21px; line-height:1.5; color:var(--ink-2); font-weight:400;">Agile and government assurance are often framed as opposites. They are not — but holding both at once is the real work of a delivery manager in the public sector.</p>
+
+          <div style="font-family:'Source Serif 4',serif; font-size:19px; line-height:1.68; color:var(--ink);">
+            <p style="margin:0 0 22px;">When teams first move into government delivery, they tend to expect one of two things: that agile will be quietly ignored in favour of a fixed plan, or that &ldquo;being agile&rdquo; means assurance no longer applies. Both expectations cause problems within the first few sprints.</p>
+            <p style="margin:0 0 22px;">The Service Standard does not ask you to choose. It asks teams to <em>work in an agile way</em> &mdash; to start small, test with real users, and iterate &mdash; <em>while</em> remaining accountable for public money through spending controls and service assessments. The skill is not picking a side. It is making the two reinforce each other.</p>
+
+            <h2 style="margin:38px 0 14px; font-family:'Public Sans',sans-serif; font-size:25px; font-weight:700; letter-spacing:-.01em; color:var(--navy);">What assurance is actually asking for</h2>
+            <p style="margin:0 0 22px;">An assurance gate is not a demand for a finished product. It is a checkpoint that asks a narrower question: is this team learning the right things, fast enough, to justify continued spend? Framed that way, frequent delivery is the strongest evidence you can bring.</p>
+
+            <!-- key principle callout -->
+            <div style="margin:30px 0; border-left:4px solid var(--yellow); background:#fff; border:1px solid var(--line); border-left:4px solid var(--yellow); border-radius:0 8px 8px 0; padding:20px 24px;">
+              <div style="font-family:'Public Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--yellow-deep); margin-bottom:8px;">Key principle</div>
+              <div style="font-family:'Public Sans',sans-serif; font-size:18px; line-height:1.5; font-weight:600; color:var(--navy);">Treat each assurance point as a user need of its own: the assessor needs evidence the service is being built well. Plan to meet it, don’t scramble for it.</div>
+            </div>
+
+            <p style="margin:0 0 22px;">In practice this changes how you run a team. You keep a continuous trail of what you tested, what you learned, and what you changed &mdash; not as a separate reporting burden, but as the natural output of working in the open. By the time an assessment arrives, the narrative already exists.</p>
+
+            <h2 style="margin:38px 0 14px; font-family:'Public Sans',sans-serif; font-size:25px; font-weight:700; letter-spacing:-.01em; color:var(--navy);">Where delivery managers add the most</h2>
+            <p style="margin:0 0 18px;">Three habits separate teams that thrive under assurance from teams that stall:</p>
+            <ul style="margin:0 0 22px; padding-left:24px;">
+              <li style="margin-bottom:12px; padding-left:6px;">They make the team&rsquo;s progress <strong>visible by default</strong>, so assurance never requires a special effort.</li>
+              <li style="margin-bottom:12px; padding-left:6px;">They translate between <strong>delivery language and governance language</strong> without distorting either.</li>
+              <li style="margin-bottom:0; padding-left:6px;">They protect the team&rsquo;s pace by handling assurance <strong>as a stream of work</strong>, not a series of fire drills.</li>
+            </ul>
+
+            <!-- aside note -->
+            <div style="margin:30px 0; background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:18px 22px;">
+              <div style="font-family:'Public Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2); margin-bottom:7px;">Note</div>
+              <div style="font-size:16.5px; line-height:1.6; color:var(--ink-2);">Spending controls apply above set thresholds and at specific points in a service&rsquo;s life. The exact figures change &mdash; the reference card for this module keeps the current ones to hand.</div>
+            </div>
+
+            <p style="margin:0 0 8px;">Held together well, agile and assurance describe the same thing from two angles: a team that knows what it is building, why, and for whom &mdash; and can show it at any moment.</p>
+          </div>
+        </div>
+
+        <!-- footer nav -->
+        <div style="position:sticky; bottom:0; background:#fff; border-top:1px solid var(--line); padding:16px 32px; display:flex; align-items:center; justify-content:space-between;">
+          <button style="font-family:inherit; font-size:15px; font-weight:600; color:var(--navy); background:#fff; border:1.5px solid var(--line-2); border-radius:6px; padding:10px 18px; cursor:pointer; display:flex; align-items:center; gap:8px;">← Scenario</button>
+          <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-3);">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--navy);"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--navy);"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--yellow);"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--grey);"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--grey);"></span>
+          </div>
+          <button style="font-family:inherit; font-size:15px; font-weight:600; color:#fff; background:var(--navy); border:1px solid var(--navy); border-radius:6px; padding:11px 22px; cursor:pointer; display:flex; align-items:center; gap:8px;">Next · Understanding check →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer note -->
+  <div style="max-width:1180px; font-size:13px; color:#6F7165; line-height:1.6;">This is the proposal stage — design language plus the module-overview and guided-content screens. On your nod, I’ll build the rest of the archetypes and wire the clickable flows (pathway selection → module overview → a full tier run, plus the SME exercise reveal).</div>
+
+</div>
+</x-dc>
+</body>
+</html>
