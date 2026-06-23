@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #36384B;
+  --navy-deep: #2B2D3D;
+  --navy-soft: #4C4F66;
+  --ink: #2C2E3A;
+  --ink-2: #585B6C;
+  --ink-3: #83869A;
+  --yellow: #F6CE4C;
+  --yellow-deep: #9A7212;
+  --grey: #E9EAE4;
+  --paper: #F6F6F2;
+  --line: #E3E3DC;
+  --line-2: #CFCFC7;
+  --ready: #2F7A52;
+  --ready-bg: #E8F1EB;
+  --develop: #9A6B12;
+  --develop-bg: #F6EEDB;
+  --attention: #B0322F;
+  --attention-bg: #F6E6E4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@layer base {
+  html {
+    color: var(--ink);
+    background-color: var(--paper);
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--yellow);
+    border-radius: 4px;
+  }
+}

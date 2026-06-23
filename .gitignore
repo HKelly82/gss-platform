@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+.env
+.env.local
+.env*.local
+*.local
+.DS_Store
+.vercel
+.turbo
+*.tsbuildinfo
+working/qa-reports/
