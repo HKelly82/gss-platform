@@ -29,7 +29,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
     - Non-blockers: "Not yet published" badge `text-ink-3` → `text-ink-2`; dropped redundant wrapper `aria-label` on non-clickable variant.
   - `build-health`: PASS — typecheck, lint, production build clean. 438 SSG pages total. ModuleHub route First Load: 97 kB.
 - **Reports:** `working/qa-reports/module-hub-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`5ac2120`** on `origin/main`.
 - **Impact:** Mark-complete from `/takeaway` and `/T4/reflection` now lands on a real hub instead of a placeholder dead-end. Learners can navigate Module → Tier from the hub. Module → adjacent-Module navigation still requires the deferred Sidebar.
 
 ### `/build-component t4-expert-flow` — full Expert tier · all gates **PASS** (one a11y self-heal in-pass)
