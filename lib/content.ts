@@ -396,6 +396,30 @@ export function getReflectionBlock(tier: ParsedTier): ContentBlock | null {
   return tier.blocks.find((b) => b.component === 'reflection') ?? null;
 }
 
+export interface ModuleMeta {
+  moduleId: string;
+  moduleTitle: string;
+  availableTiers: Tier[];
+}
+
+export function getModuleMeta(moduleId: string): ModuleMeta | null {
+  const tierOrder: Tier[] = ['T1', 'T2', 'T3', 'T4'];
+  const availableTiers: Tier[] = [];
+  let moduleTitle = '';
+  for (const t of tierOrder) {
+    const parsed = getTier(moduleId, t);
+    if (parsed) {
+      availableTiers.push(t);
+      if (!moduleTitle) {
+        const header = parseTierHeader(parsed.preface);
+        moduleTitle = header.moduleTitle;
+      }
+    }
+  }
+  if (availableTiers.length === 0) return null;
+  return { moduleId, moduleTitle, availableTiers };
+}
+
 const MCQ_QUESTION_START_RE = /\*\*Question\s+(\d+)\.\*\*/g;
 const MCQ_STEM_RE = /^\*\*Question\s+\d+\.\*\*\s*([\s\S]+?)(?=\n\s*-\s+\*\*[A-D]\.)/;
 const MCQ_OPTION_RE =

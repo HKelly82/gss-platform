@@ -13,6 +13,25 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component module-hub` — MVP module hub · all gates **PASS** (one a11y self-heal · two blockers + three non-blockers)
+
+- **Renderer:** `components/ModuleHub.tsx` (client) — page chrome + placement-card-or-recap + four TierCards + bottom nav. Reads `useProgress` for tier status; writes `setPathway(pathway)` once on mount.
+- **TierCard:** `components/TierCard.tsx` (pure-render). Five status variants visually distinct via multiple non-colour cues (disc shape, badge, surface, CTA style). T1-T3 link to `/scenario`; T4 links to `/exercise`; not-yet-published is a non-clickable `<div>`.
+- **Parser:** `lib/content.ts` adds `getModuleMeta(moduleId)` — iterates tiers, sources `moduleTitle` from the first tier's `parseTierHeader`.
+- **Route:** `app/[pathway]/[module]/page.tsx` was placeholder, now SSG via `listModuleIds()` × BA/DM/PM = **24 pages**. Total SSG: **438** (was 414).
+- **MVP scope:** Sidebar / ModuleNavItem / current-tier ComponentRow expansion / ProgressSegments — all deferred to a future pass.
+- **QA gates:**
+  - `content-contract`: PASS — 12/12 checks. Module title from content; tier status logic from `useProgress`. Skipping never framed as failure. No DESIGNER NOTE leakage, no `localStorage` direct, no invented learner content. Tier taglines flagged as acceptable scaffold chrome.
+  - `design-fidelity`: PASS — 14/14. Zero raw hex; type/family/accent discipline clean. One non-defect observation: `border-[1.5px] border-line-2 border-l-[6px] border-l-yellow` cascade-order-dependent (same pattern as ReferenceCardEntry). Deferred to maintenance.
+  - `a11y-auditor`: **FAIL → PASS** after one self-heal bundle. Two blockers + three non-blockers, all fixed:
+    - **SC 1.3.1 / 2.4.6:** placement-card title `<p>` → `<h2>`; TierCard tier-label `<p>` → `<h3>`. Heading hierarchy now H1 → H2 → H3.
+    - **SC 1.4.11:** current-disc border `border-yellow` → `border-navy` (yellow on white was ≈ 1.4:1; navy on white ≈ 12:1).
+    - Non-blockers: "Not yet published" badge `text-ink-3` → `text-ink-2`; dropped redundant wrapper `aria-label` on non-clickable variant.
+  - `build-health`: PASS — typecheck, lint, production build clean. 438 SSG pages total. ModuleHub route First Load: 97 kB.
+- **Reports:** `working/qa-reports/module-hub-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+- **Impact:** Mark-complete from `/takeaway` and `/T4/reflection` now lands on a real hub instead of a placeholder dead-end. Learners can navigate Module → Tier from the hub. Module → adjacent-Module navigation still requires the deferred Sidebar.
+
 ### `/build-component t4-expert-flow` — full Expert tier · all gates **PASS** (one a11y self-heal in-pass)
 
 - **Renderers:**
