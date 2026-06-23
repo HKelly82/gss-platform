@@ -13,6 +13,42 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### **PoC gate reached.** M3-T2 tier flow live end-to-end on Vercel.
+
+UAT walkthrough confirmed by user:
+```
+/pm/M3/diagnostic          (pick B) →
+/pm/M3/T2/scenario         (full-bleed immersive, "Begin the guided content →") →
+/pm/M3/T2/guided           (calm reading register, sticky footer "Understanding check →") →
+/pm/M3/T2/check            (three MCQs, hidden-until-correct model answer) →
+/pm/M3/T2/takeaway         (Mark Foundations tier complete →) →
+/pm/M3                     (placeholder hub)
+```
+
+All four interactive renderers (DiagnosticDecision, ScenarioStage, GuidedContent, MultipleChoiceCheck, TakeawayList) and the two shared primitives (StickyFooter, ReferenceCardEntry) pass content-contract / design-fidelity / a11y-auditor / build-health. 318 SSG pages on the live deploy.
+
+Per `CLAUDE.md`: "After the first complete tier flow is wired end to end, STOP for human review before building the rest. This is the proof-of-concept gate." **At rest until human PoC review.**
+
+Open work for after PoC sign-off, in priority order:
+1. PathwayCard renderer for `/` (stub copy from spec until Phase 8 PATH-*.md files exist).
+2. ModuleHub / Sidebar / TierCard / ComponentRow renderers for `/[pathway]` and `/[pathway]/[module]` (so learners can navigate without typing URLs).
+3. ReferenceCard renderer for `/[pathway]/[module]/reference` (printable PDF question is D-6 in the build plan).
+4. Supplement renderer for `/[pathway]/[module]/supplement`.
+5. Three open follow-ups carried in MCQ + Takeaway summaries: `font-mono` drift on GuidedContent + ScenarioStage tier-name sublines; group-semantics consistency (DiagnosticDecision `<fieldset>` vs MCQ `role="group"`); extract `Dot` to shared component.
+6. L0 routing (real content now exists at `content/output/L0/`).
+7. SME routing (real content now exists at `content/output/SME/`).
+
+### Vercel submodule deploy regression · diagnosed and defended against
+
+UAT exposed that `/pm/M3/diagnostic` and the four T2 stage routes were **404 on Vercel** while building cleanly as 318 SSG pages locally. Root cause: `gss-curriculum` was private and Vercel's GitHub integration could not clone the submodule — `listModuleIds()` returned `[]` during the build, `generateStaticParams()` generated zero pages, and `dynamicParams = false` made every dynamic URL a 404.
+
+Fix path:
+- **Curriculum repo made public** (user action; Vercel doesn't expose a "Git Submodules" toggle in current UI — auto-clone happens automatically over HTTPS for accessible repos).
+- **`vercel.json` buildCommand override:** `git submodule update --init --recursive && next build` — makes submodule clone explicit, so a future auth/visibility regression fails the build instead of silently shipping empty content.
+- **`lib/content.ts` `assertContentLoaded()`:** wired into every SSG `generateStaticParams`. If `content/output/` has zero `M*/` directories, the build halts with a precise error message naming the likely causes.
+
+Commit: **`2075182`**. Subsequent Vercel redeploy ships the full 318-page site and the M3-T2 walkthrough works end-to-end.
+
 ### Curriculum submodule bumped · `fb8c4d4` → `c9c76ff`
 
 - Curriculum repo (`HKelly82/gss-curriculum`) shipped three new content groups:
