@@ -33,9 +33,7 @@ export function GuidedContent({
         <header>
           <p className="text-eyebrow text-yellow-deep">{eyebrow}</p>
           <h1 className="mt-2 text-h1 font-extrabold text-navy">{moduleTitle}</h1>
-          <p className="mt-3 font-mono text-mono-meta uppercase tracking-[0.08em] text-ink-2">
-            {tierName}
-          </p>
+          <p className="mt-3 text-eyebrow text-ink-2">{tierName}</p>
         </header>
 
         <div className="mt-10">

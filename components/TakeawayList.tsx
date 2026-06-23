@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Dot } from './Dot';
 import { Markdown } from './Markdown';
 import { ReferenceCardEntry } from './ReferenceCardEntry';
 import type { Pathway, Tier } from '@/lib/content';
@@ -16,20 +17,6 @@ interface TakeawayListProps {
   moduleTitle: string;
   tierName: string;
   bodyMarkdown: string;
-}
-
-interface DotProps {
-  state: 'done' | 'current' | 'upcoming';
-}
-
-function Dot({ state }: DotProps) {
-  const className =
-    state === 'current'
-      ? 'h-2.5 w-2.5 rounded-full bg-yellow'
-      : state === 'done'
-        ? 'h-2 w-2 rounded-full bg-navy'
-        : 'h-2 w-2 rounded-full bg-line-2';
-  return <span aria-hidden="true" className={className} />;
 }
 
 export function TakeawayList({
@@ -81,7 +68,7 @@ export function TakeawayList({
         >
           <Link
             href={checkHref}
-            className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy hover:bg-navy hover:text-white motion-reduce:transition-none"
+            className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy transition hover:bg-navy hover:text-white motion-reduce:transition-none"
           >
             <span aria-hidden="true">←</span> Understanding check
           </Link>
@@ -108,7 +95,7 @@ export function TakeawayList({
           <div className="flex items-center gap-3">
             <Link
               href={moduleHref}
-              className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy hover:bg-navy hover:text-white motion-reduce:transition-none"
+              className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy transition hover:bg-navy hover:text-white motion-reduce:transition-none"
             >
               Back to module
             </Link>
@@ -117,7 +104,7 @@ export function TakeawayList({
               onClick={onComplete}
               disabled={completing}
               aria-busy={completing || undefined}
-              className="inline-flex items-center gap-2 rounded-control bg-navy px-4 py-2 font-sans text-body font-semibold text-white hover:bg-navy-deep disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
+              className="inline-flex items-center gap-2 rounded-control bg-navy px-4 py-2 font-sans text-body font-semibold text-white transition hover:bg-navy-deep disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
             >
               {completing ? 'Marking complete…' : `Mark ${tierName} complete`}{' '}
               <span aria-hidden="true">→</span>

@@ -13,6 +13,34 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### Maintenance sweep — 7 cross-renderer follow-ups resolved · build-health **PASS**
+
+Pure refactor pass; no new routes. Same 481 SSG pages before and after.
+
+1. **`Dot` extracted** to `components/Dot.tsx`. Imported by `StickyFooter`, `TakeawayList`, `T4Reflection` (was three duplicate inline copies).
+2. **`font-mono` tier-name drift fixed** in `GuidedContent.tsx` and `ScenarioStage.tsx` (last two renderers still on the mono drift; everything else already corrected). Both now use `text-eyebrow text-ink-2` (or `text-eyebrow text-white/70` on the dark surface).
+3. **Group semantics standardised.** `DiagnosticDecision.tsx` `<fieldset>/<legend>` → `<section aria-labelledby> + <h2> + <div role="group" aria-labelledby>`. Matches `MultipleChoiceCheck.tsx`'s pattern.
+4. **`border-l-*` cascade fragility resolved.** `ReferenceCardEntry.tsx` and ModuleHub placement card both switched from `border-[1.5px] border-line-2 border-l-[6px] border-l-yellow` shorthand collision to a `before:` pseudo-element pattern. Independent of border shorthand.
+5. **`transition` class added** to every secondary `<Link>`-as-button and primary action site-wide (10 component files). Hover state changes now ease instead of instant-snapping.
+6. **ModuleHub "Supplement" button gated.** `app/[pathway]/[module]/page.tsx` passes `hasSupplement: boolean` (via `getSupplement(moduleId, pathway)`); when false the nav button renders as a disabled `<span aria-disabled="true">` styled `bg-grey text-ink-3` showing "{Pathway} supplement — not yet available" instead of a Link to a 404.
+7. **`/[pathway]` section h2** added inside `<section>` for SR-nav parity with `/` (`sr-only` so visually unchanged).
+
+Verified by `build-health`:
+- Typecheck, lint, production build clean.
+- `font-mono text-mono-meta` now appears only in `ReferenceCard.tsx` (the spec-sanctioned mono context).
+- `<fieldset>` / `<legend>` no longer in DiagnosticDecision.
+- `border-l-yellow` shorthand gone everywhere.
+- Every `hover:bg-navy` line carries `transition`.
+- `Dot` class string only in `components/Dot.tsx`.
+
+Open follow-ups remaining: **2** (down from 9):
+- `◑` spec glyph drift — upstream (your action; not platform code).
+- Sidebar / ModuleNavItem on ModuleHub — feature, not maintenance.
+
+Reports: `working/qa-reports/maintenance-pass-build-health.md`. No QA chain dispatched on touched files — every change was a documented refactor of an already-PASS surface; build-health is sufficient validation.
+
+**Commit:** TBD on push.
+
 ### `/build-component pathway-entry` — `/` pathway selection + `/[pathway]` pathway home · all gates **PASS** (two polishes in-pass)
 
 - **Renderers:**

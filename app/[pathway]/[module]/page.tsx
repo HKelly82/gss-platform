@@ -4,8 +4,10 @@ import { PageBody } from '@/components/PageBody';
 import {
   assertContentLoaded,
   getModuleMeta,
+  getSupplement,
   listModuleIds,
   type Pathway,
+  type SupplementPathway,
 } from '@/lib/content';
 
 const PATHWAY_SLUGS = ['ba', 'dm', 'pm'] as const;
@@ -33,12 +35,16 @@ export default function ModuleHubPage({ params }: { params: Params }) {
   const meta = getModuleMeta(params.module);
   if (!meta) notFound();
 
+  const pathway = PATHWAY_BY_SLUG[pathwaySlug];
+  const hasSupplement = getSupplement(params.module, pathway as SupplementPathway) !== null;
+
   return (
     <PageBody>
       <ModuleHub
-        pathway={PATHWAY_BY_SLUG[pathwaySlug]}
+        pathway={pathway}
         pathwaySlug={pathwaySlug}
         moduleMeta={meta}
+        hasSupplement={hasSupplement}
       />
     </PageBody>
   );

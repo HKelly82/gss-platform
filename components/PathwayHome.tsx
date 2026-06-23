@@ -58,7 +58,10 @@ export function PathwayHome({ pathway, pathwaySlug, modules }: PathwayHomeProps)
         </p>
       </header>
 
-      <section aria-label="Modules" className="flex flex-col gap-3">
+      <section aria-labelledby="pathway-home-modules" className="flex flex-col gap-3">
+        <h2 id="pathway-home-modules" className="sr-only">
+          Modules
+        </h2>
         {modules.map((mod) => {
           const { status, detailLabel } = statusFor(mod.moduleId);
           return (

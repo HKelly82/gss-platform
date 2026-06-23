@@ -75,11 +75,18 @@ export function DiagnosticDecision({
         <Markdown source={scenarioMarkdown} variant="reading" />
       </section>
 
-      <fieldset className="mt-10">
-        <legend className="text-eyebrow uppercase tracking-[0.08em] text-yellow-deep">
+      <section aria-labelledby={`${reassuranceId}-choices`} className="mt-10">
+        <h2
+          id={`${reassuranceId}-choices`}
+          className="text-eyebrow uppercase tracking-[0.08em] text-yellow-deep"
+        >
           Choose the answer closest to what you would say
-        </legend>
-        <div className="mt-4 flex flex-col gap-4">
+        </h2>
+        <div
+          role="group"
+          aria-labelledby={`${reassuranceId}-choices`}
+          className="mt-4 flex flex-col gap-4"
+        >
           {options.map((option) => {
             const isPending = pending === option.letter;
             const isDisabled = pending !== null && !isPending;
@@ -95,7 +102,7 @@ export function DiagnosticDecision({
               >
                 <span
                   aria-hidden="true"
-                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-navy bg-white text-h3 font-bold text-navy group-hover:bg-navy group-hover:text-white motion-reduce:transition-none"
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-navy bg-white text-h3 font-bold text-navy transition group-hover:bg-navy group-hover:text-white motion-reduce:transition-none"
                 >
                   {option.letter}
                 </span>
@@ -112,7 +119,7 @@ export function DiagnosticDecision({
             );
           })}
         </div>
-      </fieldset>
+      </section>
 
       {notesMarkdown ? (
         <section className="mt-12 border-t border-line pt-6" aria-label="Notes on the placement">

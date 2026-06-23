@@ -10,7 +10,7 @@ export function ReferenceCardEntry({ href, moduleId }: ReferenceCardEntryProps) 
     <Link
       href={href}
       aria-label={`Open Module ${moduleId.slice(1)} reference card`}
-      className="group flex flex-col gap-1 rounded-card-lg border-[1.5px] border-line-2 border-l-[6px] border-l-yellow bg-white p-6 shadow-card transition hover:border-navy hover:border-l-yellow hover:shadow-lift motion-reduce:transition-none"
+      className="group relative flex flex-col gap-1 overflow-hidden rounded-card-lg border-[1.5px] border-line-2 bg-white p-6 shadow-card transition before:absolute before:left-0 before:top-0 before:h-full before:w-[6px] before:bg-yellow before:content-[''] hover:border-navy hover:shadow-lift motion-reduce:transition-none"
     >
       <span className="text-eyebrow text-yellow-deep">Reference card</span>
       <span className="font-sans text-h3 font-semibold text-navy">

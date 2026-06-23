@@ -10,6 +10,7 @@ interface ModuleHubProps {
   pathway: Pathway;
   pathwaySlug: string;
   moduleMeta: ModuleMeta;
+  hasSupplement: boolean;
 }
 
 const TIER_LABELS: Record<Tier, { label: string; tagline: string }> = {
@@ -26,7 +27,7 @@ function tierStartHref(pathwaySlug: string, moduleId: string, tier: Tier): strin
   return `/${pathwaySlug}/${moduleId}/${tier}/${stage}`;
 }
 
-export function ModuleHub({ pathway, pathwaySlug, moduleMeta }: ModuleHubProps) {
+export function ModuleHub({ pathway, pathwaySlug, moduleMeta, hasSupplement }: ModuleHubProps) {
   const progress = useProgress();
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export function ModuleHub({ pathway, pathwaySlug, moduleMeta }: ModuleHubProps) 
       {!placement ? (
         <section
           aria-label="Module-entry diagnostic"
-          className="flex flex-col gap-2 rounded-card-lg border-[1.5px] border-line-2 border-l-[6px] border-l-yellow bg-white p-6"
+          className="relative flex flex-col gap-2 overflow-hidden rounded-card-lg border-[1.5px] border-line-2 bg-white p-6 before:absolute before:left-0 before:top-0 before:h-full before:w-[6px] before:bg-yellow before:content-['']"
         >
           <p className="text-eyebrow text-yellow-deep">Start here</p>
           <h2 className="font-sans text-h3 font-semibold text-navy">
@@ -79,7 +80,7 @@ export function ModuleHub({ pathway, pathwaySlug, moduleMeta }: ModuleHubProps) 
           <div className="mt-2">
             <Link
               href={`/${pathwaySlug}/${moduleMeta.moduleId}/diagnostic`}
-              className="inline-flex items-center gap-2 rounded-control bg-navy px-4 py-2 font-sans text-body font-semibold text-white hover:bg-navy-deep motion-reduce:transition-none"
+              className="inline-flex items-center gap-2 rounded-control bg-navy px-4 py-2 font-sans text-body font-semibold text-white transition hover:bg-navy-deep motion-reduce:transition-none"
             >
               Take the diagnostic <span aria-hidden="true">→</span>
             </Link>
@@ -128,22 +129,32 @@ export function ModuleHub({ pathway, pathwaySlug, moduleMeta }: ModuleHubProps) 
       <nav aria-label="Module navigation" className="flex flex-wrap gap-3 border-t border-line pt-6">
         <Link
           href={`/${pathwaySlug}`}
-          className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy hover:bg-navy hover:text-white motion-reduce:transition-none"
+          className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy transition hover:bg-navy hover:text-white motion-reduce:transition-none"
         >
           <span aria-hidden="true">←</span> Pathway home
         </Link>
         <Link
           href={`/${pathwaySlug}/${moduleMeta.moduleId}/reference`}
-          className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy hover:bg-navy hover:text-white motion-reduce:transition-none"
+          className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy transition hover:bg-navy hover:text-white motion-reduce:transition-none"
         >
           Reference card
         </Link>
-        <Link
-          href={`/${pathwaySlug}/${moduleMeta.moduleId}/supplement`}
-          className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy hover:bg-navy hover:text-white motion-reduce:transition-none"
-        >
-          {pathway} supplement
-        </Link>
+        {hasSupplement ? (
+          <Link
+            href={`/${pathwaySlug}/${moduleMeta.moduleId}/supplement`}
+            className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy transition hover:bg-navy hover:text-white motion-reduce:transition-none"
+          >
+            {pathway} supplement
+          </Link>
+        ) : (
+          <span
+            aria-disabled="true"
+            title={`No ${pathway} supplement for Module ${moduleMeta.moduleId.slice(1)}`}
+            className="inline-flex cursor-not-allowed items-center gap-2 rounded-control border border-line bg-grey px-4 py-2 font-sans text-body font-semibold text-ink-3"
+          >
+            {pathway} supplement — not yet available
+          </span>
+        )}
       </nav>
     </div>
   );

@@ -1,24 +1,11 @@
 import Link from 'next/link';
+import { Dot } from './Dot';
 
 interface StickyFooterProps {
   prev?: { href: string; label: string };
   next?: { href: string; label: string };
   stepCount: number;
   currentStep: number;
-}
-
-interface DotProps {
-  state: 'done' | 'current' | 'upcoming';
-}
-
-function Dot({ state }: DotProps) {
-  const className =
-    state === 'current'
-      ? 'h-2.5 w-2.5 rounded-full bg-yellow'
-      : state === 'done'
-        ? 'h-2 w-2 rounded-full bg-navy'
-        : 'h-2 w-2 rounded-full bg-line-2';
-  return <span aria-hidden="true" className={className} />;
 }
 
 export function StickyFooter({ prev, next, stepCount, currentStep }: StickyFooterProps) {
@@ -31,7 +18,7 @@ export function StickyFooter({ prev, next, stepCount, currentStep }: StickyFoote
         {prev ? (
           <Link
             href={prev.href}
-            className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy hover:bg-navy hover:text-white motion-reduce:transition-none"
+            className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy transition hover:bg-navy hover:text-white motion-reduce:transition-none"
           >
             <span aria-hidden="true">←</span> {prev.label}
           </Link>
@@ -45,7 +32,7 @@ export function StickyFooter({ prev, next, stepCount, currentStep }: StickyFoote
         >
           {Array.from({ length: stepCount }, (_, i) => {
             const idx = i + 1;
-            const state: DotProps['state'] =
+            const state: 'done' | 'current' | 'upcoming' =
               idx < currentStep ? 'done' : idx === currentStep ? 'current' : 'upcoming';
             return (
               <li key={idx}>
@@ -62,7 +49,7 @@ export function StickyFooter({ prev, next, stepCount, currentStep }: StickyFoote
         {next ? (
           <Link
             href={next.href}
-            className="inline-flex items-center gap-2 rounded-control bg-navy px-4 py-2 font-sans text-body font-semibold text-white hover:bg-navy-deep motion-reduce:transition-none"
+            className="inline-flex items-center gap-2 rounded-control bg-navy px-4 py-2 font-sans text-body font-semibold text-white transition hover:bg-navy-deep motion-reduce:transition-none"
           >
             {next.label} <span aria-hidden="true">→</span>
           </Link>

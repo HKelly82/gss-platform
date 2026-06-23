@@ -30,7 +30,7 @@ export function ReferenceCard({
       >
         <Link
           href={moduleHref}
-          className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy hover:bg-navy hover:text-white motion-reduce:transition-none"
+          className="inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy transition hover:bg-navy hover:text-white motion-reduce:transition-none"
         >
           <span aria-hidden="true">←</span> Back to Module {moduleNumber}
         </Link>

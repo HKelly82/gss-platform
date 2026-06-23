@@ -54,9 +54,9 @@ export function TierCard({ tier, tierLabel, tierTagline, startHref, status }: Ti
 
   const ctaClassName =
     cta.variant === 'primary'
-      ? 'inline-flex items-center gap-2 rounded-control bg-navy px-4 py-2 font-sans text-body font-semibold text-white hover:bg-navy-deep motion-reduce:transition-none'
+      ? 'inline-flex items-center gap-2 rounded-control bg-navy px-4 py-2 font-sans text-body font-semibold text-white transition hover:bg-navy-deep motion-reduce:transition-none'
       : cta.variant === 'secondary'
-        ? 'inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy hover:bg-navy hover:text-white motion-reduce:transition-none'
+        ? 'inline-flex items-center gap-2 rounded-control border-[1.5px] border-navy bg-white px-4 py-2 font-sans text-body font-semibold text-navy transition hover:bg-navy hover:text-white motion-reduce:transition-none'
         : 'inline-flex items-center gap-2 rounded-control bg-grey px-4 py-2 font-sans text-body text-ink-3';
 
   const inner = (
