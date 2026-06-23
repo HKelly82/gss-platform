@@ -1,7 +1,12 @@
 import { notFound } from 'next/navigation';
 import { DiagnosticDecision } from '@/components/DiagnosticDecision';
 import { PageBody } from '@/components/PageBody';
-import { getDiagnosticForModule, listModuleIds, type Pathway } from '@/lib/content';
+import {
+  assertContentLoaded,
+  getDiagnosticForModule,
+  listModuleIds,
+  type Pathway,
+} from '@/lib/content';
 
 const PATHWAY_SLUGS = ['ba', 'dm', 'pm'] as const;
 type PathwaySlug = (typeof PATHWAY_SLUGS)[number];
@@ -18,6 +23,7 @@ interface Params {
 }
 
 export function generateStaticParams(): Array<{ pathway: PathwaySlug; module: string }> {
+  assertContentLoaded();
   return PATHWAY_SLUGS.flatMap((pathway) =>
     listModuleIds().map((module) => ({ pathway, module })),
   );

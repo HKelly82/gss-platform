@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
+  "buildCommand": "git submodule update --init --recursive && next build",
   "headers": [
     {
       "source": "/(.*)",

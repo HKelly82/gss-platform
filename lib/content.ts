@@ -317,6 +317,20 @@ export function listModuleIds(): string[] {
     .sort();
 }
 
+export function assertContentLoaded(): void {
+  if (listModuleIds().length === 0) {
+    throw new Error(
+      [
+        'content/output/ is empty or missing.',
+        'The curriculum submodule (HKelly82/gss-curriculum) failed to clone.',
+        'Likely causes: Vercel cannot read the submodule repo (check visibility + Vercel GitHub App access),',
+        'or the build is running without `git submodule update --init --recursive`.',
+        'See SETUP.md for the wiring steps.',
+      ].join(' '),
+    );
+  }
+}
+
 export function getModuleEntry(moduleId: string): ParsedEntry | null {
   const filePath = path.join(CONTENT_ROOT, moduleId, `${moduleId}-entry.md`);
   if (!fs.existsSync(filePath)) return null;

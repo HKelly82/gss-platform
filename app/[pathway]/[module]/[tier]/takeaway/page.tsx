@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { PageBody } from '@/components/PageBody';
 import { TakeawayList } from '@/components/TakeawayList';
 import {
+  assertContentLoaded,
   getTakeawayBlock,
   getTier,
   listExistingTiers,
@@ -26,6 +27,7 @@ export function generateStaticParams(): Array<{
   module: string;
   tier: Tier;
 }> {
+  assertContentLoaded();
   const existing = listExistingTiers().filter((t) => TIER_SLUGS.includes(t.tier));
   return PATHWAY_SLUGS.flatMap((pathway) =>
     existing.map(({ moduleId, tier }) => ({ pathway, module: moduleId, tier })),

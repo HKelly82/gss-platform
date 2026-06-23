@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { GuidedContent } from '@/components/GuidedContent';
 import { PageBody } from '@/components/PageBody';
 import {
+  assertContentLoaded,
   getGuidedBlock,
   getTier,
   listExistingTiers,
@@ -24,6 +25,7 @@ export function generateStaticParams(): Array<{
   module: string;
   tier: Tier;
 }> {
+  assertContentLoaded();
   const existing = listExistingTiers().filter((t) => TIER_SLUGS.includes(t.tier));
   return PATHWAY_SLUGS.flatMap((pathway) =>
     existing.map(({ moduleId, tier }) => ({ pathway, module: moduleId, tier })),
