@@ -32,6 +32,22 @@ export interface ContentBlock {
   designerNotes: string[];
 }
 
+export type PlacementChoice = 'A' | 'B' | 'C' | 'D';
+
+export interface DiagnosticOption {
+  letter: PlacementChoice;
+  answer: string;
+  explanation: string;
+  landingTier: Tier;
+  landingLabel: string;
+}
+
+export interface ParsedDiagnostic {
+  scenarioMarkdown: string;
+  options: DiagnosticOption[];
+  notesMarkdown: string;
+}
+
 export interface BaseFrontmatter {
   sources: string[];
   status: FileStatus;
@@ -281,6 +297,14 @@ export function getModuleEntry(moduleId: string): ParsedEntry | null {
   return parsed.kind === 'entry' ? parsed : null;
 }
 
+export function getDiagnosticForModule(moduleId: string): ParsedDiagnostic | null {
+  const entry = getModuleEntry(moduleId);
+  if (!entry) return null;
+  const diagnosticBlock = entry.blocks.find((b) => b.component === 'diagnostic');
+  if (!diagnosticBlock) return null;
+  return parseDiagnosticBlock(diagnosticBlock);
+}
+
 export function getTier(moduleId: string, tier: Tier): ParsedTier | null {
   const filePath = path.join(CONTENT_ROOT, moduleId, `${moduleId}-${tier}.md`);
   if (!fs.existsSync(filePath)) return null;
@@ -310,6 +334,48 @@ export function listSuppLongform(): ParsedLongform[] {
     .filter((p) => /[\\/]SUPP-/.test(p))
     .map(parseFile)
     .filter((p): p is ParsedLongform => p.kind === 'longform');
+}
+
+const DIAGNOSTIC_OPTION_RE =
+  /\*\*([A-D])\.\s*"([\s\S]*?)"\*\*\s*\n+\s*\*([\s\S]*?)\*\s*\n+\s*→\s*Start at\s+\*\*M\d+-(T[1-4])\s*\(([^)]+)\)\*\*/g;
+
+export function parseDiagnosticBlock(block: ContentBlock): ParsedDiagnostic {
+  const body = block.body;
+  const options: DiagnosticOption[] = [];
+  let firstOptionStart = -1;
+  let lastOptionEnd = 0;
+
+  DIAGNOSTIC_OPTION_RE.lastIndex = 0;
+  let match: RegExpExecArray | null;
+  while ((match = DIAGNOSTIC_OPTION_RE.exec(body)) !== null) {
+    if (firstOptionStart === -1) firstOptionStart = match.index;
+    lastOptionEnd = match.index + match[0].length;
+    options.push({
+      letter: match[1] as PlacementChoice,
+      answer: match[2].replace(/\s+/g, ' ').trim(),
+      explanation: match[3].replace(/\s+/g, ' ').trim(),
+      landingTier: match[4] as Tier,
+      landingLabel: match[5].trim(),
+    });
+  }
+
+  if (options.length === 0) {
+    return { scenarioMarkdown: body.trim(), options: [], notesMarkdown: '' };
+  }
+
+  const scenarioRaw = body.slice(0, firstOptionStart);
+  const notesRaw = body.slice(lastOptionEnd);
+
+  const trimTrailingRule = (s: string): string =>
+    s.replace(/\n\s*---\s*$/m, '').trim();
+  const trimLeadingRule = (s: string): string =>
+    s.replace(/^\s*---\s*\n/m, '').trim();
+
+  return {
+    scenarioMarkdown: trimTrailingRule(scenarioRaw),
+    options,
+    notesMarkdown: trimLeadingRule(notesRaw),
+  };
 }
 
 export function listAllContentFiles(): string[] {

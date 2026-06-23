@@ -1,16 +1,45 @@
-import { Placeholder } from '@/components/Placeholder';
+import { notFound } from 'next/navigation';
+import { DiagnosticDecision } from '@/components/DiagnosticDecision';
+import { getDiagnosticForModule, listModuleIds, type Pathway } from '@/lib/content';
+
+const PATHWAY_SLUGS = ['ba', 'dm', 'pm'] as const;
+type PathwaySlug = (typeof PATHWAY_SLUGS)[number];
+
+const PATHWAY_BY_SLUG: Record<PathwaySlug, Pathway> = {
+  ba: 'BA',
+  dm: 'DM',
+  pm: 'PM',
+};
 
 interface Params {
   pathway: string;
   module: string;
 }
 
+export function generateStaticParams(): Array<{ pathway: PathwaySlug; module: string }> {
+  return PATHWAY_SLUGS.flatMap((pathway) =>
+    listModuleIds().map((module) => ({ pathway, module })),
+  );
+}
+
+export const dynamicParams = false;
+
 export default function ModuleEntryDiagnosticPage({ params }: { params: Params }) {
+  const pathwaySlug = params.pathway as PathwaySlug;
+  if (!PATHWAY_SLUGS.includes(pathwaySlug)) notFound();
+  const pathway = PATHWAY_BY_SLUG[pathwaySlug];
+  const moduleId = params.module;
+  const diagnostic = getDiagnosticForModule(moduleId);
+  if (!diagnostic || diagnostic.options.length === 0) {
+    notFound();
+  }
   return (
-    <Placeholder
-      title={`Module-entry diagnostic — ${params.module}`}
-      route={`/${params.pathway}/${params.module}/diagnostic`}
-      description="Four-option placement diagnostic from M*-entry.md. Selecting an option records placement in lib/progress and routes to the landing tier."
+    <DiagnosticDecision
+      pathway={pathway}
+      moduleId={moduleId}
+      scenarioMarkdown={diagnostic.scenarioMarkdown}
+      options={diagnostic.options}
+      notesMarkdown={diagnostic.notesMarkdown}
     />
   );
 }

@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react';
+import type { Pathway, PlacementChoice, Tier } from './content';
 
-export type Pathway = 'BA' | 'DM' | 'PM' | 'SME';
-export type Tier = 'T1' | 'T2' | 'T3' | 'T4';
+export type { Pathway, PlacementChoice, Tier } from './content';
 export type ComponentKey =
   | 'scenario'
   | 'guided'
@@ -13,7 +13,6 @@ export type ComponentKey =
   | 'reflection';
 export type SkipReason = 'placement' | 'self-check' | 'manual';
 export type ComponentStatus = 'unseen' | 'viewed' | 'complete';
-export type PlacementChoice = 'A' | 'B' | 'C' | 'D';
 
 export interface CheckRecord {
   answerIdx?: number;

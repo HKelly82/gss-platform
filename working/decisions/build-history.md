@@ -13,6 +13,20 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component diagnostic-decision` — module-entry placement · all gates **PASS**
+
+- **Renderer:** `components/DiagnosticDecision.tsx` (client) + `components/Markdown.tsx` (server wrapper for scenario + notes, with `reading`/`notes`/`scenario-dark` variants).
+- **Page:** `app/[pathway]/[module]/diagnostic/page.tsx` — SSG with `generateStaticParams` enumerating BA/DM/PM × M1..M8 (24 pages), `dynamicParams = false`. SME pathway correctly excluded.
+- **Parser:** `lib/content.ts` extended with `parseDiagnosticBlock`, `getDiagnosticForModule`, `DiagnosticOption` type. `PlacementChoice` consolidated in `lib/content.ts` and re-exported from `lib/progress.ts` (single source).
+- **Deps:** `react-markdown@9.1.0`, `remark-gfm@4.0.1` added.
+- **QA gates:**
+  - `content-contract`: PASS — 10/10 checks. Module-entry only (no per-tier diagnostic route), four options parsed across all 8 entry files (32 total), routing branches match plan §3, reassurance line verbatim from spec §3, no DESIGNER NOTE leakage, no direct storage access.
+  - `design-fidelity`: PASS — zero raw hex; tokens throughout; accent discipline preserved. One observation (derived `pl-[3.25rem]` indent) **fixed in-pass** by refactoring to CSS grid (`grid-cols-[2.25rem_1fr]`).
+  - `a11y-auditor`: PASS — WCAG 2.2 AA across all 12 checks. Two non-blocking observations recorded and accepted: `<fieldset>` for route-action buttons (vs. `<div role="group">`) — kept as-is; optional `role="status"` for routing announcement — accepted (Next route announcer covers minimum).
+  - `build-health`: PASS — typecheck, lint, production build green. 24 SSG pages built. Route First Load JS = 133 kB (~46 kB route-specific, mostly `react-markdown`).
+- **Reports:** `working/qa-reports/diagnostic-decision-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/scaffold` — Next.js app laid down · build-health **PASS**
 
 - Next.js **14.2.18** App Router · TypeScript strict · Tailwind **3.4.14**.
