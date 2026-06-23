@@ -25,7 +25,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `a11y-auditor`: PASS — WCAG 2.2 AA across all 12 checks. Two non-blocking observations recorded and accepted: `<fieldset>` for route-action buttons (vs. `<div role="group">`) — kept as-is; optional `role="status"` for routing announcement — accepted (Next route announcer covers minimum).
   - `build-health`: PASS — typecheck, lint, production build green. 24 SSG pages built. Route First Load JS = 133 kB (~46 kB route-specific, mostly `react-markdown`).
 - **Reports:** `working/qa-reports/diagnostic-decision-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`37ab90f`** on `origin/main`.
 
 ### `/scaffold` — Next.js app laid down · build-health **PASS**
 
