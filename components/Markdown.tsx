@@ -3,7 +3,7 @@ import remarkGfm from 'remark-gfm';
 
 interface MarkdownProps {
   source: string;
-  variant?: 'reading' | 'notes' | 'scenario-dark';
+  variant?: 'reading' | 'reading-reference' | 'notes' | 'scenario-dark';
 }
 
 function readingComponents(): Components {
@@ -43,6 +43,29 @@ function readingComponents(): Components {
         {children}
       </a>
     ),
+    code: ({ children }) => (
+      <code className="rounded-sm bg-grey px-1 py-0.5 font-mono text-mono-meta text-ink">
+        {children}
+      </code>
+    ),
+    table: ({ children }) => (
+      <div className="mt-6 overflow-x-auto">
+        <table className="w-full border-collapse border border-line text-body">{children}</table>
+      </div>
+    ),
+    thead: ({ children }) => <thead className="bg-grey">{children}</thead>,
+    tbody: ({ children }) => <tbody>{children}</tbody>,
+    tr: ({ children }) => <tr className="border-b border-line">{children}</tr>,
+    th: ({ children }) => (
+      <th className="border-r border-line px-3 py-2 text-left align-top font-sans font-semibold text-navy last:border-r-0">
+        {children}
+      </th>
+    ),
+    td: ({ children }) => (
+      <td className="border-r border-line px-3 py-2 align-top font-serif text-body text-ink last:border-r-0">
+        {children}
+      </td>
+    ),
   };
 }
 
@@ -56,6 +79,29 @@ function notesComponents(): Components {
       </h3>
     ),
     ul: ({ children }) => <ul className="mt-3 list-disc space-y-2 pl-6 text-body text-ink-2">{children}</ul>,
+  };
+}
+
+function readingReferenceComponents(): Components {
+  // Preserves the H2 → <h2>, H3 → <h3> hierarchy that reference-card content
+  // authors. The default `reading` variant promotes ### → <h2> to bridge guided
+  // content where bodies start at H3 under the page H1; reference cards already
+  // use H2 / H3 correctly, so promotion would flatten the structure
+  // (WCAG SC 1.3.1 hierarchy skip).
+  return {
+    ...readingComponents(),
+    h1: ({ children }) => (
+      <h2 className="mt-8 text-h2 font-bold text-navy first:mt-0">{children}</h2>
+    ),
+    h2: ({ children }) => (
+      <h2 className="mt-8 text-h2 font-bold text-navy">{children}</h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="mt-6 text-h3 font-semibold text-navy">{children}</h3>
+    ),
+    h4: ({ children }) => (
+      <h4 className="mt-4 font-sans text-body font-semibold text-navy">{children}</h4>
+    ),
   };
 }
 
@@ -81,7 +127,9 @@ export function Markdown({ source, variant = 'reading' }: MarkdownProps) {
       ? notesComponents()
       : variant === 'scenario-dark'
         ? scenarioDarkComponents()
-        : readingComponents();
+        : variant === 'reading-reference'
+          ? readingReferenceComponents()
+          : readingComponents();
 
   return (
     <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>

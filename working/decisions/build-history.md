@@ -13,6 +13,23 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component reference-card` — printable reference card · all gates **PASS** (two self-heals · D-6 implemented)
+
+- **Renderer:** `components/ReferenceCard.tsx` (server) — page chrome (back-to-module + Download PDF) + card article with mono eyebrow, prefix-stripped display H1, 2 px navy bottom rule, standfirst, and body markdown (via new `reading-reference` variant). Card uses `max-w-scenario` (760 px per spec §8) on a `bg-grey` page background.
+- **Print:** `components/PrintReferenceButton.tsx` (client island) calls `window.print()` per D-6. On mount: `setPathway` + `markReferenceViewed`.
+- **Parser:** `lib/content.ts` adds `parseReferenceCardView(card)` returning `{ displayTitle, standfirstMarkdown, bodyMarkdown }`. Strips `REF-M{N} —` prefix from the H1.
+- **Markdown extensions:** `reading` variant gained table/thead/tbody/tr/th/td and `code` mappings. **New `reading-reference` variant** preserves H2 → `<h2>` and H3 → `<h3>` distinction (the default `reading` variant promotes ### → <h2> for guided content, which would flatten REF cards' section/subsection structure).
+- **Print stylesheet:** `AppBar` got `print:hidden`. `globals.css` got `@media print { background: white; print-color-adjust: exact }`. ReferenceCard chrome (back link + Download button) wraps in `print:hidden` nav.
+- **Route:** `app/[pathway]/[module]/reference/page.tsx` was placeholder; now SSG via `listModuleIds()` × BA/DM/PM = **24 pages**. Total SSG: **462** (was 438). Page wrapper now `bg-grey min-h-screen print:bg-white` (per spec §8 "card sits on grey").
+- **QA gates:**
+  - `content-contract`: PASS — 13/13. `window.print()` per D-6. H1 prefix stripping verified for all 8 REF-M*.md files. DESIGNER NOTE stripped. No invented learner copy.
+  - `design-fidelity`: **FAIL → PASS** after one self-heal · 2 fixes. (1) Page wrapped in `bg-grey` per spec §8. (2) `code` element handler added to `reading` variant — backtick URLs now styled (mono chip on grey bg).
+  - `a11y-auditor`: **FAIL → PASS** after one self-heal. WCAG SC 1.3.1: REF-M3's H2 → H3 sub-section hierarchy was being flattened by the `reading` variant's ### → <h2> promotion. Fix: new `reading-reference` variant preserves the distinction; ReferenceCard passes `variant="reading-reference"` for body markdown.
+  - `build-health`: PASS — typecheck, lint, production build clean. 462 SSG pages total. Reference route First Load: 95.2 kB.
+- **D-6 done:** Reference cards now print via `window.print()` with print-color-adjust ensuring yellow accents and navy rules survive. Print stylesheet hides AppBar + action nav. Card unstyled for print (no rounding, border, padding, max-width — fills the print page).
+- **Reports:** `working/qa-reports/reference-card-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/build-component module-hub` — MVP module hub · all gates **PASS** (one a11y self-heal · two blockers + three non-blockers)
 
 - **Renderer:** `components/ModuleHub.tsx` (client) — page chrome + placement-card-or-recap + four TierCards + bottom nav. Reads `useProgress` for tier status; writes `setPathway(pathway)` once on mount.

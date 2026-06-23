@@ -402,6 +402,59 @@ export interface ModuleMeta {
   availableTiers: Tier[];
 }
 
+export interface ReferenceCardView {
+  displayTitle: string;
+  standfirstMarkdown: string;
+  bodyMarkdown: string;
+}
+
+export function parseReferenceCardView(card: ParsedReferenceCard): ReferenceCardView {
+  const body = card.body;
+  const lines = body.split(/\r?\n/);
+
+  const h1Idx = lines.findIndex((l) => /^#\s+\S/.test(l));
+  let displayTitle = '';
+  let rest: string;
+  if (h1Idx >= 0) {
+    const h1Line = lines[h1Idx].replace(/^#\s+/, '').trim();
+    displayTitle = h1Line.replace(/^REF-M\d+\s*[—-]\s*/, '').trim();
+    rest = lines
+      .slice(h1Idx + 1)
+      .join('\n')
+      .trim();
+  } else {
+    rest = body;
+  }
+
+  const restLines = rest.split(/\r?\n/);
+  let standfirstEnd = restLines.length;
+  let sawContent = false;
+  for (let i = 0; i < restLines.length; i++) {
+    const line = restLines[i];
+    if (line.trim() === '') {
+      if (sawContent) {
+        standfirstEnd = i;
+        break;
+      }
+      continue;
+    }
+    if (/^---\s*$/.test(line) || /^#{1,6}\s+/.test(line)) {
+      standfirstEnd = i;
+      break;
+    }
+    sawContent = true;
+  }
+  const standfirstMarkdown = restLines.slice(0, standfirstEnd).join('\n').trim();
+  const tail = restLines.slice(standfirstEnd).join('\n').trim();
+  const bodyMarkdown = tail.replace(/^---\s*\n/, '').trim();
+
+  return {
+    displayTitle: displayTitle || 'Reference card',
+    standfirstMarkdown,
+    bodyMarkdown,
+  };
+}
+
 export function getModuleMeta(moduleId: string): ModuleMeta | null {
   const tierOrder: Tier[] = ['T1', 'T2', 'T3', 'T4'];
   const availableTiers: Tier[] = [];

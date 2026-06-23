@@ -32,6 +32,18 @@
   }
 }
 
+@media print {
+  /* Reset page background to plain white; force colour-adjust so the
+     yellow accents and navy rules survive the print engine. */
+  html,
+  body {
+    background: white !important;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
 @layer base {
   html {
     color: var(--ink);

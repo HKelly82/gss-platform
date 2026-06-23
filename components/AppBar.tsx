@@ -23,7 +23,7 @@ export function AppBar({ tone = 'light' }: AppBarProps) {
   const bg = tone === 'navy' ? 'bg-navy text-white' : 'bg-white text-ink border-b border-line';
 
   return (
-    <header className={bg}>
+    <header className={`${bg} print:hidden`}>
       <div className="mx-auto flex max-w-hub items-center justify-between px-6 py-4">
         <Link href="/" className="rounded-control" aria-label="Herd Learn — home">
           <BrandLockup />
