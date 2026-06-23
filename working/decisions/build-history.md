@@ -30,7 +30,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `a11y-auditor`: PASS — 14/14 after one in-pass self-heal (focus the revealed panel via `tabIndex={-1}` + `useEffect`).
   - `build-health`: PASS — typecheck, lint, production build clean. 414 SSG pages total. T4 bundle sizes: exercise/critique 94 kB First Load (server); answer/reflection 140 kB (client).
 - **Reports:** `working/qa-reports/t4-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`8c77542`** on `origin/main`.
 - **Impact:** the second half of the agreed PoC is now live. Option D on the diagnostic no longer leads to a dead-end — it routes to `/T4/exercise` and the learner can walk the full four-step Expert flow.
 
 ### PoC review · sign-off + post-gate adjustments
