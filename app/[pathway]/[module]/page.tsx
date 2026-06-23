@@ -6,6 +6,7 @@ import {
   getModuleMeta,
   getSupplement,
   listModuleIds,
+  type ModuleMeta,
   type Pathway,
   type SupplementPathway,
 } from '@/lib/content';
@@ -38,6 +39,10 @@ export default function ModuleHubPage({ params }: { params: Params }) {
   const pathway = PATHWAY_BY_SLUG[pathwaySlug];
   const hasSupplement = getSupplement(params.module, pathway as SupplementPathway) !== null;
 
+  const allModules: ModuleMeta[] = listModuleIds()
+    .map((id) => getModuleMeta(id))
+    .filter((m): m is ModuleMeta => m !== null);
+
   return (
     <PageBody>
       <ModuleHub
@@ -45,6 +50,7 @@ export default function ModuleHubPage({ params }: { params: Params }) {
         pathwaySlug={pathwaySlug}
         moduleMeta={meta}
         hasSupplement={hasSupplement}
+        allModules={allModules}
       />
     </PageBody>
   );

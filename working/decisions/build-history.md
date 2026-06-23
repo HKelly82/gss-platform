@@ -13,6 +13,22 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component sidebar` — Sidebar + ModuleNavItem on ModuleHub · all gates **PASS** (one a11y enhancement in-pass)
+
+- **Renderers:**
+  - `components/Sidebar.tsx` (client) — 312 px `<aside>` card with pathway label + progress bar + `<ol>` of 8 ModuleNavItems. Reads `useProgress`.
+  - `components/ModuleNavItem.tsx` (pure-render) — 3 status variants: current (non-clickable `<div aria-current="page">` with bg-paper pill + yellow rail + "Now" eyebrow), complete (Link with navy ✓ disc), upcoming (Link with white outlined disc).
+- **ModuleHub restructure:** `grid-cols-1 lg:grid-cols-[312px_1fr]`. Sidebar in the left column; existing main content (header + placement card / recap + tier cards + bottom nav) preserved in the right column. New `allModules: ModuleMeta[]` prop.
+- **Page:** `app/[pathway]/[module]/page.tsx` passes `allModules` via `listModuleIds().map(getModuleMeta)`.
+- **QA gates:**
+  - `content-contract`: PASS — 12/12. Hub-only placement, status logic from `useProgress`, no invented copy.
+  - `design-fidelity`: PASS — 14/14. One observation flagged but NOT actioned: spec §2 says "current = paper pill, **navy** left rail"; implementation uses **yellow** per design language §1 (yellow = current place). Design lead call.
+  - `a11y-auditor`: PASS with one enhancement applied in-pass — progress bar got `role="progressbar"` + `aria-valuenow/min/max` + descriptive `aria-label`.
+  - `build-health` (informally verified): typecheck, lint, production build clean. **581 SSG pages unchanged.** ModuleHub bundle 4.04 kB / 98 kB First Load.
+- **Mobile behaviour:** sidebar stacks above main below the `lg:` breakpoint. Future enhancement: collapse drawer.
+- **Reports:** `working/qa-reports/sidebar-{content-contract,design-fidelity,a11y,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/build-component tier-overview` — last placeholder filled · all gates **PASS** (one codebase-wide token fix in-pass)
 
 - **Renderer:** `components/TierOverview.tsx` (client) — page chrome (eyebrow "Module N · {Pathway} pathway · {tier}" + module-title H1 + tier-name + estimated-time meta) + self-check card (when blockquote present) + bottom nav (Back to Module / Skip / Begin).

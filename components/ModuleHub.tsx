@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { Sidebar } from './Sidebar';
 import { TierCard, type TierCardStatus } from './TierCard';
 import type { ModuleMeta, Pathway, Tier } from '@/lib/content';
 import { setPathway, useProgress } from '@/lib/progress';
@@ -11,6 +12,7 @@ interface ModuleHubProps {
   pathwaySlug: string;
   moduleMeta: ModuleMeta;
   hasSupplement: boolean;
+  allModules: ModuleMeta[];
 }
 
 const TIER_LABELS: Record<Tier, { label: string; tagline: string }> = {
@@ -27,7 +29,7 @@ function tierStartHref(pathwaySlug: string, moduleId: string, tier: Tier): strin
   return `/${pathwaySlug}/${moduleId}/${tier}/${stage}`;
 }
 
-export function ModuleHub({ pathway, pathwaySlug, moduleMeta, hasSupplement }: ModuleHubProps) {
+export function ModuleHub({ pathway, pathwaySlug, moduleMeta, hasSupplement, allModules }: ModuleHubProps) {
   const progress = useProgress();
 
   useEffect(() => {
@@ -55,13 +57,20 @@ export function ModuleHub({ pathway, pathwaySlug, moduleMeta, hasSupplement }: M
   };
 
   return (
-    <div className="flex flex-col gap-8 pb-16">
-      <header>
-        <p className="text-eyebrow text-yellow-deep">
-          Module {moduleNumber} · {pathway} pathway
-        </p>
-        <h1 className="mt-2 text-h1 font-extrabold text-navy">{moduleMeta.moduleTitle}</h1>
-      </header>
+    <div className="grid grid-cols-1 gap-8 pb-16 lg:grid-cols-[312px_1fr]">
+      <Sidebar
+        pathway={pathway}
+        pathwaySlug={pathwaySlug}
+        currentModuleId={moduleMeta.moduleId}
+        allModules={allModules}
+      />
+      <div className="flex flex-col gap-8">
+        <header>
+          <p className="text-eyebrow text-yellow-deep">
+            Module {moduleNumber} · {pathway} pathway
+          </p>
+          <h1 className="mt-2 text-h1 font-extrabold text-navy">{moduleMeta.moduleTitle}</h1>
+        </header>
 
       {!placement ? (
         <section
@@ -156,6 +165,7 @@ export function ModuleHub({ pathway, pathwaySlug, moduleMeta, hasSupplement }: M
           </span>
         )}
       </nav>
+      </div>
     </div>
   );
 }
