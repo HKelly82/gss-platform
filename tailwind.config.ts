@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         navy: { DEFAULT: '#36384B', deep: '#2B2D3D', soft: '#4C4F66' },
         ink: { DEFAULT: '#2C2E3A', 2: '#585B6C', 3: '#83869A' },
-        yellow: { DEFAULT: '#F6CE4C', deep: '#9A7212' },
+        yellow: { DEFAULT: '#F6CE4C', deep: '#856312' },
         grey: '#E9EAE4',
         paper: '#F6F6F2',
         line: { DEFAULT: '#E3E3DC', 2: '#CFCFC7' },

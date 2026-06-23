@@ -53,9 +53,11 @@ export function RevealAnswer({
   return (
     <div
       id={panelId}
+      ref={panelRef}
+      tabIndex={-1}
       role="region"
       aria-label={panelEyebrow}
-      className="rounded-card border-[1.5px] border-ready bg-ready-bg p-6"
+      className="rounded-card border-[1.5px] border-ready bg-ready-bg p-6 focus-visible:outline-none"
     >
       <p className="text-eyebrow text-ready">
         <span aria-hidden="true">✓ </span>

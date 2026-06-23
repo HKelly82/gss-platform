@@ -33,7 +33,7 @@ export function AppBar({ tone = 'light' }: AppBarProps) {
             Pathway: <span className="text-ink">{pathway}</span>
           </span>
         ) : (
-          <span className="text-eyebrow text-ink-3">
+          <span className="text-eyebrow text-ink-2">
             No pathway selected
           </span>
         )}

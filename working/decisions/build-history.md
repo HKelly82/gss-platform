@@ -13,6 +13,52 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### A11y patch from Vercel audit — RevealAnswer focus restored · yellow-deep + ink-3 contrast lifted to AA · build-health **PASS**
+
+The 2026-06-23 Vercel audit (`working/qa-reports/vercel-audit-2026-06-23.md`) flagged one CRITICAL and two MAJOR a11y issues against the live deployment. This patch ships fixes for all three.
+
+**C-1 (CRITICAL) — RevealAnswer focus loss on T4 model-answer reveal**
+
+The earlier t4-expert-flow build-history entry claimed `tabIndex={-1}` + `useEffect`-driven focus shift had landed on `components/RevealAnswer.tsx`. Live testing showed it had not. The panel `<div>` was missing both `ref={panelRef}` and `tabIndex={-1}`, so `panelRef.current.focus()` was operating on a null ref and would have been a no-op on a non-focusable element regardless. Result: on reveal, the trigger button unmounted, focus fell to `<body>`, and SR users got no announcement.
+
+Fix in `components/RevealAnswer.tsx`:
+- Added `ref={panelRef}` so the existing `useEffect` actually has a target.
+- Added `tabIndex={-1}` so `.focus()` succeeds.
+- Added `focus-visible:outline-none` so the programmatic focus doesn't paint a yellow ring around the green-tinted answer panel (the region's accessible name is announced by SR on focus; sighted users don't need a visible ring on a programmatically-focused container).
+
+On reveal now: focus lands on the panel, SR announces "Model answer, region" (or whatever `panelEyebrow` was passed), and the model answer content reads in order. The minor m-2 from the audit (button unmounts, `aria-expanded` never transitions) is a known consequence of the one-shot reveal architecture — fixing it requires keeping the button mounted post-reveal, which is a UX change worth a separate decision (the trigger has no meaningful "Hide" semantic). Logged as a follow-up.
+
+**M-1 (MAJOR) — `yellow-deep` token failed WCAG 1.4.3**
+
+Measured by axe-core against the live deployment:
+- `#9A7212` on `#F6F6F2` (paper) = **4.04 : 1** (needs 4.5 : 1)
+- `#9A7212` on `#FFFFFF` (white) = **4.38 : 1** (needs 4.5 : 1)
+
+67 of 113 axe violation nodes traced to this single token. The eyebrow register is 12 px / 600 weight — does not qualify as WCAG "large text", so the 4.5 : 1 minimum applies.
+
+Token darkened from `#9A7212` → `#856312`:
+- `#856312` on white = **5.13 : 1** ✓
+- `#856312` on paper ≈ **4.73 : 1** ✓
+
+Updated in two places:
+- `tailwind.config.ts` — `colors.yellow.deep`
+- `app/globals.css` — `--yellow-deep` CSS custom property
+
+**`design/DESIGN-LANGUAGE.md` is now out of sync — flagged for the design lead.** The doc's §1 row 8 still asserts `yellow-deep #9A7212 — Yellow as text/eyebrow on light surfaces (AA)`. That hex and that AA claim are both wrong against measurement. Per CLAUDE.md, `design/` is READ-ONLY and only the design lead should update it. They should:
+1. Confirm `#856312` as the new official `yellow-deep` (or pick a different darker value).
+2. Update the §1 row 8 hex, the §1 Tailwind theme paste block, and the §1 CSS variables block to match.
+3. Either remove or re-qualify the `(AA)` annotation against the actually-used surfaces (paper and white).
+
+**M-2 (MAJOR) — `ink-3` on AppBar "No pathway selected" failed WCAG 1.4.3**
+
+`#83869A` on white = 3.59 : 1. The design language permits `ink-3` only for "large or non-essential text only" (§1 row 6) — but the "No pathway selected" string is essential status copy at eyebrow scale, shown on every page until the learner picks a pathway. Swapped `text-ink-3` → `text-ink-2` (`#585B6C` on white = 7.43 : 1) in `components/AppBar.tsx`.
+
+**Build-health:** typecheck + lint + production build all clean. 581 SSG pages unchanged. No bundle drift.
+
+**Expected post-deploy axe result:** zero `serious` violations (down from 113). Re-run pending after Vercel redeploys.
+
+**Commit:** TBD on push.
+
 ### Cosmetic cleanup — strip redundant `uppercase` + `tracking-[0.08em]` modifiers · build-health **PASS**
 
 Closes the carried-over follow-up from the TierOverview pass (where the `text-eyebrow` token gained `text-transform: uppercase` via `@layer components` in `globals.css`). The Tailwind 3 fontSize shorthand already supplied `letterSpacing: '0.08em'`. Every site that layered on `uppercase` + `tracking-[0.08em]` after `text-eyebrow` was duplicating what the token already provides.
