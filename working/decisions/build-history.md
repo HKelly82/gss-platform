@@ -13,6 +13,25 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component pathway-entry` — `/` pathway selection + `/[pathway]` pathway home · all gates **PASS** (two polishes in-pass)
+
+- **Renderers:**
+  - `components/PathwayCard.tsx` (pure-render server) — 2×2 card. Four kinds (BA, DM, PM, SME) with stub copy per **D-12**. Role name `<h3>` for SR heading nav.
+  - `components/ModuleCard.tsx` (pure-render server) — per-module on `/[pathway]`. Number disc + module title (`<h3>`) + meta + status badge + Open CTA. Meta uses corrected `text-eyebrow text-ink-2` (not mono drift).
+  - `components/PathwayHome.tsx` (client) — `setPathway` on mount; reads `useProgress` for module status (completed / in-progress / placement-set / not-started).
+- **Routes:**
+  - `app/page.tsx` was placeholder; now centred 1000 px column with eyebrow + H1 "Choose your pathway" + lede + 2×2 PathwayCard grid. Static (○).
+  - `app/[pathway]/page.tsx` was dynamic placeholder; now SSG for `/ba`, `/dm`, `/pm` (3 pages). SME excluded (own routing pattern).
+- **Spec divergences accepted:** no brand lockup on `/` (AppBar carries it on screen); Layer 0 banner deferred entirely (L0 content exists upstream but routing is its own pass).
+- **QA gates (PASS on first run; two non-blocking polishes folded in):**
+  - `content-contract`: 11/11 PASS + 1 OBSERVATION on `/sme` placeholder destination. PathwayCard STUB copy explicitly flagged on-page. Module titles from `getModuleMeta` → `parseTierHeader`.
+  - `design-fidelity`: 14/14 PASS. Zero raw hex (cleanest pass this session). One recommendation applied: `ModuleCard` meta `font-mono text-mono-meta` → `text-eyebrow text-ink-2`. Removes one item from the cross-renderer mono-drift list.
+  - `a11y-auditor`: PASS. WCAG 2.2 AA across all checks. Two observations: PathwayCard role-name promotion — **applied in-pass** (`<p>` → `<h3>`); `/[pathway]` section h2 — deferred.
+  - `build-health`: typecheck, lint, production build clean. **481 SSG pages total** (was 478; pathway home adds 3, `/` already static). `/` and `/[pathway]` both ~96 kB First Load.
+- **Impact:** The learner's full journey now works without URL-typing — `/` → pick pathway → `/[pathway]` → pick module → ModuleHub → diagnostic → tier flow → mark complete → back to hub. End-to-end with placeholder-only routes left: `/sme/*`, `/[pathway]/[module]/[tier]` (off the happy path), Layer 0.
+- **Reports:** `working/qa-reports/pathway-entry-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/build-component supplement` — role supplement renderer · all gates **PASS** (no self-heal)
 
 - **Renderer:** `components/Supplement.tsx` (server) — page chrome (back-to-module) + article with eyebrow ("{Pathway} supplement · Module N") + prefix-stripped display H1 + floor-tier meta line + body markdown via `reading-reference` variant.
