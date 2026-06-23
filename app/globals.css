@@ -44,6 +44,16 @@
   }
 }
 
+@layer components {
+  /* Tailwind 3's `fontSize` shorthand carries size + lineHeight + letterSpacing
+     + fontWeight only — not textTransform. The eyebrow register also needs
+     uppercase. Bundle it here so every `text-eyebrow` usage is uppercase by
+     default; consumers no longer need to layer on `uppercase`. */
+  .text-eyebrow {
+    text-transform: uppercase;
+  }
+}
+
 @layer base {
   html {
     color: var(--ink);

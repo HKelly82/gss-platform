@@ -13,6 +13,25 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component tier-overview` — last placeholder filled · all gates **PASS** (one codebase-wide token fix in-pass)
+
+- **Renderer:** `components/TierOverview.tsx` (client) — page chrome (eyebrow "Module N · {Pathway} pathway · {tier}" + module-title H1 + tier-name + estimated-time meta) + self-check card (when blockquote present) + bottom nav (Back to Module / Skip / Begin).
+- **Parser:** `lib/content.ts` adds `extractTierSkipPreface(preface)` — pulls `> blockquote` lines from a tier file's preface as markdown.
+- **Progress:** `lib/progress.ts` `manuallySkipTier` now accepts `reason: SkipReason` (default `'manual'`); TierOverview calls with `'self-check'` per build plan §3.
+- **Route:** `app/[pathway]/[module]/[tier]/page.tsx` was placeholder; now SSG via `listExistingTiers()` × BA/DM/PM = **96 pages** (8 modules × 4 tiers × 3 pathways).
+- **QA gates:**
+  - `content-contract`: PASS — 13/13. Build plan §3 contract honoured. Skip writes `skipped:'self-check'` and routes to next-tier overview (T4 falls back to module hub). Begin routes to scenario or exercise. No invented copy, no DESIGNER NOTE leakage.
+  - `design-fidelity`: **FAIL → PASS** after one codebase-wide self-heal. Initial FAIL: `text-eyebrow` token in `tailwind.config.ts` (Tailwind 3 fontSize shorthand) doesn't carry `text-transform: uppercase` — every `text-eyebrow` site without an explicit `uppercase` modifier rendered mixed-case. Affected ~14 callsites. Fix applied via `@layer components` in `app/globals.css`:
+    ```css
+    @layer components { .text-eyebrow { text-transform: uppercase; } }
+    ```
+    (The agent's recommendation to extend the fontSize tuple wouldn't have worked — Tailwind 3 only supports lineHeight/letterSpacing/fontWeight there.) Now every `text-eyebrow` is uppercase by default; redundant `uppercase` modifiers at callsites become harmless cosmetic noise. Cleanup deferred.
+  - `a11y-auditor`: PASS — WCAG 2.2 AA across all checks. One observation accepted (Self-check H2 styled as eyebrow — semantic-but-quiet hierarchy).
+  - `build-health`: PASS — typecheck, lint, production build clean. **581 SSG pages total** (was 485; TierOverview adds 96). TierOverview route First Load: 140 kB.
+- **Impact:** every routable URL is now a real renderer. The only remaining "placeholder" is the `[stage]` catch-all (effectively a 404 router with both `T1_T3_STAGES` and `T4_STAGES` empty after the literal routes took over).
+- **Reports:** `working/qa-reports/tier-overview-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/build-component sme` — SME meta-modules · all gates **PASS** (two polishes in-pass)
 
 - **Renderer:** `components/SMEMetaModule.tsx` (server) — single long-form page per meta-module. Page H1 + 4–5 inline sections (eyebrow + section H2 + body). Model-answer section wraps body in `RevealAnswer` (existing client primitive). Body via new `reading-section-body` Markdown variant.

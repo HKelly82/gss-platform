@@ -252,12 +252,17 @@ export function markReferenceViewed(pathway: Pathway, moduleId: string): void {
   });
 }
 
-export function manuallySkipTier(pathway: Pathway, moduleId: string, tier: Tier): void {
+export function manuallySkipTier(
+  pathway: Pathway,
+  moduleId: string,
+  tier: Tier,
+  reason: SkipReason = 'manual',
+): void {
   update((s) => {
     const p = ensurePathway(s, pathway);
     const m = ensureModule(p, moduleId);
     const t = ensureTier(m, tier);
-    t.skipped = { reason: 'manual', at: new Date().toISOString() };
+    t.skipped = { reason, at: new Date().toISOString() };
   });
 }
 

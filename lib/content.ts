@@ -349,6 +349,29 @@ export function parseTierHeader(preface: string): TierHeader {
   };
 }
 
+/**
+ * Extract the self-check blockquote from a tier file's preface. This is the
+ * "If you can already... skip to..." prompt at the top of every M*-T*.md.
+ * Returns the blockquote in markdown form (lines prefixed with `>`) so the
+ * caller can render it via Markdown's reading variant. Returns null if no
+ * blockquote is found in the preface.
+ */
+export function extractTierSkipPreface(preface: string): string | null {
+  const lines = preface.split(/\r?\n/);
+  const out: string[] = [];
+  let inBlockquote = false;
+  for (const line of lines) {
+    if (line.startsWith('>')) {
+      inBlockquote = true;
+      out.push(line);
+    } else if (inBlockquote) {
+      // Blank line or non-quote line ends the blockquote run.
+      break;
+    }
+  }
+  return out.length > 0 ? out.join('\n') : null;
+}
+
 export function getScenarioBlock(tier: ParsedTier): ContentBlock | null {
   return (
     tier.blocks.find(
