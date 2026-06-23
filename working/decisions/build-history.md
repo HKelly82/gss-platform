@@ -30,7 +30,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `a11y-auditor`: PASS with heading-hierarchy fix applied in-pass via new `reading-section-body` variant.
   - `build-health`: PASS. **485 SSG pages total** (was 482; SME adds 3 via `/sme/[meta]`).
 - **Reports:** `working/qa-reports/sme-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`bc17bb2`** on `origin/main`.
 
 ### `/build-component layer0` — Layer 0 primer (`/l0`) + banner on `/` · all gates **PASS** (one regex root-cause self-heal)
 
