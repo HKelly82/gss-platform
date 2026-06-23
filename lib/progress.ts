@@ -76,9 +76,26 @@ function readStorage(): ProgressV1 {
   }
 }
 
+// Cached snapshot so useSyncExternalStore receives a stable reference between
+// renders (without this, every render gets a freshly-parsed object and React
+// throws #185 — Maximum update depth exceeded).
+let cachedSnapshot: ProgressV1 | null = null;
+
+function getCachedSnapshot(): ProgressV1 {
+  if (cachedSnapshot === null) {
+    cachedSnapshot = readStorage();
+  }
+  return cachedSnapshot;
+}
+
+function invalidateSnapshot(): void {
+  cachedSnapshot = null;
+}
+
 const listeners = new Set<() => void>();
 
 function notify(): void {
+  invalidateSnapshot();
   listeners.forEach((cb) => cb());
 }
 
@@ -247,7 +264,10 @@ export function manuallySkipTier(pathway: Pathway, moduleId: string, tier: Tier)
 function subscribe(cb: () => void): () => void {
   listeners.add(cb);
   const onStorage = (e: StorageEvent): void => {
-    if (e.key === STORAGE_KEY) cb();
+    if (e.key === STORAGE_KEY) {
+      invalidateSnapshot();
+      cb();
+    }
   };
   if (isBrowser()) {
     window.addEventListener('storage', onStorage);
@@ -263,7 +283,7 @@ function subscribe(cb: () => void): () => void {
 export function useProgress(): ProgressV1 | null {
   return useSyncExternalStore(
     subscribe,
-    () => readStorage(),
+    getCachedSnapshot,
     () => null,
   );
 }
