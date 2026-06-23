@@ -13,6 +13,25 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component multiple-choice-check` — interactive MCQs with hidden-until-correct model answers · all gates **PASS** (one self-heal pass)
+
+- **Renderer:** `components/MultipleChoiceCheck.tsx` (client). Top-level component renders N MCQs (M3-T2 has 3) as an `<ol>` of `<section>`s with `border-t border-line` separators. Each `MCQItem` child has its own `useState` for `attempted` (`Set<MCQLetter>`) and `correctChosen` (boolean).
+- **Parser:** `lib/content.ts` adds `MCQ`, `MCQOption`, `MCQLetter`, `ParsedUnderstandingCheck`, `getUnderstandingCheckBlock`, `parseUnderstandingCheckBlock`. Regex splits the block body by `**Question N.**` then extracts stem + 4 options (`- **A.** ...`) + `**Model answer:** X.` + explanation + italic redirect.
+- **Route:** new literal `app/[pathway]/[module]/[tier]/check/page.tsx`, SSG via `listExistingTiers()` × T1–T3 × BA/DM/PM = 72 pages.
+- **[stage] route:** `'check'` removed from `T1_T3_STAGES`. Only `'takeaway'` remains for T1–T3 in the catch-all now.
+- **Progress wiring:** first interactive component beyond DiagnosticDecision. On click: `setPathway` + `recordCheckAnswer(pathway, moduleId, tier, "q{N}", { answerIdx, resolved })`. On correct: also `revealModel(...)`.
+- **Honoured must-not-change rules:**
+  - Model answer (full explanation) hidden until correct pick.
+  - Multi-attempt re-answer permitted; wrong options stay visually marked, correct option shows "The stronger answer" eyebrow as a text-only hint.
+  - No gate — `StickyFooter` Next link always available (per `CLAUDE.md` "Understanding check is never a gate").
+- **QA gates:**
+  - `content-contract`: PASS — 14/14 checks. Renderer only renders MULTIPLE_CHOICE-shaped questions; CRITIQUE blocks in M6-T3 / M7-T3 / M8-T3 are silently skipped (best-case behaviour). Per-question state isolated. Hidden-until-correct upheld.
+  - `design-fidelity`: **FAIL → PASS** after one self-heal. Two FAILs: `font-mono` was used on the tier-name subline (mono is reserved for reference-card metadata per design language); default badge was missing the `group-hover:bg-navy group-hover:text-white` inversion. Fixed both; also gave the option card `hover:shadow-lift` to match DiagnosticDecision. Cross-renderer drift recorded as a follow-up — `GuidedContent.tsx` and `ScenarioStage.tsx` still use `font-mono text-mono-meta` on their tier-name sublines and should be aligned.
+  - `a11y-auditor`: PASS — 14 checks. Status pairs colour + glyph + text everywhere. Native `<button>` per option, disabled state after correct. `role="group" aria-labelledby` wraps options; `aria-live="polite"` on the feedback panel. Three non-blocking observations: (1) standardise group semantics across renderers — deferred; (2) promote "Question {N}" to `<h2>` for SR heading navigation — **applied in-pass**; (3) live-region refresh on repeat wrongs — accepted, marginal, revisit at deploy.
+  - `build-health`: PASS — 246 SSG pages total (24 diagnostic + 72 scenario + 72 guided + 72 check + 6 static). Check route First Load: 140 kB (~46 kB route-specific from react-markdown returning to the client bundle for inline feedback).
+- **Reports:** `working/qa-reports/multiple-choice-check-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/build-component guided-content` — calm reading register + sticky footer · all gates **PASS** (one self-heal on design-fidelity, two-in-one on a11y)
 
 - **Renderer:** `components/GuidedContent.tsx` (server) — eyebrow `Guided content · ~{time} read`, page H1 = module title, tier-name meta. Body markdown rendered via `Markdown.tsx` `reading` variant. Then `StickyFooter` at the bottom.

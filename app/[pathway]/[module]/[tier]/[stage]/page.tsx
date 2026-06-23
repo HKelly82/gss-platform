@@ -9,7 +9,7 @@ interface Params {
   stage: string;
 }
 
-const T1_T3_STAGES = new Set(['check', 'takeaway']);
+const T1_T3_STAGES = new Set(['takeaway']);
 const T4_STAGES = new Set(['exercise', 'critique', 'answer', 'reflection']);
 
 function stageLabel(stage: string): string {
@@ -31,7 +31,7 @@ export default function TierStagePage({ params }: { params: Params }) {
         description={
           isT4
             ? 'T4 Expert flow. Slot 3 (`answer`) dispatches between ModelAnswer (variants A: M1–M5) and AppliedExerciseSecondary (variant B: M6–M8) based on the parsed component type.'
-            : 'T1–T3 flow: check → takeaway. Scenario and Guided content live at their own literal routes for the full-bleed and reading-register layouts.'
+            : 'T1–T3 flow: takeaway. Scenario / Guided / Check live at their own literal routes; this catch-all now only handles the takeaway stage and T4 stages.'
         }
       />
     </PageBody>

@@ -54,6 +54,27 @@ export interface TierHeader {
   estimatedTime?: string;
 }
 
+export type MCQLetter = 'A' | 'B' | 'C' | 'D';
+
+export interface MCQOption {
+  letter: MCQLetter;
+  text: string;
+}
+
+export interface MCQ {
+  questionNumber: number;
+  stem: string;
+  options: MCQOption[];
+  correctLetter: MCQLetter;
+  modelAnswerMarkdown: string;
+  redirectMarkdown: string;
+}
+
+export interface ParsedUnderstandingCheck {
+  introMarkdown: string;
+  mcqs: MCQ[];
+}
+
 export interface BaseFrontmatter {
   sources: string[];
   status: FileStatus;
@@ -324,6 +345,83 @@ export function getScenarioBlock(tier: ParsedTier): ContentBlock | null {
 
 export function getGuidedBlock(tier: ParsedTier): ContentBlock | null {
   return tier.blocks.find((b) => b.component === 'guided-content') ?? null;
+}
+
+export function getUnderstandingCheckBlock(tier: ParsedTier): ContentBlock | null {
+  return tier.blocks.find((b) => b.component === 'understanding-check') ?? null;
+}
+
+const MCQ_QUESTION_START_RE = /\*\*Question\s+(\d+)\.\*\*/g;
+const MCQ_STEM_RE = /^\*\*Question\s+\d+\.\*\*\s*([\s\S]+?)(?=\n\s*-\s+\*\*[A-D]\.)/;
+const MCQ_OPTION_RE =
+  /(?:^|\n)-\s+\*\*([A-D])\.\*\*\s+([\s\S]+?)(?=\n\s*-\s+\*\*[A-D]\.|\n\s*\*\*Model answer:|\s*$)/g;
+const MCQ_MODEL_RE = /\*\*Model answer:\*\*\s+([A-D])\./;
+const MCQ_REDIRECT_RE = /(\*If you chose[\s\S]+?\*)\s*$/m;
+
+function parseMcqChunk(questionNumber: number, raw: string): MCQ | null {
+  const stemMatch = raw.match(MCQ_STEM_RE);
+  if (!stemMatch) return null;
+  const stem = stemMatch[1].trim();
+
+  const options: MCQOption[] = [];
+  MCQ_OPTION_RE.lastIndex = 0;
+  let om: RegExpExecArray | null;
+  while ((om = MCQ_OPTION_RE.exec(raw)) !== null) {
+    options.push({
+      letter: om[1] as MCQLetter,
+      text: om[2].trim().replace(/\s+/g, ' '),
+    });
+  }
+  if (options.length !== 4) return null;
+
+  const modelMatch = raw.match(MCQ_MODEL_RE);
+  const correctLetter = (modelMatch?.[1] ?? 'A') as MCQLetter;
+
+  let modelAnswerMarkdown = '';
+  let redirectMarkdown = '';
+  if (modelMatch) {
+    const modelStart = raw.indexOf(modelMatch[0]) + modelMatch[0].length;
+    const tail = raw.slice(modelStart);
+    const redirectMatch = tail.match(MCQ_REDIRECT_RE);
+    if (redirectMatch) {
+      modelAnswerMarkdown = tail.slice(0, redirectMatch.index).trim();
+      redirectMarkdown = redirectMatch[1].trim();
+    } else {
+      modelAnswerMarkdown = tail.trim();
+    }
+  }
+
+  return {
+    questionNumber,
+    stem,
+    options,
+    correctLetter,
+    modelAnswerMarkdown,
+    redirectMarkdown,
+  };
+}
+
+export function parseUnderstandingCheckBlock(block: ContentBlock): ParsedUnderstandingCheck {
+  const body = block.body;
+  const starts: Array<{ num: number; index: number }> = [];
+  MCQ_QUESTION_START_RE.lastIndex = 0;
+  let m: RegExpExecArray | null;
+  while ((m = MCQ_QUESTION_START_RE.exec(body)) !== null) {
+    starts.push({ num: parseInt(m[1], 10), index: m.index });
+  }
+  if (starts.length === 0) {
+    return { introMarkdown: body.trim(), mcqs: [] };
+  }
+  const introMarkdown = body.slice(0, starts[0].index).trim();
+  const mcqs: MCQ[] = [];
+  for (let i = 0; i < starts.length; i++) {
+    const start = starts[i].index;
+    const end = i + 1 < starts.length ? starts[i + 1].index : body.length;
+    const chunk = body.slice(start, end);
+    const parsed = parseMcqChunk(starts[i].num, chunk);
+    if (parsed) mcqs.push(parsed);
+  }
+  return { introMarkdown, mcqs };
 }
 
 export function listExistingTiers(): Array<{ moduleId: string; tier: Tier }> {
