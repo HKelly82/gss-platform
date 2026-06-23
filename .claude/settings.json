@@ -1,8 +1,8 @@
 {
   "permissions": {
     "deny": [
-      "Write(./content/output/**)",
-      "Edit(./content/output/**)",
+      "Write(./content/**)",
+      "Edit(./content/**)",
       "Write(./design/**)",
       "Edit(./design/**)"
     ]

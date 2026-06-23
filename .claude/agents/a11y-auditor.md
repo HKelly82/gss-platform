@@ -12,6 +12,9 @@ Check the built target for:
 - Full keyboard operation of every interaction (multiple choice, drag-drop, reveal, diagnostic
   skip/proceed), with a logical tab order and no traps.
 - Visible, sufficient focus indicators.
+- **WCAG 2.2 SC 2.4.11 Focus Not Obscured (Minimum)** — when an element receives focus, no part of the focus indicator is hidden by author-created content (sticky headers, sticky footers, dialogs). Test the guided/check sticky-footer routes explicitly.
+- **WCAG 2.2 SC 2.5.7 Dragging Movements** — every drag-drop interaction provides a non-dragging single-pointer alternative (click/tap-to-place, keyboard reorder).
+- **WCAG 2.2 SC 2.5.8 Target Size (Minimum)** — interactive targets are at least 24×24 CSS pixels (or meet the spacing exception). Includes choice cards, footer prev/next, drag handles, reveal buttons, and reference-card download CTAs.
 - Correct semantics and ARIA: radio groups for single-choice, proper labels, live regions for answer
   feedback and reveals, accessible names for controls.
 - Contrast meeting AA against the design tokens.
