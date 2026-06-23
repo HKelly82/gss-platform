@@ -30,7 +30,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `build-health`: PASS — typecheck, lint, production build clean. **581 SSG pages total** (was 485; TierOverview adds 96). TierOverview route First Load: 140 kB.
 - **Impact:** every routable URL is now a real renderer. The only remaining "placeholder" is the `[stage]` catch-all (effectively a 404 router with both `T1_T3_STAGES` and `T4_STAGES` empty after the literal routes took over).
 - **Reports:** `working/qa-reports/tier-overview-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`79654ba`** on `origin/main`.
 
 ### `/build-component sme` — SME meta-modules · all gates **PASS** (two polishes in-pass)
 
