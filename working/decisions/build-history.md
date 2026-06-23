@@ -28,7 +28,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `build-health`: PASS — typecheck, lint, production build clean. 462 SSG pages total. Reference route First Load: 95.2 kB.
 - **D-6 done:** Reference cards now print via `window.print()` with print-color-adjust ensuring yellow accents and navy rules survive. Print stylesheet hides AppBar + action nav. Card unstyled for print (no rounding, border, padding, max-width — fills the print page).
 - **Reports:** `working/qa-reports/reference-card-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`f8dca4d`** on `origin/main`.
 
 ### `/build-component module-hub` — MVP module hub · all gates **PASS** (one a11y self-heal · two blockers + three non-blockers)
 
