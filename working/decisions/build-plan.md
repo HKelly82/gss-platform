@@ -403,6 +403,8 @@ Each item below needs your approval before — or in parallel with — the build
 
 **Action on approval:** you edit `CLAUDE.md` in the gss-platform repo.
 
+ACTIONED AND APPROVED - Helen Kelly 23/06/2026
+
 ### D-2. Reframe the "five-component order" wording in `CLAUDE.md`
 
 **Why:** No tier file uses a five-component order. T1–T3 are four (`scenario / guided-content / understanding-check / takeaway`); T4 is four in a different order (variant A or B). The diagnostic role sits at module-entry and in the tier preface, not inside the tier component sequence.
@@ -416,6 +418,8 @@ Each item below needs your approval before — or in parallel with — the build
 
 **Action on approval:** you edit `CLAUDE.md` in the gss-platform repo.
 
+ACTIONED AND APPROVED - Helen Kelly 23/06/2026
+
 ### D-3. Confirm `SHORT_ANSWER` and `DRAG_DROP` deferral
 
 **Why:** 0 occurrences each in 69 files. The full WCAG 2.2 drag-drop is non-trivial; building speculatively is waste. The renderers are deferred behind a `not-yet-published` empty state.
@@ -425,6 +429,8 @@ Each item below needs your approval before — or in parallel with — the build
 - **(b) Build now** — speculative renderer with QA fixture content.
 
 **Action on approval:** I keep both renderers off the first-pass build; you tell me which option you want.
+
+CONFIRM DEFERRAL -  Helen Kelly 23/06/2026
 
 ### D-4. Upstream edits to `design/DESIGN-SPEC.md`
 
@@ -438,6 +444,8 @@ Each item below needs your approval before — or in parallel with — the build
 
 **Action on approval:** you edit `DESIGN-SPEC.md` upstream and bump the design pin.
 
+ACTIONED AND APPROVED - Helen Kelly 23/06/2026
+
 ### D-5. T4 variant B (M6-T4 / M7-T4 / M8-T4): content shape or content issue?
 
 **Why:** Three Expert tiers replace the `model-answer` component with a second `applied-exercise` block. The platform supports both via slot-3 dispatch, but the deviation may be an authoring drift rather than an intentional shape.
@@ -447,6 +455,8 @@ Each item below needs your approval before — or in parallel with — the build
 - **(b) Authoring issue** — route back to the curriculum repo as a content-contract issue; M6/M7/M8-T4 should emit a `model-answer` component like the other Expert tiers. The platform's variant-B handling becomes dead code once the curriculum is fixed.
 
 **Action on approval:** if (b), you open an issue against the curriculum repo. The platform still ships variant-B handling for the current pin so the build does not break before that fix lands.
+
+Authoring Issue -  Helen Kelly 23/06/2026
 
 ### D-6. Reference-card PDF: `window.print()` vs. `@react-pdf/renderer`
 
@@ -465,6 +475,8 @@ Each item below needs your approval before — or in parallel with — the build
 - **(b) `@react-pdf/renderer` for v1.** True downloadable file; slightly more work.
 
 **Action on approval:** I implement the chosen approach in the PoC.
+
+**(a) `window.print()` for v1.** APPROVED  -  - Helen Kelly 23/06/2026
 
 ---
 

@@ -25,14 +25,17 @@ const config: Config = {
         mono: ['var(--font-mono)', 'Menlo', 'monospace'],
       },
       fontSize: {
-        display: ['2.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '800' }],
-        h1: ['2rem', { lineHeight: '1.1', fontWeight: '800' }],
-        h2: ['1.5rem', { lineHeight: '1.2', fontWeight: '700' }],
-        h3: ['1.1875rem', { lineHeight: '1.3', fontWeight: '600' }],
+        // Type scale tuned ~15-20% smaller than DESIGN-LANGUAGE §2 spec values
+        // after desktop UAT feedback (2026-06-23): spec values felt heavy on
+        // desktop. Body kept at 16px (1rem) for WCAG 1.4.4 / 200% zoom comfort.
+        display: ['2rem', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '800' }],
+        h1: ['1.625rem', { lineHeight: '1.15', fontWeight: '800' }],
+        h2: ['1.25rem', { lineHeight: '1.25', fontWeight: '700' }],
+        h3: ['1.0625rem', { lineHeight: '1.35', fontWeight: '600' }],
         body: ['1rem', { lineHeight: '1.6' }],
-        reading: ['1.1875rem', { lineHeight: '1.68' }],
-        lede: ['1.3125rem', { lineHeight: '1.5' }],
-        eyebrow: ['0.8125rem', { lineHeight: '1', fontWeight: '600', letterSpacing: '0.08em' }],
+        reading: ['1.0625rem', { lineHeight: '1.65' }],
+        lede: ['1.1875rem', { lineHeight: '1.5' }],
+        eyebrow: ['0.75rem', { lineHeight: '1', fontWeight: '600', letterSpacing: '0.08em' }],
         'mono-meta': ['0.6875rem', { lineHeight: '1.2' }],
       },
       borderRadius: {

@@ -24,15 +24,20 @@ Never invent UI content. Words a learner sees come from `content/`; visual decis
 ## The content model
 Each content file has frontmatter (module/layer/tier/component/sources/status) and a body with
 markers: `---COMPONENT: name---`, `---LEARNER INTERACTION: TYPE---`, `---DESIGNER NOTE: ...---`.
-Interaction types: MULTIPLE_CHOICE, DRAG_DROP, SHORT_ANSWER, DIAGNOSTIC, SCENARIO_NARRATIVE.
+Interaction types: MULTIPLE_CHOICE, DRAG_DROP, SHORT_ANSWER, DIAGNOSTIC, SCENARIO_NARRATIVE, CRITIQUE.
+CRITIQUE is an open-text reveal interaction inside an understanding-check: the learner writes a short critique, then reveals a model critique. Model critique stays hidden until reveal, like SHORT_ANSWER.
 `lib/content.ts` parses these into typed objects; every renderer maps a component/interaction to
 a React component.
 
 ## Must not change — these are learning-design decisions, not style
 Honour these exactly (see the curriculum's DESIGNER-HANDOVER.md):
 - The interaction types and their meaning.
-- The five-component order within a tier: diagnostic -> scenario -> guided content ->
-  understanding check -> takeaway.
+- The component order within a tier honours the diagnostic-first principle:
+  - At module entry: a single placement diagnostic precedes the tier content.
+  - At Intro / Foundations / Advanced (T1-T3): scenario -> guided-content -> understanding-check
+    -> takeaway, with a self-check skip affordance rendered from the file's preface blockquote.
+  - At Expert (T4): applied-exercise -> critique-prompt -> model-answer (or a second
+    applied-exercise) -> reflection. Model answers stay hidden until the learner reveals them.
 - Diagnostic routing: a correct diagnostic answer lets the learner skip the tier; skipping is a
   legitimate, encouraged choice, never framed as a failure.
 - Model answers (SHORT_ANSWER, SME exercises) stay hidden until the learner reveals them.

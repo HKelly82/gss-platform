@@ -7,8 +7,10 @@ interactive states. Token names (e.g. `navy`, `yellow`, `ink-2`) refer to that f
 - **4 role pathways:** Business Analyst, Delivery Manager, Product Manager, Subject Matter Expert.
 - **8 core modules**, each with **4 depth tiers**: Intro → Foundations → Advanced → Expert
   (progressive, but the signal stays quiet).
-- **Each tier = 5 components in FIXED order:** (1) orientation diagnostic, (2) anchor scenario,
-  (3) guided content, (4) understanding check, (5) "take this to work" takeaway.
+- The component order within a tier honours the diagnostic-first principle:
+   - At module entry: a single placement diagnostic precedes the tier content.
+   - At Intro / Foundations / Advanced (T1–T3): scenario → guided-content → understanding-check → takeaway, with a self-check skip affordance rendered from the file's preface blockquote.
+   - At Expert (T4): applied-exercise → critique-prompt → model-answer (or a second applied-exercise) → reflection. Model answers stay hidden until the learner reveals them.
 - **Optional Layer 0** orientation primer (warm narrative first week).
 - **3 SME meta-modules**, simpler shape: conceptual framing → applied exercise → model answer.
 
@@ -39,6 +41,7 @@ navy border + shadow as the example.
 - **Focus:** yellow ring.
 - **SME card:** says "3 meta-modules" and routes to the SME exercise, not the full hub.
 **Primer banner:** "New to government digital?" + "Start primer" secondary button.
+**Current State:** interim copy — superseded by Phase 8 `PATH-*.md` files when those land.
 
 ## 2. Module overview (hub)
 **Purpose:** orient within the chosen pathway; enter any tier component.
@@ -57,9 +60,13 @@ navy border + shadow as the example.
 title · trailing status/affordance. The current component (3 · Guided content) is highlighted
 (paper, navy left rail) with a navy "Resume →" pill. Each row navigates to its screen.
 Diagnostic row shows "Skipped" (legitimate, neutral — not a failure).
+- The component order within a tier honours the diagnostic-first principle:
+>   - At module entry: a single placement diagnostic precedes the tier content.
+>   - At Intro / Foundations / Advanced (T1–T3): scenario → guided-content → understanding-check → takeaway, with a self-check skip affordance rendered from the file's preface blockquote.
+>   - At Expert (T4): applied-exercise → critique-prompt → model-answer (or a second applied-exercise) → reflection. Model answers stay hidden until the learner reveals them.
 
 ## 3. Tier diagnostic (skip / proceed decision)
-**Purpose:** a confident skip-or-orient checkpoint. Component 1 of 5.
+**Purpose:** a confident skip-or-orient checkpoint within each module, not within tiers. Component 1 of 5.
 **Layout:** light app bar (back to overview), centred 680px column.
 Eyebrow "Orientation diagnostic" → H1 "Do you need this tier?" → reassuring paragraph framing
 this as a checkpoint, not a test.
@@ -143,6 +150,7 @@ Eyebrow naming the meta-module → H1 "Applied exercise".
   and names the pattern (expertise → validation → specific change → recorded link).
 > Same reveal pattern applies to SHORT_ANSWER understanding checks: model stays hidden until opt-in.
 
+
 ---
 
 ## Interaction & state summary
@@ -152,7 +160,12 @@ Prototype state (see `Herd Learn Prototype.dc.html` logic class):
 - `diagMode` (`decision|questions`), `diagPicked` — diagnostic flow.
 - `checkChoice`, `checkResolved` — understanding-check selection + feedback; correct index = 2.
 - `smeRevealed` — SME model-answer disclosure.
+- `CRITIQUE` - open-text + reveal-model, same visual shape as SHORT_ANSWER's reveal.
 All navigation scrolls to top. The "Prototype map" `<select>` is a review aid only.
+- The component order within a tier honours the diagnostic-first principle:
+>   - At module entry: a single placement diagnostic precedes the tier content.
+>   - At Intro / Foundations / Advanced (T1–T3): scenario → guided-content → understanding-check → takeaway, with a self-check skip affordance rendered from the file's preface blockquote.
+>   - At Expert (T4): applied-exercise → critique-prompt → model-answer (or a second applied-exercise) → reflection. Model answers stay hidden until the learner reveals them.
 
 ## Accessibility acceptance criteria (WCAG 2.2 AA — hard requirement)
 - Visible yellow (or navy-on-yellow) focus ring on every control.

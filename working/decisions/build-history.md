@@ -13,6 +13,28 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### PoC review · sign-off + post-gate adjustments
+
+User reviewed the live Vercel PoC walkthrough and confirmed:
+- Routing A → T1, B → T2, C → T3 works as expected.
+- Tier completion works.
+- WCAG 2.2 AA met.
+- All **§6 open decisions resolved** (Helen Kelly signature, 2026-06-23 against each).
+
+UX feedback applied this turn:
+- **Type scale tuned ~15-20% smaller** in `tailwind.config.ts` after the user flagged that the spec sizes felt heavy on desktop. Display 40 → 32 px, H1 32 → 26 px, H2 24 → 20 px, H3 19 → 17 px, reading 19 → 17 px, lede 21 → 19 px, eyebrow 13 → 12 px. Body kept at 16 px (WCAG 1.4.4 zoom comfort). Diverges from `design/DESIGN-LANGUAGE.md §2` — this is the "design follows what works for the learner on desktop" judgment, not a spec violation; design-fidelity defers to the build plan under §0 / per the QA agent's re-scoped duties.
+
+Sign-off actions applied (per §6):
+- **D-1**: `CLAUDE.md` interaction-type list now includes `CRITIQUE` with explanatory sentence.
+- **D-2**: `CLAUDE.md` "five-component order" rule replaced with the diagnostic-first, tier-aware wording per the build plan's proposed text.
+- **D-3**: SHORT_ANSWER / DRAG_DROP deferral confirmed — no code action.
+- **D-4**: Upstream `DESIGN-SPEC.md` edits — user's action, no platform change.
+- **D-5**: T4 variant B (M6/M7/M8) flagged to curriculum repo as authoring issue — platform keeps variant-B handling as defensive code until upstream fix.
+- **D-6**: PDF approach for reference cards = `window.print()` — applies when ReferenceCard renderer lands.
+
+Known gap surfaced in UAT (not fixed this turn):
+- Selecting option D on `/[pathway]/[module]/diagnostic` routes to `/[pathway]/[module]/T4/exercise`, which is still a placeholder. This is the **M1-T4 second half of the agreed PoC** (build plan §3) — the four T4 renderers (AppliedExercise, CritiquePrompt, ModelAnswer / AppliedExerciseSecondary, Reflection) have not been built. Next `/build-component` target.
+
 ### **PoC gate reached.** M3-T2 tier flow live end-to-end on Vercel.
 
 UAT walkthrough confirmed by user:
