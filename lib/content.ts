@@ -408,6 +408,49 @@ export interface ReferenceCardView {
   bodyMarkdown: string;
 }
 
+export interface SupplementView {
+  displayTitle: string;
+  bodyMarkdown: string;
+}
+
+export type SupplementPathway = 'BA' | 'DM' | 'PM';
+
+export function parseSupplementView(supplement: ParsedSupplement): SupplementView {
+  const body = supplement.body;
+  const lines = body.split(/\r?\n/);
+  const h1Idx = lines.findIndex((l) => /^#\s+\S/.test(l));
+  if (h1Idx < 0) {
+    return { displayTitle: 'Supplement', bodyMarkdown: body };
+  }
+  const h1Line = lines[h1Idx].replace(/^#\s+/, '').trim();
+  const displayTitle = h1Line.replace(/^Module\s+\d+\s+supplement\s*[—-]\s*/i, '').trim();
+  const rest = lines
+    .slice(h1Idx + 1)
+    .join('\n')
+    .replace(/^\s+/, '')
+    .trim();
+  return {
+    displayTitle: displayTitle || 'Supplement',
+    bodyMarkdown: rest,
+  };
+}
+
+export function listExistingSupplements(): Array<{
+  moduleId: string;
+  pathway: SupplementPathway;
+}> {
+  const dir = path.join(CONTENT_ROOT, 'supplements');
+  if (!fs.existsSync(dir)) return [];
+  const out: Array<{ moduleId: string; pathway: SupplementPathway }> = [];
+  for (const file of fs.readdirSync(dir)) {
+    const match = file.match(/^(M[1-8])-S-(BA|DM|PM)\.md$/);
+    if (match) {
+      out.push({ moduleId: match[1], pathway: match[2] as SupplementPathway });
+    }
+  }
+  return out.sort((a, b) => a.moduleId.localeCompare(b.moduleId) || a.pathway.localeCompare(b.pathway));
+}
+
 export function parseReferenceCardView(card: ParsedReferenceCard): ReferenceCardView {
   const body = card.body;
   const lines = body.split(/\r?\n/);

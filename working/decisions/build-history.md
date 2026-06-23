@@ -13,6 +13,20 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component supplement` — role supplement renderer · all gates **PASS** (no self-heal)
+
+- **Renderer:** `components/Supplement.tsx` (server) — page chrome (back-to-module) + article with eyebrow ("{Pathway} supplement · Module N") + prefix-stripped display H1 + floor-tier meta line + body markdown via `reading-reference` variant.
+- **Parser:** `lib/content.ts` adds `parseSupplementView(supplement)` (strips "Module N supplement —" H1 prefix) and `listExistingSupplements()` (scans the supplements directory for `M*-S-{BA,DM,PM}.md` files).
+- **Route:** `app/[pathway]/[module]/supplement/page.tsx` was placeholder; now SSG via `listExistingSupplements()` = **16 pages** (M3–M8 × BA/DM/PM combos that have content; M1/M2 have none; SME excluded by file naming).
+- **Per-module coverage at the current pin:** M1/M2 = 0; M3 = BA+PM; M4/M5/M7/M8 = BA+DM+PM; M6 = BA+PM. URLs without matching content 404 cleanly.
+- **QA gates (PASS on first run for all four — no self-heal required):**
+  - `content-contract`: 12/12. One OBSERVATION: four-part shape (role lens / worked example / red flags / one thing to do) is informational chrome from the curriculum — renderer intentionally does not enforce it. H1 prefix stripping verified across all 16 files. `floor-tier: T2` consistent across files.
+  - `design-fidelity`: 14/14. Zero raw hex; reading-register typography; floor-tier meta uses corrected `text-eyebrow text-ink-2` pattern (not the mono drift in GuidedContent / ScenarioStage). One codebase-wide observation: secondary `<Link>`-as-button elements lack a `transition` class — hover instant-snaps rather than eases. Affects ModuleHub, ReferenceCard, StickyFooter, Supplement. Logged as a maintenance follow-up.
+  - `a11y-auditor`: WCAG 2.2 AA across all checks. Heading hierarchy H1 → H2 (no inner H3 in current supplement content). Reading-register reading-reference variant preserves H2/H3 distinction.
+  - `build-health`: typecheck, lint, production build clean. **478 SSG pages total** (was 462; supplement adds 16).
+- **Reports:** `working/qa-reports/supplement-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/build-component reference-card` — printable reference card · all gates **PASS** (two self-heals · D-6 implemented)
 
 - **Renderer:** `components/ReferenceCard.tsx` (server) — page chrome (back-to-module + Download PDF) + card article with mono eyebrow, prefix-stripped display H1, 2 px navy bottom rule, standfirst, and body markdown (via new `reading-reference` variant). Card uses `max-w-scenario` (760 px per spec §8) on a `bg-grey` page background.
