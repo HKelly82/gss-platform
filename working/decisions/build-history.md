@@ -30,7 +30,7 @@ Visual: zero — the token already supplies both properties. Verified by typeche
 
 Remaining `tracking-[0.08em]` references in the repo: one in `design/DESIGN-LANGUAGE.md` (the design spec correctly documents the eyebrow register's letter-spacing — authoritative, not a callsite) and one in this build-history (historical changelog entry). No source-code occurrences remain.
 
-**Commit:** TBD on push.
+**Commit:** **`b683571`** on `origin/main`.
 
 ### Sidebar polish — mobile disclosure drawer · build-health **PASS**
 
