@@ -13,6 +13,38 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### Curriculum submodule bumped · `fb8c4d4` → `c9c76ff`
+
+- Curriculum repo (`HKelly82/gss-curriculum`) shipped three new content groups:
+  - **L0** — five files in the classic five-component sequence (`L0-{diagnostic,scenario,guided-content,understanding-check,takeaway}.md`). Layer 0 primer is now real content; the platform's placeholder banner can be wired through.
+  - **SME** — 13 files across 3 SME meta-modules (S1, S2, S3): each has `framing` / `exercise` / `model-answer` / `debrief`, plus S2 also has `scaffolding`. The `/sme` placeholder can now be wired to real content.
+  - **supplements** — two new SUPP-*: `SUPP-assessment-reports-reading-list.md`, `SUPP-practitioner-resources.md`.
+- M1–M8 tier/entry/ref files unchanged (still 40 + 8 = 48 files there).
+- Content/output total: **69 → 89 `.md` files**.
+- Platform builds cleanly against the new pin without code changes. `listExistingTiers()` is M1..M8-only, so L0 and SME folders don't affect the existing 318-page SSG count.
+- Open work surfaced: L0 routing, SME routing — both currently placeholders, content now real.
+
+### `/build-component takeaway` — Take-this-to-work + ReferenceCardEntry · all gates **PASS** (no self-heal)
+
+- **Renderer:** `components/TakeawayList.tsx` (client). Body markdown via `reading` variant + `ReferenceCardEntry` card + bespoke footer (prev / 4 done-state dots / Back-to-module + Mark-complete action button). On Mark-complete: `setPathway` + `markTierComplete` + route to module hub.
+- **CTA card:** `components/ReferenceCardEntry.tsx` (server). White card, 6 px yellow left rail, `aria-label="Open Module {N} reference card"` for a concise SR accessible name (applied in-pass from an a11y observation). Links to `/[pathway]/[module]/reference`.
+- **Parser:** `lib/content.ts` adds `getTakeawayBlock`.
+- **Route:** new literal `app/[pathway]/[module]/[tier]/takeaway/page.tsx`, SSG via `listExistingTiers()` × T1–T3 × BA/DM/PM = 72 pages.
+- **[stage] route:** `T1_T3_STAGES` now empty. The catch-all only handles T4 stages going forward.
+- **QA gates:**
+  - `content-contract`: PASS — 14/14. Single-paragraph content rendered verbatim (no forced three-card structure per build plan §0; spec §7's three-card mock superseded by content shape).
+  - `design-fidelity`: PASS — zero raw hex, type / family / accent discipline clean. TakeawayList uses the corrected `text-eyebrow text-ink-2` on tier-name subline (not the `font-mono` drift in earlier renderers). One observation: `Dot` is duplicated between StickyFooter and TakeawayList — extract to shared component in next maintenance pass.
+  - `a11y-auditor`: PASS — WCAG 2.2 AA. One observation applied in-pass (concise `aria-label` on ReferenceCardEntry).
+  - `build-health`: PASS — **318 SSG pages total** (24 diagnostic + 72 scenario + 72 guided + 72 check + 72 takeaway + 6 static). Takeaway route First Load: 140 kB.
+- **Reports:** `working/qa-reports/takeaway-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
+### Fix · React #185 infinite render in `useProgress`
+
+- `lib/progress.ts` was passing `getSnapshot = () => readStorage()` to `useSyncExternalStore`. `readStorage` `JSON.parse`s localStorage and returns a fresh object reference every call — React saw "changed state" on every render and looped until `#185 (Maximum update depth exceeded)`. Surfaced in Vercel deployment logs as the minified `#185` error.
+- Fix: cache the parsed snapshot at module scope. Invalidate the cache via `notify()` on every write, and on cross-tab `storage` events. `useSyncExternalStore` now sees a stable reference between renders.
+- Commit: **`a847918`** on `origin/main`. (Pushed immediately to clear the production bug.)
+
 ### `/build-component multiple-choice-check` — interactive MCQs with hidden-until-correct model answers · all gates **PASS** (one self-heal pass)
 
 - **Renderer:** `components/MultipleChoiceCheck.tsx` (client). Top-level component renders N MCQs (M3-T2 has 3) as an `<ol>` of `<section>`s with `border-t border-line` separators. Each `MCQItem` child has its own `useState` for `attempted` (`Set<MCQLetter>`) and `correctChosen` (boolean).

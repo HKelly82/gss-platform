@@ -351,6 +351,10 @@ export function getUnderstandingCheckBlock(tier: ParsedTier): ContentBlock | nul
   return tier.blocks.find((b) => b.component === 'understanding-check') ?? null;
 }
 
+export function getTakeawayBlock(tier: ParsedTier): ContentBlock | null {
+  return tier.blocks.find((b) => b.component === 'takeaway') ?? null;
+}
+
 const MCQ_QUESTION_START_RE = /\*\*Question\s+(\d+)\.\*\*/g;
 const MCQ_STEM_RE = /^\*\*Question\s+\d+\.\*\*\s*([\s\S]+?)(?=\n\s*-\s+\*\*[A-D]\.)/;
 const MCQ_OPTION_RE =
