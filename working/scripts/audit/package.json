@@ -1,0 +1,13 @@
+{
+  "name": "gss-platform-audit",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Isolated Playwright + axe audit runner for the live Vercel deployment. Not part of the app build.",
+  "scripts": {
+    "audit": "node run-audit.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.0",
+    "playwright": "1.49.0"
+  }
+}
