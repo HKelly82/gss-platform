@@ -13,6 +13,23 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component guided-content` — calm reading register + sticky footer · all gates **PASS** (one self-heal on design-fidelity, two-in-one on a11y)
+
+- **Renderer:** `components/GuidedContent.tsx` (server) — eyebrow `Guided content · ~{time} read`, page H1 = module title, tier-name meta. Body markdown rendered via `Markdown.tsx` `reading` variant. Then `StickyFooter` at the bottom.
+- **Sticky footer:** `components/StickyFooter.tsx` (new shared, server component) — prev/next Link buttons + an `<ol>` of 4 progress `Dot`s with `sr-only` step state labels. Used here for guided; will be reused by check / takeaway / Expert flows.
+- **Route:** new literal `app/[pathway]/[module]/[tier]/guided/page.tsx`, SSG via `listExistingTiers()` filtered to T1–T3 × BA/DM/PM = 72 pages. `dynamicParams = false`.
+- **Parser:** `lib/content.ts` adds `getGuidedBlock`.
+- **[stage] route:** `'guided'` removed from `T1_T3_STAGES`.
+- **QA gates:**
+  - `content-contract`: PASS — 12/12 checks. Only consumes guided-content block, T1–T3 × BA/DM/PM = 72, "Component 2 of 4" counter matches plan §0, prev → scenario, next → check, no DESIGNER NOTE leakage, no invented copy, no progress writes.
+  - `design-fidelity`: **FAIL → PASS** after one self-heal. `reading` variant's `ul`/`ol` were `text-body` (sans 16px) — every bulleted/numbered list in guided body dropped out of the reading register. Fixed: `font-serif text-reading text-ink`.
+  - `a11y-auditor`: **FAIL → PASS** after one fix bundle resolving two blockers:
+    - **SC 1.3.1 (Heading hierarchy skip):** body markdown opened with `### ...` under a page H1 — H1 → H3 with no H2 between. Fixed by mapping markdown `### → <h2>` (and `#### → <h3>`) in the `reading` variant.
+    - **SC 2.4.11 (Focus Not Obscured, Minimum):** sticky footer would obscure focus rings on inline links near the page bottom. Fixed by `html { scroll-padding-bottom: 5rem; }` in `app/globals.css` — applies to any future sticky element too.
+  - `build-health`: PASS — typecheck, lint, production build green. **174 SSG pages total** (24 diagnostic + 72 scenario + 72 guided + 6 static). Guided route First Load: 94.1 kB.
+- **Reports:** `working/qa-reports/guided-content-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/build-component scenario-stage` — immersive Anchor Scenario · all gates **PASS** (one self-heal)
 
 - **Renderer:** `components/ScenarioStage.tsx` (server component, full-bleed `navy-deep`). Uses the `scenario-dark` Markdown variant.

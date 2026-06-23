@@ -322,6 +322,10 @@ export function getScenarioBlock(tier: ParsedTier): ContentBlock | null {
   );
 }
 
+export function getGuidedBlock(tier: ParsedTier): ContentBlock | null {
+  return tier.blocks.find((b) => b.component === 'guided-content') ?? null;
+}
+
 export function listExistingTiers(): Array<{ moduleId: string; tier: Tier }> {
   const out: Array<{ moduleId: string; tier: Tier }> = [];
   if (!fs.existsSync(CONTENT_ROOT)) return out;

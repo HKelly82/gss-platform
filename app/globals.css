@@ -36,6 +36,9 @@
   html {
     color: var(--ink);
     background-color: var(--paper);
+    /* Reserve space below focused/scrolled-to elements so the sticky guided/check
+       footer cannot obscure focus rings near the page bottom (WCAG 2.2 SC 2.4.11). */
+    scroll-padding-bottom: 5rem;
   }
 
   body {

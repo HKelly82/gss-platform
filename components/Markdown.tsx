@@ -12,12 +12,15 @@ function readingComponents(): Components {
       <p className="mt-4 font-serif text-reading text-ink first:mt-0">{children}</p>
     ),
     h1: ({ children }) => (
-      <h1 className="mt-8 text-h1 font-extrabold text-navy first:mt-0">{children}</h1>
+      <h2 className="mt-8 text-h2 font-bold text-navy first:mt-0">{children}</h2>
     ),
     h2: ({ children }) => (
       <h2 className="mt-8 text-h2 font-bold text-navy">{children}</h2>
     ),
     h3: ({ children }) => (
+      <h2 className="mt-8 text-h2 font-bold text-navy">{children}</h2>
+    ),
+    h4: ({ children }) => (
       <h3 className="mt-6 text-h3 font-semibold text-navy">{children}</h3>
     ),
     blockquote: ({ children }) => (
@@ -25,8 +28,12 @@ function readingComponents(): Components {
         {children}
       </blockquote>
     ),
-    ul: ({ children }) => <ul className="mt-4 list-disc space-y-2 pl-6 text-body text-ink">{children}</ul>,
-    ol: ({ children }) => <ol className="mt-4 list-decimal space-y-2 pl-6 text-body text-ink">{children}</ol>,
+    ul: ({ children }) => (
+      <ul className="mt-4 list-disc space-y-2 pl-6 font-serif text-reading text-ink">{children}</ul>
+    ),
+    ol: ({ children }) => (
+      <ol className="mt-4 list-decimal space-y-2 pl-6 font-serif text-reading text-ink">{children}</ol>
+    ),
     li: ({ children }) => <li className="leading-relaxed">{children}</li>,
     strong: ({ children }) => <strong className="font-bold text-navy">{children}</strong>,
     em: ({ children }) => <em className="italic">{children}</em>,
