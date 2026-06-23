@@ -30,7 +30,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `a11y-auditor`: PASS — WCAG 2.2 AA across all 14 checks. Two items recorded for dynamic verification at deploy (CTA white-on-yellow focus ring perceptual check; SkipLink chip contrast on navy-deep).
   - `build-health`: PASS — 102 SSG pages total (24 diagnostic + 72 scenario + 6 static). Scenario route First Load: 94.1 kB (~7 kB route-specific; server-component rendering means react-markdown stays out of the client bundle).
 - **Reports:** `working/qa-reports/scenario-stage-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`cc0aa65`** on `origin/main`.
 
 ### `/build-component diagnostic-decision` — module-entry placement · all gates **PASS**
 
