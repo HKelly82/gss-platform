@@ -25,7 +25,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `a11y-auditor`: WCAG 2.2 AA across all checks. Heading hierarchy H1 → H2 (no inner H3 in current supplement content). Reading-register reading-reference variant preserves H2/H3 distinction.
   - `build-health`: typecheck, lint, production build clean. **478 SSG pages total** (was 462; supplement adds 16).
 - **Reports:** `working/qa-reports/supplement-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`56e0983`** on `origin/main`.
 
 ### `/build-component reference-card` — printable reference card · all gates **PASS** (two self-heals · D-6 implemented)
 
