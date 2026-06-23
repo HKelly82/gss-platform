@@ -30,7 +30,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `a11y-auditor`: PASS — 14 checks. Status pairs colour + glyph + text everywhere. Native `<button>` per option, disabled state after correct. `role="group" aria-labelledby` wraps options; `aria-live="polite"` on the feedback panel. Three non-blocking observations: (1) standardise group semantics across renderers — deferred; (2) promote "Question {N}" to `<h2>` for SR heading navigation — **applied in-pass**; (3) live-region refresh on repeat wrongs — accepted, marginal, revisit at deploy.
   - `build-health`: PASS — 246 SSG pages total (24 diagnostic + 72 scenario + 72 guided + 72 check + 6 static). Check route First Load: 140 kB (~46 kB route-specific from react-markdown returning to the client bundle for inline feedback).
 - **Reports:** `working/qa-reports/multiple-choice-check-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`8a92e49`** on `origin/main`.
 
 ### `/build-component guided-content` — calm reading register + sticky footer · all gates **PASS** (one self-heal on design-fidelity, two-in-one on a11y)
 
