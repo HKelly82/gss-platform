@@ -3,7 +3,7 @@ import remarkGfm from 'remark-gfm';
 
 interface MarkdownProps {
   source: string;
-  variant?: 'reading' | 'reading-reference' | 'notes' | 'scenario-dark';
+  variant?: 'reading' | 'reading-reference' | 'reading-section-body' | 'notes' | 'scenario-dark';
 }
 
 function readingComponents(): Components {
@@ -105,6 +105,28 @@ function readingReferenceComponents(): Components {
   };
 }
 
+function readingSectionBodyComponents(): Components {
+  // Demotes body markdown headings by one level. Use this when the renderer's
+  // own JSX already supplies a section H2 — body `##` then nests as `<h3>`
+  // rather than reading as a sibling H2. Preserves H1 → H3 / H2 → H3 /
+  // H3 → H4 / H4 → H5 mappings.
+  return {
+    ...readingComponents(),
+    h1: ({ children }) => (
+      <h3 className="mt-6 text-h3 font-semibold text-navy first:mt-0">{children}</h3>
+    ),
+    h2: ({ children }) => (
+      <h3 className="mt-6 text-h3 font-semibold text-navy">{children}</h3>
+    ),
+    h3: ({ children }) => (
+      <h4 className="mt-4 font-sans text-body font-semibold text-navy">{children}</h4>
+    ),
+    h4: ({ children }) => (
+      <h5 className="mt-4 font-sans text-body font-semibold text-navy">{children}</h5>
+    ),
+  };
+}
+
 function scenarioDarkComponents(): Components {
   return {
     p: ({ children }) => (
@@ -129,7 +151,9 @@ export function Markdown({ source, variant = 'reading' }: MarkdownProps) {
         ? scenarioDarkComponents()
         : variant === 'reading-reference'
           ? readingReferenceComponents()
-          : readingComponents();
+          : variant === 'reading-section-body'
+            ? readingSectionBodyComponents()
+            : readingComponents();
 
   return (
     <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>

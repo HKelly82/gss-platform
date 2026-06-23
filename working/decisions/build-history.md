@@ -13,6 +13,25 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component sme` — SME meta-modules · all gates **PASS** (two polishes in-pass)
+
+- **Renderer:** `components/SMEMetaModule.tsx` (server) — single long-form page per meta-module. Page H1 + 4–5 inline sections (eyebrow + section H2 + body). Model-answer section wraps body in `RevealAnswer` (existing client primitive). Body via new `reading-section-body` Markdown variant.
+- **Parser:** `lib/content.ts` adds `SMEMeta`, `SMESectionKey`, `ParsedSMESection`, `SMEMetaMeta` types and `getSMESection`, `listSMESectionsForMeta`, `listSMEMetaModules`, `getSMEMetaMeta` helpers. Reuses `stripDesignerNotes` + `stripComponentMarkers` + `stripLeadingH1` from the L0 build.
+- **Routes:**
+  - `app/sme/page.tsx` was placeholder; now static with 3 meta-module cards (S1, S2, S3) in a `md:grid-cols-3` grid.
+  - `app/sme/[meta]/page.tsx` (new) — SSG via `listSMEMetaModules()` = 3 pages. `dynamicParams = false`.
+- **In-pass polishes:**
+  - **Token:** `max-w-[1000px]` was untokenised on `/` and `/sme`. Added `landing: '1000px'` to `tailwind.config.ts`; replaced both occurrences with `max-w-landing`.
+  - **A11y:** SME body files start with `## {section name}` after the leading H1 strip — that body H2 was a sibling of the section chrome H2 (flat hierarchy). New `reading-section-body` Markdown variant demotes body H1/H2 → DOM `<h3>` and H3/H4 → `<h4>/<h5>`. SME body uses it; L0 stays on `reading-reference` (L0 files have only H1 + H3, no body H2 to demote).
+- **Spec divergences accepted:** no "navy card" wrapping for the exercise section (long-page rhythm instead); no in-page serif textarea for learner draft (exercise instructs offline work).
+- **QA gates:**
+  - `content-contract`: PASS — 12/12. Hidden-until-reveal honoured. Scaffolding renders only for S2. Titles derived from each framing file's H1.
+  - `design-fidelity`: PASS — 14/14 with token polish applied in-pass.
+  - `a11y-auditor`: PASS with heading-hierarchy fix applied in-pass via new `reading-section-body` variant.
+  - `build-health`: PASS. **485 SSG pages total** (was 482; SME adds 3 via `/sme/[meta]`).
+- **Reports:** `working/qa-reports/sme-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/build-component layer0` — Layer 0 primer (`/l0`) + banner on `/` · all gates **PASS** (one regex root-cause self-heal)
 
 - **Renderers:**

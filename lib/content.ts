@@ -478,6 +478,74 @@ export function hasL0(): boolean {
   return getL0Section('diagnostic') !== null;
 }
 
+export type SMEMeta = 'S1' | 'S2' | 'S3';
+export type SMESectionKey =
+  | 'framing'
+  | 'exercise'
+  | 'scaffolding'
+  | 'model-answer'
+  | 'debrief';
+
+export interface ParsedSMESection {
+  meta: SMEMeta;
+  key: SMESectionKey;
+  filePath: string;
+  body: string;
+  designerNotes: string[];
+}
+
+const SME_DIR = path.join(CONTENT_ROOT, 'SME');
+
+export function getSMESection(meta: SMEMeta, key: SMESectionKey): ParsedSMESection | null {
+  const filePath = path.join(SME_DIR, `SME-${meta}-${key}.md`);
+  if (!fs.existsSync(filePath)) return null;
+  const raw = fs.readFileSync(filePath, 'utf-8');
+  const parsed = matter(raw);
+  const { body, notes } = stripDesignerNotes(parsed.content);
+  const cleaned = stripLeadingH1(stripComponentMarkers(body)).trim();
+  return { meta, key, filePath, body: cleaned, designerNotes: notes };
+}
+
+const SME_SECTION_ORDER: SMESectionKey[] = [
+  'framing',
+  'exercise',
+  'scaffolding',
+  'model-answer',
+  'debrief',
+];
+
+export function listSMESectionsForMeta(meta: SMEMeta): SMESectionKey[] {
+  if (!fs.existsSync(SME_DIR)) return [];
+  return SME_SECTION_ORDER.filter((key) =>
+    fs.existsSync(path.join(SME_DIR, `SME-${meta}-${key}.md`)),
+  );
+}
+
+export function listSMEMetaModules(): SMEMeta[] {
+  return (['S1', 'S2', 'S3'] as SMEMeta[]).filter(
+    (m) => listSMESectionsForMeta(m).length > 0,
+  );
+}
+
+export interface SMEMetaMeta {
+  meta: SMEMeta;
+  title: string;
+  sections: SMESectionKey[];
+}
+
+export function getSMEMetaMeta(meta: SMEMeta): SMEMetaMeta | null {
+  const sections = listSMESectionsForMeta(meta);
+  if (sections.length === 0) return null;
+  const framingPath = path.join(SME_DIR, `SME-${meta}-framing.md`);
+  if (!fs.existsSync(framingPath)) return { meta, title: `SME meta-module ${meta}`, sections };
+  const raw = fs.readFileSync(framingPath, 'utf-8');
+  const parsed = matter(raw);
+  const h1 = parsed.content.match(/^\s*#\s+(.+?)\s*$/m);
+  let title = h1 ? h1[1].trim() : '';
+  title = title.replace(/^SME\s+meta-module\s+S\d+\s*[—-]\s*/i, '').trim();
+  return { meta, title: title || `SME meta-module ${meta}`, sections };
+}
+
 export function listExistingSupplements(): Array<{
   moduleId: string;
   pathway: SupplementPathway;

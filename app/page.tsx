@@ -7,7 +7,7 @@ export default function HomePage() {
   const showLayer0 = hasL0();
   return (
     <PageBody>
-      <div className="mx-auto flex max-w-[1000px] flex-col gap-8 pb-16">
+      <div className="mx-auto flex max-w-landing flex-col gap-8 pb-16">
         <header className="flex flex-col gap-2">
           <p className="text-eyebrow text-yellow-deep">Welcome</p>
           <h1 className="text-h1 font-extrabold text-navy">Choose your pathway</h1>
