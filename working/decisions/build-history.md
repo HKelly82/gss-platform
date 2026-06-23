@@ -39,7 +39,7 @@ Open follow-ups remaining: **2** (down from 9):
 
 Reports: `working/qa-reports/maintenance-pass-build-health.md`. No QA chain dispatched on touched files — every change was a documented refactor of an already-PASS surface; build-health is sufficient validation.
 
-**Commit:** TBD on push.
+**Commit:** **`39d906a`** on `origin/main`.
 
 ### `/build-component pathway-entry` — `/` pathway selection + `/[pathway]` pathway home · all gates **PASS** (two polishes in-pass)
 
