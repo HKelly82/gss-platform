@@ -10,7 +10,7 @@ interface Params {
 }
 
 const T1_T3_STAGES = new Set<string>();
-const T4_STAGES = new Set(['exercise', 'critique', 'answer', 'reflection']);
+const T4_STAGES = new Set<string>();
 
 function stageLabel(stage: string): string {
   return stage.charAt(0).toUpperCase() + stage.slice(1);
@@ -30,8 +30,8 @@ export default function TierStagePage({ params }: { params: Params }) {
         route={`/${pathway}/${moduleId}/${tier}/${stage}`}
         description={
           isT4
-            ? 'T4 Expert flow. Slot 3 (`answer`) dispatches between ModelAnswer (variants A: M1–M5) and AppliedExerciseSecondary (variant B: M6–M8) based on the parsed component type.'
-            : 'T1–T3 flow: every stage now lives at its own literal route (scenario / guided / check / takeaway). This catch-all only handles T4 stages going forward.'
+            ? 'T4 Expert flow has its own literal routes too (/T4/{exercise,critique,answer,reflection}). This page should not normally render.'
+            : 'T1–T3 stages all live at their own literal routes. This catch-all no longer serves any stage; visiting an unknown [stage] now returns 404.'
         }
       />
     </PageBody>

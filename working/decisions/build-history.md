@@ -13,6 +13,26 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component t4-expert-flow` — full Expert tier · all gates **PASS** (one a11y self-heal in-pass)
+
+- **Renderers:**
+  - `components/T4StagePage.tsx` (server) — shared layout for exercise / critique / answer.
+  - `components/RevealAnswer.tsx` (client) — generic button-then-panel disclosure. `aria-expanded={false}` + `aria-controls={panelId}` on the button; `role="region"` + `aria-label` on the revealed panel; **applied in-pass: `tabIndex={-1}` + `useRef`/`useEffect` to focus the panel on reveal for SR continuity**.
+  - `components/ModelAnswerReveal.tsx` (client) — glue: composes `RevealAnswer` + writes progress (`setPathway` + `revealModel`) on reveal.
+  - `components/T4Reflection.tsx` (client) — bespoke footer with prev + 4 dots (all done; current=4) + Back-to-module + Mark-complete (calls `markTierComplete` then routes to module hub).
+- **Parser:** `lib/content.ts` adds `getAppliedExerciseBlock`, `getCritiquePromptBlock`, `getAnswerSlotBlock` (handles variant-A and variant-B by accepting either `model-answer` or `applied-exercise` at slot 3), `getReflectionBlock`.
+- **Routes:** four new literal SSG: `app/[pathway]/[module]/T4/{exercise,critique,answer,reflection}/page.tsx`. 24 pages per stage × 4 = **96 new SSG pages, 414 total**.
+- **[stage] catch-all:** `T4_STAGES` now empty. All T4 stages live at literal routes; unknown stages 404.
+- **Variant dispatch on `/T4/answer`:** the page reads `getAnswerSlotBlock(parsedTier)` and renders `<ModelAnswerReveal>` if `block.component === 'model-answer'` (variant A, M1–M5), or plain `<Markdown>` with eyebrow "Applied exercise — continued" if `block.component === 'applied-exercise'` (variant B, M6–M8). URL stays `/T4/answer` for both.
+- **QA gates:**
+  - `content-contract`: PASS — 11/11. Hidden-until-reveal enforced via `RevealAnswer`'s `useState` gate. Per-module variant table confirmed: M1–M5 variant A, M6–M8 variant B.
+  - `design-fidelity`: PASS — 14/14. Zero raw hex; new code uses corrected `text-eyebrow text-ink-2` tier-name pattern. Two non-defect observations: spec glyph drift (`◑` vs `◐` — spec is stale, code follows the task brief); `Dot` component duplication (now in three files — extract in next maintenance pass).
+  - `a11y-auditor`: PASS — 14/14 after one in-pass self-heal (focus the revealed panel via `tabIndex={-1}` + `useEffect`).
+  - `build-health`: PASS — typecheck, lint, production build clean. 414 SSG pages total. T4 bundle sizes: exercise/critique 94 kB First Load (server); answer/reflection 140 kB (client).
+- **Reports:** `working/qa-reports/t4-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+- **Impact:** the second half of the agreed PoC is now live. Option D on the diagnostic no longer leads to a dead-end — it routes to `/T4/exercise` and the learner can walk the full four-step Expert flow.
+
 ### PoC review · sign-off + post-gate adjustments
 
 User reviewed the live Vercel PoC walkthrough and confirmed:

@@ -369,6 +369,33 @@ export function getTakeawayBlock(tier: ParsedTier): ContentBlock | null {
   return tier.blocks.find((b) => b.component === 'takeaway') ?? null;
 }
 
+export function getAppliedExerciseBlock(tier: ParsedTier): ContentBlock | null {
+  return tier.blocks.find((b) => b.component === 'applied-exercise') ?? null;
+}
+
+export function getCritiquePromptBlock(tier: ParsedTier): ContentBlock | null {
+  return tier.blocks.find((b) => b.component === 'critique-prompt') ?? null;
+}
+
+/**
+ * Slot 3 of the T4 Expert sequence sits AFTER critique-prompt. It is either
+ * `model-answer` (variant A, M1-M5) or a second `applied-exercise` (variant B,
+ * M6-M8). Returns the block at that position with its parsed `component`
+ * preserved so the renderer can dispatch — `ModelAnswer` (with reveal) for
+ * variant A, plain `AppliedExercise` for variant B.
+ */
+export function getAnswerSlotBlock(tier: ParsedTier): ContentBlock | null {
+  const critiqueIdx = tier.blocks.findIndex((b) => b.component === 'critique-prompt');
+  if (critiqueIdx === -1 || critiqueIdx + 1 >= tier.blocks.length) return null;
+  const next = tier.blocks[critiqueIdx + 1];
+  if (next.component === 'model-answer' || next.component === 'applied-exercise') return next;
+  return null;
+}
+
+export function getReflectionBlock(tier: ParsedTier): ContentBlock | null {
+  return tier.blocks.find((b) => b.component === 'reflection') ?? null;
+}
+
 const MCQ_QUESTION_START_RE = /\*\*Question\s+(\d+)\.\*\*/g;
 const MCQ_STEM_RE = /^\*\*Question\s+\d+\.\*\*\s*([\s\S]+?)(?=\n\s*-\s+\*\*[A-D]\.)/;
 const MCQ_OPTION_RE =
