@@ -13,6 +13,25 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### Cosmetic cleanup — strip redundant `uppercase` + `tracking-[0.08em]` modifiers · build-health **PASS**
+
+Closes the carried-over follow-up from the TierOverview pass (where the `text-eyebrow` token gained `text-transform: uppercase` via `@layer components` in `globals.css`). The Tailwind 3 fontSize shorthand already supplied `letterSpacing: '0.08em'`. Every site that layered on `uppercase` + `tracking-[0.08em]` after `text-eyebrow` was duplicating what the token already provides.
+
+Mechanical strip of the substring ` uppercase tracking-[0.08em]` (with leading space) across 6 files / 16 callsites:
+
+- `components/AppBar.tsx` (2)
+- `components/DiagnosticDecision.tsx` (3)
+- `components/Markdown.tsx` (2 — `notes` H3 + `scenario-dark` H3)
+- `components/MultipleChoiceCheck.tsx` (6 — question heading + 3 state-eyebrow variants + 2 feedback eyebrows)
+- `components/Placeholder.tsx` (1)
+- `components/ScenarioStage.tsx` (2)
+
+Visual: zero — the token already supplies both properties. Verified by typecheck + lint + production build (all pass; 581 SSG pages unchanged; no bundle drift).
+
+Remaining `tracking-[0.08em]` references in the repo: one in `design/DESIGN-LANGUAGE.md` (the design spec correctly documents the eyebrow register's letter-spacing — authoritative, not a callsite) and one in this build-history (historical changelog entry). No source-code occurrences remain.
+
+**Commit:** TBD on push.
+
 ### Sidebar polish — mobile disclosure drawer · build-health **PASS**
 
 Pure UX polish on an already-audited surface; no new routes, no content changes. ModuleHub bundle grew 4.04 kB → 4.21 kB (+170 bytes for `useState` + the toggle button).

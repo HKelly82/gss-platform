@@ -27,7 +27,7 @@ export function ScenarioStage({
         <div className="mx-auto flex max-w-scenario items-center justify-between px-6 py-4">
           <Link
             href={backHref}
-            className="inline-flex items-center gap-2 rounded-control text-eyebrow uppercase tracking-[0.08em] text-white/70 transition hover:text-white motion-reduce:transition-none"
+            className="inline-flex items-center gap-2 rounded-control text-eyebrow text-white/70 transition hover:text-white motion-reduce:transition-none"
           >
             <span aria-hidden="true">←</span> Back to {tier} overview
           </Link>
@@ -36,7 +36,7 @@ export function ScenarioStage({
       </header>
 
       <div className="mx-auto max-w-scenario px-6 py-12 sm:py-16">
-        <p className="text-eyebrow uppercase tracking-[0.08em] text-yellow">Anchor scenario</p>
+        <p className="text-eyebrow text-yellow">Anchor scenario</p>
         <h1 className="mt-3 text-display font-extrabold text-white">{moduleTitle}</h1>
         <p className="mt-4 text-eyebrow text-white/70">{tierName}</p>
 

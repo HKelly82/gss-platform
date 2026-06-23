@@ -107,7 +107,7 @@ function MCQItem({ pathway, moduleId, tier, mcq }: MCQItemProps) {
 
   return (
     <section aria-labelledby={stemId}>
-      <h2 className="text-eyebrow uppercase tracking-[0.08em] text-yellow-deep">
+      <h2 className="text-eyebrow text-yellow-deep">
         Question {mcq.questionNumber}
       </h2>
       <p id={stemId} className="mt-2 font-serif text-reading text-ink">
@@ -138,7 +138,7 @@ function MCQItem({ pathway, moduleId, tier, mcq }: MCQItemProps) {
             badgeSurface = 'border-attention bg-attention text-white';
             badgeGlyph = <span aria-hidden="true">✕</span>;
             stateEyebrow = (
-              <span className="text-eyebrow uppercase tracking-[0.08em] text-attention">
+              <span className="text-eyebrow text-attention">
                 Not the strongest choice
               </span>
             );
@@ -147,11 +147,11 @@ function MCQItem({ pathway, moduleId, tier, mcq }: MCQItemProps) {
             badgeSurface = 'border-ready bg-ready text-white';
             badgeGlyph = <span aria-hidden="true">✓</span>;
             stateEyebrow = (
-              <span className="text-eyebrow uppercase tracking-[0.08em] text-ready">Correct</span>
+              <span className="text-eyebrow text-ready">Correct</span>
             );
           } else if (isStrongerHint) {
             stateEyebrow = (
-              <span className="text-eyebrow uppercase tracking-[0.08em] text-yellow-deep">
+              <span className="text-eyebrow text-yellow-deep">
                 The stronger answer
               </span>
             );
@@ -184,14 +184,14 @@ function MCQItem({ pathway, moduleId, tier, mcq }: MCQItemProps) {
       <div id={feedbackId} role="status" aria-live="polite" className="mt-6">
         {correctChosen ? (
           <div className="rounded-card border-[1.5px] border-ready bg-ready-bg p-5">
-            <p className="text-eyebrow uppercase tracking-[0.08em] text-ready">Exactly right</p>
+            <p className="text-eyebrow text-ready">Exactly right</p>
             <div className="mt-3">
               <Markdown source={mcq.modelAnswerMarkdown} variant="reading" />
             </div>
           </div>
         ) : hasWrongAttempt ? (
           <div className="rounded-card border-[1.5px] border-attention bg-attention-bg p-5">
-            <p className="text-eyebrow uppercase tracking-[0.08em] text-attention">
+            <p className="text-eyebrow text-attention">
               <span aria-hidden="true">▲ </span>Read the redirect, then choose again
             </p>
             {mcq.redirectMarkdown ? (

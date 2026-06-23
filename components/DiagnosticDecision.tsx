@@ -43,7 +43,7 @@ export function DiagnosticDecision({
 
   return (
     <div className="mx-auto max-w-prose pb-16">
-      <p className="text-eyebrow uppercase tracking-[0.08em] text-yellow-deep">
+      <p className="text-eyebrow text-yellow-deep">
         Module-entry diagnostic
       </p>
       <h1 className="mt-2 text-h1 font-extrabold text-navy">
@@ -78,7 +78,7 @@ export function DiagnosticDecision({
       <section aria-labelledby={`${reassuranceId}-choices`} className="mt-10">
         <h2
           id={`${reassuranceId}-choices`}
-          className="text-eyebrow uppercase tracking-[0.08em] text-yellow-deep"
+          className="text-eyebrow text-yellow-deep"
         >
           Choose the answer closest to what you would say
         </h2>
@@ -112,7 +112,7 @@ export function DiagnosticDecision({
                 <p className="col-start-2 font-serif text-body italic text-ink-2">
                   {option.explanation}
                 </p>
-                <p className="col-start-2 text-eyebrow uppercase tracking-[0.08em] text-navy">
+                <p className="col-start-2 text-eyebrow text-navy">
                   {isPending ? 'Routing…' : `Start at ${moduleId}-${option.landingTier} (${option.landingLabel}) →`}
                 </p>
               </button>

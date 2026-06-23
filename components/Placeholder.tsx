@@ -7,7 +7,7 @@ interface PlaceholderProps {
 export function Placeholder({ title, route, description }: PlaceholderProps) {
   return (
     <section className="mx-auto max-w-prose py-12">
-      <p className="text-eyebrow uppercase tracking-[0.08em] text-yellow-deep">Scaffold placeholder</p>
+      <p className="text-eyebrow text-yellow-deep">Scaffold placeholder</p>
       <h1 className="mt-2 text-h1 font-extrabold text-navy">{title}</h1>
       <p className="mt-2 font-mono text-mono-meta text-ink-3">{route}</p>
       {description ? (

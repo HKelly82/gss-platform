@@ -74,7 +74,7 @@ function notesComponents(): Components {
     ...readingComponents(),
     p: ({ children }) => <p className="mt-3 text-body text-ink-2 first:mt-0">{children}</p>,
     h3: ({ children }) => (
-      <h3 className="mt-6 text-eyebrow uppercase tracking-[0.08em] text-yellow-deep">
+      <h3 className="mt-6 text-eyebrow text-yellow-deep">
         {children}
       </h3>
     ),
@@ -138,7 +138,7 @@ function scenarioDarkComponents(): Components {
       </blockquote>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-6 text-eyebrow uppercase tracking-[0.08em] text-yellow">{children}</h3>
+      <h3 className="mt-6 text-eyebrow text-yellow">{children}</h3>
     ),
   };
 }

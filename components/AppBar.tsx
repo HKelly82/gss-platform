@@ -29,11 +29,11 @@ export function AppBar({ tone = 'light' }: AppBarProps) {
           <BrandLockup />
         </Link>
         {pathway ? (
-          <span className="text-eyebrow uppercase tracking-[0.08em] text-ink-2">
+          <span className="text-eyebrow text-ink-2">
             Pathway: <span className="text-ink">{pathway}</span>
           </span>
         ) : (
-          <span className="text-eyebrow uppercase tracking-[0.08em] text-ink-3">
+          <span className="text-eyebrow text-ink-3">
             No pathway selected
           </span>
         )}
