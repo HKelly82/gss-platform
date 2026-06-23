@@ -13,6 +13,22 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### Sidebar polish — mobile disclosure drawer · build-health **PASS**
+
+Pure UX polish on an already-audited surface; no new routes, no content changes. ModuleHub bundle grew 4.04 kB → 4.21 kB (+170 bytes for `useState` + the toggle button).
+
+What changed (`components/Sidebar.tsx`):
+- Added a `<button aria-expanded aria-controls>` shown only on `<lg` (mobile). Label flips between "Show modules (N)" and "Hide modules (N)" with `+` / `−` glyphs.
+- Wrapped the module `<nav>` in a `${mobileOpen ? 'block' : 'hidden'} lg:block` container. On mobile the module list is hidden by default; on `lg+` it's always visible (toggle button is `lg:hidden`).
+- `useId` for the `aria-controls` target — stable SSR-safe id.
+- Sidebar header (pathway label + progress bar) stays visible at all breakpoints so the learner always sees their pathway progress.
+
+Why: the previous responsive behaviour stacked 8 module items above main content on mobile, pushing actionable content far below the fold. The disclosure pattern keeps the sidebar compact by default and lets the learner expand it when they want cross-module nav.
+
+No new QA chain dispatched — the disclosure pattern follows standard ARIA semantics already validated in `RevealAnswer` (button-then-region) and ModuleNavItem (link semantics), and the visual is the existing secondary-button pattern. build-health verified clean.
+
+**Commit:** TBD on push.
+
 ### `/build-component sidebar` — Sidebar + ModuleNavItem on ModuleHub · all gates **PASS** (one a11y enhancement in-pass)
 
 - **Renderers:**

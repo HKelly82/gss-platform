@@ -1,5 +1,6 @@
 'use client';
 
+import { useId, useState } from 'react';
 import { ModuleNavItem, type ModuleNavStatus } from './ModuleNavItem';
 import type { ModuleMeta, Pathway, Tier } from '@/lib/content';
 import { useProgress } from '@/lib/progress';
@@ -16,6 +17,8 @@ const TIER_ORDER: Tier[] = ['T1', 'T2', 'T3', 'T4'];
 export function Sidebar({ pathway, pathwaySlug, currentModuleId, allModules }: SidebarProps) {
   const progress = useProgress();
   const pathwayProgress = progress?.pathways?.[pathway];
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const drawerId = useId();
 
   const completedCount = allModules.filter((m) => {
     const mp = pathwayProgress?.modules?.[m.moduleId];
@@ -36,7 +39,7 @@ export function Sidebar({ pathway, pathwaySlug, currentModuleId, allModules }: S
   return (
     <aside
       aria-label="Pathway navigation"
-      className="flex flex-col gap-4 rounded-card border border-line bg-white p-5"
+      className="flex flex-col gap-3 rounded-card border border-line bg-white p-5"
     >
       <header className="flex flex-col gap-2">
         <p className="text-eyebrow text-yellow-deep">Your pathway</p>
@@ -58,7 +61,24 @@ export function Sidebar({ pathway, pathwaySlug, currentModuleId, allModules }: S
         </div>
       </header>
 
-      <nav aria-labelledby="sidebar-modules-heading">
+      <button
+        type="button"
+        onClick={() => setMobileOpen(!mobileOpen)}
+        aria-expanded={mobileOpen}
+        aria-controls={drawerId}
+        className="flex items-center justify-between gap-2 rounded-control border-[1.5px] border-navy bg-white px-3 py-2 font-sans text-body font-semibold text-navy transition hover:bg-navy hover:text-white motion-reduce:transition-none lg:hidden"
+      >
+        <span>
+          {mobileOpen ? 'Hide modules' : 'Show modules'} ({totalCount})
+        </span>
+        <span aria-hidden="true">{mobileOpen ? '−' : '+'}</span>
+      </button>
+
+      <nav
+        id={drawerId}
+        aria-labelledby="sidebar-modules-heading"
+        className={`${mobileOpen ? 'block' : 'hidden'} lg:block`}
+      >
         <h2 id="sidebar-modules-heading" className="sr-only">
           Modules in this pathway
         </h2>
