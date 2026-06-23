@@ -37,7 +37,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `a11y-auditor`: PASS — WCAG 2.2 AA. One observation applied in-pass (concise `aria-label` on ReferenceCardEntry).
   - `build-health`: PASS — **318 SSG pages total** (24 diagnostic + 72 scenario + 72 guided + 72 check + 72 takeaway + 6 static). Takeaway route First Load: 140 kB.
 - **Reports:** `working/qa-reports/takeaway-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commits:** **`2a38c44`** (curriculum submodule bump) + **`b2eff57`** (TakeawayList + ReferenceCardEntry) on `origin/main`.
 
 ### Fix · React #185 infinite render in `useProgress`
 
