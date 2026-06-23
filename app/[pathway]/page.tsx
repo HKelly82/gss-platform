@@ -1,3 +1,4 @@
+import { PageBody } from '@/components/PageBody';
 import { Placeholder } from '@/components/Placeholder';
 
 interface Params {
@@ -6,10 +7,12 @@ interface Params {
 
 export default function PathwayHomePage({ params }: { params: Params }) {
   return (
-    <Placeholder
-      title={`Pathway home — ${params.pathway.toUpperCase()}`}
-      route={`/${params.pathway}`}
-      description="Eight-module list with status. Sidebar appears here on hub pages."
-    />
+    <PageBody>
+      <Placeholder
+        title={`Pathway home — ${params.pathway.toUpperCase()}`}
+        route={`/${params.pathway}`}
+        description="Eight-module list with status. Sidebar appears here on hub pages."
+      />
+    </PageBody>
   );
 }

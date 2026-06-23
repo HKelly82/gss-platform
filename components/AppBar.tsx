@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { BrandLockup } from './BrandLockup';
 import { useProgress } from '@/lib/progress';
 
@@ -8,9 +9,16 @@ interface AppBarProps {
   tone?: 'light' | 'navy';
 }
 
+const IMMERSIVE_ROUTE_RE = /^\/[a-z]+\/M\d+\/T[1-4]\/scenario$/;
+
 export function AppBar({ tone = 'light' }: AppBarProps) {
+  const pathname = usePathname();
   const progress = useProgress();
   const pathway = progress?.pathway;
+
+  if (pathname && IMMERSIVE_ROUTE_RE.test(pathname)) {
+    return null;
+  }
 
   const bg = tone === 'navy' ? 'bg-navy text-white' : 'bg-white text-ink border-b border-line';
 

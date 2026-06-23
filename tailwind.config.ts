@@ -47,6 +47,7 @@ const config: Config = {
       },
       maxWidth: {
         prose: '720px',
+        scenario: '760px',
         hub: '1180px',
       },
       ringColor: {

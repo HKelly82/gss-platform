@@ -36,9 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-paper font-sans text-ink">
         <SkipLink />
         <AppBar tone="light" />
-        <main id="main" className="mx-auto max-w-hub px-6 py-8">
-          {children}
-        </main>
+        <main id="main">{children}</main>
       </body>
     </html>
   );

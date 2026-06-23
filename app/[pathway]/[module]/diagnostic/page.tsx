@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { DiagnosticDecision } from '@/components/DiagnosticDecision';
+import { PageBody } from '@/components/PageBody';
 import { getDiagnosticForModule, listModuleIds, type Pathway } from '@/lib/content';
 
 const PATHWAY_SLUGS = ['ba', 'dm', 'pm'] as const;
@@ -34,12 +35,14 @@ export default function ModuleEntryDiagnosticPage({ params }: { params: Params }
     notFound();
   }
   return (
-    <DiagnosticDecision
-      pathway={pathway}
-      moduleId={moduleId}
-      scenarioMarkdown={diagnostic.scenarioMarkdown}
-      options={diagnostic.options}
-      notesMarkdown={diagnostic.notesMarkdown}
-    />
+    <PageBody>
+      <DiagnosticDecision
+        pathway={pathway}
+        moduleId={moduleId}
+        scenarioMarkdown={diagnostic.scenarioMarkdown}
+        options={diagnostic.options}
+        notesMarkdown={diagnostic.notesMarkdown}
+      />
+    </PageBody>
   );
 }

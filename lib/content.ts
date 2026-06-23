@@ -48,6 +48,12 @@ export interface ParsedDiagnostic {
   notesMarkdown: string;
 }
 
+export interface TierHeader {
+  moduleTitle: string;
+  tierName: string;
+  estimatedTime?: string;
+}
+
 export interface BaseFrontmatter {
   sources: string[];
   status: FileStatus;
@@ -295,6 +301,37 @@ export function getModuleEntry(moduleId: string): ParsedEntry | null {
   if (!fs.existsSync(filePath)) return null;
   const parsed = parseFile(filePath);
   return parsed.kind === 'entry' ? parsed : null;
+}
+
+export function parseTierHeader(preface: string): TierHeader {
+  const h1 = preface.match(/^#\s+(.+)$/m);
+  const h2 = preface.match(/^##\s+(.+)$/m);
+  const time = preface.match(/^\*\*Estimated time:\*\*\s*(.+?)\.?\s*$/m);
+  return {
+    moduleTitle: h1 ? h1[1].trim() : '',
+    tierName: h2 ? h2[1].trim() : '',
+    estimatedTime: time ? time[1].trim() : undefined,
+  };
+}
+
+export function getScenarioBlock(tier: ParsedTier): ContentBlock | null {
+  return (
+    tier.blocks.find(
+      (b) => b.component === 'scenario' && b.interaction === 'SCENARIO_NARRATIVE',
+    ) ?? null
+  );
+}
+
+export function listExistingTiers(): Array<{ moduleId: string; tier: Tier }> {
+  const out: Array<{ moduleId: string; tier: Tier }> = [];
+  if (!fs.existsSync(CONTENT_ROOT)) return out;
+  for (const moduleId of listModuleIds()) {
+    for (const tier of ['T1', 'T2', 'T3', 'T4'] as Tier[]) {
+      const filePath = path.join(CONTENT_ROOT, moduleId, `${moduleId}-${tier}.md`);
+      if (fs.existsSync(filePath)) out.push({ moduleId, tier });
+    }
+  }
+  return out;
 }
 
 export function getDiagnosticForModule(moduleId: string): ParsedDiagnostic | null {

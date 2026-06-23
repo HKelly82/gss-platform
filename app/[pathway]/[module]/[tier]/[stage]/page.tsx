@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { PageBody } from '@/components/PageBody';
 import { Placeholder } from '@/components/Placeholder';
 
 interface Params {
@@ -8,7 +9,7 @@ interface Params {
   stage: string;
 }
 
-const T1_T3_STAGES = new Set(['scenario', 'guided', 'check', 'takeaway']);
+const T1_T3_STAGES = new Set(['guided', 'check', 'takeaway']);
 const T4_STAGES = new Set(['exercise', 'critique', 'answer', 'reflection']);
 
 function stageLabel(stage: string): string {
@@ -23,14 +24,16 @@ export default function TierStagePage({ params }: { params: Params }) {
     notFound();
   }
   return (
-    <Placeholder
-      title={`${stageLabel(stage)} — ${moduleId} ${tier}`}
-      route={`/${pathway}/${moduleId}/${tier}/${stage}`}
-      description={
-        isT4
-          ? 'T4 Expert flow. Slot 3 (`answer`) dispatches between ModelAnswer (variants A: M1–M5) and AppliedExerciseSecondary (variant B: M6–M8) based on the parsed component type.'
-          : 'T1–T3 flow: scenario → guided → check → takeaway, with the sticky footer carrying prev/next + ProgressDots.'
-      }
-    />
+    <PageBody>
+      <Placeholder
+        title={`${stageLabel(stage)} — ${moduleId} ${tier}`}
+        route={`/${pathway}/${moduleId}/${tier}/${stage}`}
+        description={
+          isT4
+            ? 'T4 Expert flow. Slot 3 (`answer`) dispatches between ModelAnswer (variants A: M1–M5) and AppliedExerciseSecondary (variant B: M6–M8) based on the parsed component type.'
+            : 'T1–T3 flow: guided → check → takeaway. Scenario lives at its own literal route (/scenario) for the full-bleed immersive layout.'
+        }
+      />
+    </PageBody>
   );
 }

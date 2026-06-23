@@ -13,6 +13,25 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component scenario-stage` — immersive Anchor Scenario · all gates **PASS** (one self-heal)
+
+- **Renderer:** `components/ScenarioStage.tsx` (server component, full-bleed `navy-deep`). Uses the `scenario-dark` Markdown variant.
+- **Route:** new literal `app/[pathway]/[module]/[tier]/scenario/page.tsx` — SSG via `generateStaticParams` × `listExistingTiers()`. 72 pages: BA/DM/PM × every existing M*-T{1,2,3}.md.
+- **Layout refactor** (required for full-bleed):
+  - `app/layout.tsx`: `<main>` is now permissive (no width/padding).
+  - `components/PageBody.tsx` (new): shared `max-w-{hub|prose} px-6 py-8` container. All non-scenario pages now wrap with it.
+  - `components/AppBar.tsx`: self-hides on `/[a-z]+/M\d+/T[1-4]/scenario` via `usePathname()`.
+- **Parser:** `lib/content.ts` adds `parseTierHeader`, `getScenarioBlock`, `listExistingTiers`, `TierHeader` type.
+- **Tokens:** `tailwind.config.ts` adds `max-w-scenario: '760px'` (spec §4 "centred 760px column").
+- **[stage] route:** `scenario` removed from `T1_T3_STAGES`; the literal route owns the URL.
+- **QA gates:**
+  - `content-contract`: PASS — 12/12 checks. Only consumes `scenario` + `SCENARIO_NARRATIVE`, T1–T3 only, "Component 1 of 4" counter matches build plan §0, CTA → `/guided`, back → tier overview, no DESIGNER NOTE leakage, no invented copy, no progress writes (renderer is read-only).
+  - `design-fidelity`: **FAIL → PASS** after one self-heal. Header strip was `max-w-[820px]` while body was `max-w-[760px]`; unified to `max-w-scenario` (new token). Two non-blocking OBSERVATIONs accepted (redundant `tracking-[0.08em]` on `text-eyebrow` calls; `scenario-dark` markdown variant doesn't customise `ul`/`ol`/`li`/`strong`/`a`/`hr` — current scenarios don't use them).
+  - `a11y-auditor`: PASS — WCAG 2.2 AA across all 14 checks. Two items recorded for dynamic verification at deploy (CTA white-on-yellow focus ring perceptual check; SkipLink chip contrast on navy-deep).
+  - `build-health`: PASS — 102 SSG pages total (24 diagnostic + 72 scenario + 6 static). Scenario route First Load: 94.1 kB (~7 kB route-specific; server-component rendering means react-markdown stays out of the client bundle).
+- **Reports:** `working/qa-reports/scenario-stage-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### `/build-component diagnostic-decision` — module-entry placement · all gates **PASS**
 
 - **Renderer:** `components/DiagnosticDecision.tsx` (client) + `components/Markdown.tsx` (server wrapper for scenario + notes, with `reading`/`notes`/`scenario-dark` variants).
