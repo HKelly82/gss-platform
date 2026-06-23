@@ -27,7 +27,7 @@ Why: the previous responsive behaviour stacked 8 module items above main content
 
 No new QA chain dispatched — the disclosure pattern follows standard ARIA semantics already validated in `RevealAnswer` (button-then-region) and ModuleNavItem (link semantics), and the visual is the existing secondary-button pattern. build-health verified clean.
 
-**Commit:** TBD on push.
+**Commit:** **`65b75ec`** on `origin/main`.
 
 ### `/build-component sidebar` — Sidebar + ModuleNavItem on ModuleHub · all gates **PASS** (one a11y enhancement in-pass)
 
