@@ -27,7 +27,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `a11y-auditor`: PASS. WCAG 2.2 AA across all checks. One non-blocking observation accepted (card-as-link aria-label pattern matches PathwayCard/ModuleCard/ReferenceCardEntry).
   - `build-health`: PASS. Typecheck, lint, production build clean. 482 SSG pages total. `/l0` First Load: 94.1 kB (no client JS beyond shared chunks — server-rendered markdown).
 - **Reports:** `working/qa-reports/layer0-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`5c04025`** on `origin/main`.
 
 ### Maintenance sweep — 7 cross-renderer follow-ups resolved · build-health **PASS**
 
