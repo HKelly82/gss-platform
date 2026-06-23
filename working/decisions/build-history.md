@@ -55,9 +55,17 @@ Updated in two places:
 
 **Build-health:** typecheck + lint + production build all clean. 581 SSG pages unchanged. No bundle drift.
 
-**Expected post-deploy axe result:** zero `serious` violations (down from 113). Re-run pending after Vercel redeploys.
+**Post-deploy verification (live):**
+- `working/scripts/audit/contrast-probe.mjs` against the new deploy: **0 contrast violations** (down from 113). Confirms M-1 + M-2 land at WCAG 1.4.3 AA.
+- `working/scripts/audit/focus-probe.mjs` against `/pm/M1/T4/answer`: on reveal click, focus moves to `<div role="region" aria-label="Model answer" tabindex="-1">` within 100 ms and stays there for the full 2 s observation window. Confirms C-1 fixed (previously focus fell to `<body>`).
 
-**Commit:** TBD on push.
+**Commit:** **`43a5a0d`** on `origin/main`.
+
+**Carried follow-ups after this patch:**
+1. `design/DESIGN-LANGUAGE.md` is out of sync with the implementation (yellow-deep hex + AA annotation). Design lead to update §1 row 8, the Tailwind paste block, and the CSS variables block. The chosen replacement is `#856312` (5.13 : 1 on white, 4.73 : 1 on paper).
+2. `◑` spec glyph drift — upstream, design lead.
+3. Current-item rail colour (spec: navy, impl: yellow per design language §1) — design lead.
+4. RevealAnswer `aria-expanded` never transitions (audit m-2) — needs a UX decision: keep the button mounted post-reveal (idiomatic disclosure pattern) vs the current one-shot reveal (simpler UX, no "Hide" affordance to design). Defer until design lead has a view.
 
 ### Cosmetic cleanup — strip redundant `uppercase` + `tracking-[0.08em]` modifiers · build-health **PASS**
 
