@@ -435,6 +435,49 @@ export function parseSupplementView(supplement: ParsedSupplement): SupplementVie
   };
 }
 
+export type L0SectionKey =
+  | 'diagnostic'
+  | 'scenario'
+  | 'guided-content'
+  | 'understanding-check'
+  | 'takeaway';
+
+export interface ParsedL0Section {
+  key: L0SectionKey;
+  filePath: string;
+  body: string;
+  designerNotes: string[];
+}
+
+function stripComponentMarkers(text: string): string {
+  return text
+    .replace(/^---COMPONENT:[^\n]*$/gm, '')
+    .replace(/^---END COMPONENT---\s*$/gm, '')
+    .replace(/^---LEARNER INTERACTION:[^\n]*$/gm, '')
+    .replace(/^---END INTERACTION---\s*$/gm, '')
+    .replace(/\n{3,}/g, '\n\n');
+}
+
+function stripLeadingH1(text: string): string {
+  // Trim leading whitespace first so the H1 (which gray-matter often emits
+  // after a leading newline) is matched at the true start of content.
+  return text.replace(/^\s*#\s+[^\n]*\n+/, '');
+}
+
+export function getL0Section(key: L0SectionKey): ParsedL0Section | null {
+  const filePath = path.join(CONTENT_ROOT, 'L0', `L0-${key}.md`);
+  if (!fs.existsSync(filePath)) return null;
+  const raw = fs.readFileSync(filePath, 'utf-8');
+  const parsed = matter(raw);
+  const { body, notes } = stripDesignerNotes(parsed.content);
+  const cleaned = stripLeadingH1(stripComponentMarkers(body)).trim();
+  return { key, filePath, body: cleaned, designerNotes: notes };
+}
+
+export function hasL0(): boolean {
+  return getL0Section('diagnostic') !== null;
+}
+
 export function listExistingSupplements(): Array<{
   moduleId: string;
   pathway: SupplementPathway;

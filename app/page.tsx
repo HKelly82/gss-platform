@@ -1,7 +1,10 @@
+import { Layer0Banner } from '@/components/Layer0Banner';
 import { PageBody } from '@/components/PageBody';
 import { PathwayCard } from '@/components/PathwayCard';
+import { hasL0 } from '@/lib/content';
 
 export default function HomePage() {
+  const showLayer0 = hasL0();
   return (
     <PageBody>
       <div className="mx-auto flex max-w-[1000px] flex-col gap-8 pb-16">
@@ -28,9 +31,11 @@ export default function HomePage() {
           <PathwayCard kind="SME" href="/sme" />
         </section>
 
+        {showLayer0 ? <Layer0Banner /> : null}
+
         <p className="text-eyebrow text-ink-2">
           Stub copy on the cards above will be replaced by the Phase 8 pathway guides when
-          those land in the curriculum repo. Layer 0 primer route is coming separately.
+          those land in the curriculum repo.
         </p>
       </div>
     </PageBody>

@@ -13,6 +13,22 @@ A running log of major work on the GSS Platform. Append entries as work progress
 
 ## 2026-06-23
 
+### `/build-component layer0` — Layer 0 primer (`/l0`) + banner on `/` · all gates **PASS** (one regex root-cause self-heal)
+
+- **Renderers:**
+  - `app/l0/page.tsx` (static) — long-form single-page walkthrough of all 5 L0 sections inline. Page H1 + 5 × section H2 chrome + body content via `reading-reference` Markdown variant.
+  - `components/Layer0Banner.tsx` (pure-render server) — link card on `/`, conditional via `hasL0()`. Uses the `before:` yellow-rail pattern (consistent with `ReferenceCardEntry` + `ModuleHub` placement card).
+- **Parser:** `lib/content.ts` adds `L0SectionKey`, `ParsedL0Section`, `getL0Section(key)`, `hasL0()`. Internal helpers `stripComponentMarkers` (removes `---COMPONENT:` / `---LEARNER INTERACTION:` markers from body) and `stripLeadingH1` (strips each L0 file's redundant "# Layer 0 — ..." H1 — section chrome supplies the section heading).
+- **Route:** new static `app/l0/page.tsx`. Total: **482 SSG pages** (was 481).
+- **MVP scope (deferred):** L0's understanding-check MCQs render as plain markdown (questions + options visible; no hidden-until-answered interaction). Per-section routing is deferred to a future pass. Skip-to-pathway CTA routes to `/` not `M1-entry` (defensible since L0 is pre-pathway).
+- **QA gates:**
+  - `content-contract`: PASS — 14/14 checks. Body content verbatim from curriculum; markers / DESIGNER NOTEs / leading H1 stripped. Banner conditional on `hasL0()`. No `localStorage` direct, no invented learner claims.
+  - `design-fidelity`: **FAIL → PASS** after one targeted self-heal. Initial FAIL on heading-hierarchy collision (section H2 vs body H2). Root-cause investigation showed the issue was different from the agent's hypothesis: L0 files use H1 + H3 only (no body H2), but `stripLeadingH1`'s regex failed when `gray-matter` left a leading newline. Fixed regex to tolerate leading whitespace (`/^\s*#\s+[^\n]*\n+/`). Body H1 now strips correctly; hierarchy is clean H1 → H2 → H3.
+  - `a11y-auditor`: PASS. WCAG 2.2 AA across all checks. One non-blocking observation accepted (card-as-link aria-label pattern matches PathwayCard/ModuleCard/ReferenceCardEntry).
+  - `build-health`: PASS. Typecheck, lint, production build clean. 482 SSG pages total. `/l0` First Load: 94.1 kB (no client JS beyond shared chunks — server-rendered markdown).
+- **Reports:** `working/qa-reports/layer0-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
+- **Commit:** TBD on push.
+
 ### Maintenance sweep — 7 cross-renderer follow-ups resolved · build-health **PASS**
 
 Pure refactor pass; no new routes. Same 481 SSG pages before and after.
