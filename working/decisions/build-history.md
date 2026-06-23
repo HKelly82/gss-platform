@@ -30,7 +30,7 @@ A running log of major work on the GSS Platform. Append entries as work progress
   - `build-health`: typecheck, lint, production build clean. **481 SSG pages total** (was 478; pathway home adds 3, `/` already static). `/` and `/[pathway]` both ~96 kB First Load.
 - **Impact:** The learner's full journey now works without URL-typing — `/` → pick pathway → `/[pathway]` → pick module → ModuleHub → diagnostic → tier flow → mark complete → back to hub. End-to-end with placeholder-only routes left: `/sme/*`, `/[pathway]/[module]/[tier]` (off the happy path), Layer 0.
 - **Reports:** `working/qa-reports/pathway-entry-{content-contract,design-fidelity,a11y,build-health,summary}.md`.
-- **Commit:** TBD on push.
+- **Commit:** **`63506e5`** on `origin/main`.
 
 ### `/build-component supplement` — role supplement renderer · all gates **PASS** (no self-heal)
 
